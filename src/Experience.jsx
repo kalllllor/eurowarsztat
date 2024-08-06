@@ -169,7 +169,7 @@ export default function Experience() {
       </GizmoHelper>
       <Lights />
       <Environment
-        files="./assets/studio.hdr"
+        files="/studio.hdr"
         environmentIntensity={1}
         environmentRotation={[0, 0, 0]}
       />
