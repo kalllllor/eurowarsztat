@@ -126,6 +126,7 @@ function Images() {
         fullName="Liza Konovalova"
         url="/assets/photos/lizaKonovalova.jpg"
       />
+
       <Image
         position={[0.75, -height * 2, 3.5]}
         scale={1.5}
