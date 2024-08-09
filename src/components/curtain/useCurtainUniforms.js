@@ -105,13 +105,13 @@ export const useCurtainUniforms = (props) => {
     uNoiseAmpX1: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
     uNoiseAmpX2: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
 
@@ -166,13 +166,13 @@ export const useCurtainUniforms = (props) => {
     uNoiseAmpY1: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
     uNoiseAmpY2: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
 
@@ -227,13 +227,13 @@ export const useCurtainUniforms = (props) => {
     uNoiseAmpZ1: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
     uNoiseAmpZ2: {
       value: 0.1,
       min: 0.001,
-      max: 1,
+      max: 0.2,
       step: 0.001,
     },
 
