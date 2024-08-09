@@ -5,6 +5,7 @@ uniform float uStrength;
 uniform float uWarpPositionFrequency;
 uniform float uWarpTimeFrequency;
 uniform float uWarpStrength;
+uniform vec2 uResolution;
 
 attribute vec4 tangent;
 
@@ -13,6 +14,42 @@ uniform float uHeight;
 varying float vHeight;
 varying vec3 vNorm;
 varying vec2 vUv;
+
+
+uniform float uFreqX1;
+uniform float uFreqX2;
+uniform float uTimeFactorX1;
+uniform float uTimeFactorX2;
+uniform float uAmpX1;
+uniform float uAmpX2;
+uniform float uNoiseX1;
+uniform float uNoiseX2;
+uniform float uNoiseAmpX1;
+uniform float uNoiseAmpX2;
+
+uniform float uFreqY1;
+uniform float uFreqY2;
+uniform float uTimeFactorY1;
+uniform float uTimeFactorY2;
+uniform float uAmpY1;
+uniform float uAmpY2;
+uniform float uNoiseY1;
+uniform float uNoiseY2;
+uniform float uNoiseAmpY1;
+uniform float uNoiseAmpY2;
+
+uniform float uFreqZ1;
+uniform float uFreqZ2;
+uniform float uTimeFactorZ1;
+uniform float uTimeFactorZ2;
+uniform float uAmpZ1;
+uniform float uAmpZ2;
+uniform float uNoiseZ1;
+uniform float uNoiseZ2;
+uniform float uNoiseAmpZ1;
+uniform float uNoiseAmpZ2;
+
+uniform float uFoldFactor;
 
 #include ../utils/simplexNoise4d.glsl
 
@@ -65,23 +102,35 @@ float getWobble(vec3 position)
     )) * uStrength;
 }
 
+float offset(float p){
+  return 5.0*pow(p,3.0);
+}
+
+float F(float q, float p, float radius){
+  return simplexNoise4d(vec4(radius*cos(3.14*q),radius*sin(3.14*q),1.0*p, 0.));
+}
+
 vec3 waveGenerator(vec3 newPos) {
     vec3 newPosition = newPos;
-    float foldFactor = (1.0 - uv.y) * 2.0;
+    float foldFactor = (1.0 - uv.y) * uFoldFactor;
+    float radius = 1.;
     float spreadVal = 0.2;
-    newPosition.x += sin(newPos.y * 10.0 + uTime * 2.0) * 0.01 * foldFactor;
-    newPosition.x += cos(newPos.y * 5.0 + uTime * 2.0) * 0.01 * foldFactor;
-    newPosition.z += cos(newPos.y * 5.0 + uTime * 2.0) * 0.1 * foldFactor;
-    newPosition.y += sin(newPos.x * 2.0 + uTime) * 0.1;
-    newPosition.y += sin(newPos.x * 4.0 + uTime * 0.5) * 0.05;
-    newPosition.z += sin(newPos.y * 3.0 + uTime * 0.7) * 0.1;
-    newPosition.z += sin(newPos.y * 5.0 + uTime * 0.3) * 0.05;
-    newPosition.y += simplexNoise4d(vec4(newPos + uTime, 0.0)) * 0.01;
-    newPosition.z += sin(newPos.y * 2.0 + uTime * 0.2) *foldFactor * .3 + (1.5 * foldFactor);
-    newPosition.z += simplexNoise4d(vec4(newPos * 5.0 + uTime, 0.0)) * 0.01;
-    newPosition.x += simplexNoise4d(vec4(newPos * 5.0 + uTime + 100., 0.0)) * 0.01;
-    newPosition.x += simplexNoise4d(vec4(newPos * 2.0 + uTime + 100., 0.0)) * 0.01;
-    // newPosition.z += sin(distance(uv.xy, vec2(0.5)) * 100. + ) * spreadVal;
+
+    newPosition.x += sin(newPos.y * uFreqX1 + uTime * uTimeFactorX1) * uAmpX1 * foldFactor;
+    newPosition.x += cos(newPos.y * uFreqX2 + uTime * uTimeFactorX2) * uAmpX2 * foldFactor;
+    newPosition.x += simplexNoise4d(vec4(newPos * uNoiseX1 + uTime + 100., 0.0)) * uNoiseAmpX1;
+    newPosition.x += simplexNoise4d(vec4(newPos * uNoiseX2 + uTime + 200., 0.0)) * uNoiseAmpX2;
+
+    newPosition.y += sin(newPos.x * uFreqY1 + uTime * uTimeFactorY1) * uAmpY1 * foldFactor;
+    newPosition.y += cos(newPos.x * uFreqY2 + uTime * uTimeFactorY2) * uAmpY1 * foldFactor;
+    newPosition.y += simplexNoise4d(vec4(newPos * uNoiseY1 + uTime + 300., 0.0)) * uNoiseAmpY1;
+    newPosition.y += simplexNoise4d(vec4(newPos * uNoiseY2 + uTime + 400., 0.0)) * uNoiseAmpY2;
+
+    newPosition.z += sin(newPos.y * uFreqZ1 + uTime * uTimeFactorZ1) * uAmpZ1 * foldFactor;
+    newPosition.z += cos(newPos.y * uFreqZ1 + uTime * uTimeFactorZ1) * uAmpZ1 * foldFactor;
+    newPosition.z += cos(newPos.y * uFreqZ2 + uTime * uTimeFactorZ2) * uAmpZ1 *foldFactor * .3 + (1.5 * foldFactor);
+    newPosition.z += simplexNoise4d(vec4(newPos * uNoiseZ1 + uTime, 0.0)) * uNoiseAmpZ1;
+    newPosition.z += simplexNoise4d(vec4(newPos * uNoiseZ2 + uTime, 0.0)) * uNoiseAmpZ2;
     vHeight = newPosition.z + spreadVal;
     return newPosition;
 }
@@ -109,8 +158,15 @@ vec3 recalcNormals(vec3 newPos, vec3 normal) {
   return normalize(cross(displacedTangent, displacedBitangent));
 }
 
-void main() {
+vec2 normalizeCanvasCoords(vec2 position, vec2 resolution) {
+    vec2 normalized = position / resolution;
   
+    return normalized * 2.0 - 1.0;
+}
+
+void main() {
+
+
   // float wobble = getWobble(position);
   // csm_Position += wobble*normal;
   csm_Position = waveGenerator(position);

@@ -36,8 +36,6 @@ export default function Experience() {
   const { scene, camera } = useThree();
   console.log(camera);
   const {
-    y,
-    z,
     debug,
     enabledPostProcess,
     posX,
@@ -45,26 +43,14 @@ export default function Experience() {
     posZ,
     scaleX,
     scaleY,
-    scaleZ,
+
     rotateX,
     rotateY,
     rotateZ,
   } = useControls({
     debug: false,
-    enabledPostProcess: true,
+    enabledPostProcess: false,
 
-    y: {
-      value: 0,
-      min: -20,
-      max: 20,
-      step: 0.01,
-    },
-    z: {
-      value: 0,
-      min: -20,
-      max: 20,
-      step: 0.01,
-    },
     posX: {
       value: 0,
       min: -20,
@@ -95,13 +81,6 @@ export default function Experience() {
       max: 20,
       step: 0.01,
     },
-    scaleZ: {
-      value: 5,
-      min: 0,
-      max: 20,
-      step: 0.01,
-    },
-
     rotateX: {
       value: -0.35,
       min: -Math.PI,
@@ -155,9 +134,9 @@ export default function Experience() {
         attach="background"
         args={["#000"]}
       />
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
 
-      <Lights />
+      {/* <Lights /> */}
       <GizmoHelper
         alignment="bottom-right"
         margin={[100, 100]}
@@ -167,7 +146,7 @@ export default function Experience() {
           axisHeadScale={1}
         />
       </GizmoHelper>
-      <Lights />
+      {/* <Lights /> */}
       <Environment
         files="/studio.hdr"
         environmentIntensity={1}
@@ -181,14 +160,13 @@ export default function Experience() {
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
           >
-            <Chair rotation-y={-Math.PI / 2} />
             <Float
-              speed={1}
-              rotationIntensity={2}
-              floatIntensity={1}
+              speed={0.5}
+              rotationIntensity={1}
+              floatIntensity={0.5}
               floatingRange={[0, 0.2]}
             >
-              <Crown />
+              <Crown position={[0, -0.3, 0.7]} />
             </Float>
           </group>
         </Scroll>
@@ -207,13 +185,13 @@ export default function Experience() {
       </ScrollControls>
       <Curtain
         position={[posX, posY, posZ]}
-        scale={[scaleX, scaleY, scaleZ]}
+        scale={[scaleX, scaleY, 1]}
         rotation={[rotateX, rotateY, rotateZ]}
       />
-      <fog
+      {/* <fog
         attach="fog"
         args={["#202025", 0, 80]}
-      />
+      /> */}
       {/* <mesh
         receiveShadow
         position={[0, -2.3, 0]}
