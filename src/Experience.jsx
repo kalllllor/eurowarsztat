@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
 import Lights from "./Lights";
@@ -9,6 +9,7 @@ import {
   Environment,
   Float,
   useScroll,
+  Html,
 } from "@react-three/drei";
 import {
   Bloom,
@@ -26,6 +27,7 @@ import {
   ScrollControls,
   Scroll,
   Text,
+  OrbitControls,
 } from "@react-three/drei";
 import "./styles.css";
 import Description from "./components/description/Description";
@@ -96,6 +98,7 @@ export default function Experience() {
       step: 0.01,
     },
   });
+  const data = useRef(list.data);
 
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
@@ -103,11 +106,6 @@ export default function Experience() {
   const targetRotation = useRef(
     new THREE.Vector3()
   );
-  const opacity = useRef(0);
-
-  const handleImageClick = (fullName) => {
-    console.log(fullName);
-  };
 
   useFrame(({ pointer, scene }) => {
     if (scene) {
@@ -155,10 +153,7 @@ export default function Experience() {
       <axesHelper />
       <ScrollControls damping={0.5} pages={4}>
         <Scroll>
-          <Gallery
-            images={list.data}
-            onImageClick={handleImageClick}
-          />
+          <Gallery images={data.current} />
           <group
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
@@ -186,9 +181,10 @@ export default function Experience() {
           </Text>
         </Scroll>
         <Scroll html>
-          <Description opacity={opacity} />
+          <Description />
         </Scroll>
       </ScrollControls>
+
       <Curtain
         position={[posX, posY, posZ]}
         scale={[scaleX, scaleY, 1]}
