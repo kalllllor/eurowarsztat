@@ -115,22 +115,18 @@ vec3 waveGenerator(vec3 newPos) {
     float foldFactor = (1.0 - uv.y) * uFoldFactor;
     float radius = 1.;
     float spreadVal = 0.2;
+    float devideFactor = 10.;
+    newPosition.y += sin(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
+    newPosition.y += cos(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
 
-    newPosition.x += sin(newPos.y * uFreqX1 + uTime * uTimeFactorX1) * uAmpX1 * foldFactor;
-    newPosition.x += cos(newPos.y * uFreqX2 + uTime * uTimeFactorX2) * uAmpX2 * foldFactor;
-    newPosition.x += simplexNoise4d(vec4(newPos * uNoiseX1 + uTime + 100., 0.0)) * uNoiseAmpX1;
-    newPosition.x += simplexNoise4d(vec4(newPos * uNoiseX2 + uTime + 200., 0.0)) * uNoiseAmpX2;
+    float test = (cos(newPos.x * 1. + .5 * uTime) * 0.1 + 0.1) * foldFactor;
+    newPosition.x += newPosition.x * (1.0 - newPos.y) * test * .1;
+    newPosition.z += sin(newPos.x * 64. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 1. * foldFactor * test;
+    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 0.1 * foldFactor * test;
+    newPosition.z += cos(newPos.x * 256. / devideFactor - 1.5 * uTime) * 0.5 * (newPos.y - 1.0) * 0.1 * foldFactor * test;
+    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5) * 0.1 * (foldFactor + 0.5);
 
-    newPosition.y += sin(newPos.x * uFreqY1 + uTime * uTimeFactorY1) * uAmpY1 * foldFactor;
-    newPosition.y += cos(newPos.x * uFreqY2 + uTime * uTimeFactorY2) * uAmpY1 * foldFactor;
-    newPosition.y += simplexNoise4d(vec4(newPos * uNoiseY1 + uTime + 300., 0.0)) * uNoiseAmpY1;
-    newPosition.y += simplexNoise4d(vec4(newPos * uNoiseY2 + uTime + 400., 0.0)) * uNoiseAmpY2;
-
-    newPosition.z += sin(newPos.y * uFreqZ1 + uTime * uTimeFactorZ1) * uAmpZ1 * foldFactor;
-    newPosition.z += cos(newPos.y * uFreqZ1 + uTime * uTimeFactorZ1) * uAmpZ1 * foldFactor;
-    newPosition.z += cos(newPos.y * uFreqZ2 + uTime * uTimeFactorZ2) * uAmpZ1 *foldFactor * .3 + (1.5 * foldFactor);
-    newPosition.z += simplexNoise4d(vec4(newPos * uNoiseZ1 + uTime, 0.0)) * uNoiseAmpZ1;
-    newPosition.z += simplexNoise4d(vec4(newPos * uNoiseZ2 + uTime, 0.0)) * uNoiseAmpZ2;
+    newPosition.z += test * .5;
     vHeight = newPosition.z + spreadVal;
     return newPosition;
 }

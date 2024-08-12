@@ -23,27 +23,7 @@ function MovingSpot({
   const viewport = useThree(
     (state) => state.viewport
   );
-  useFrame((state) => {
-    if (light.current) {
-      light.current.penumbra = penumbra;
-      light.current.distance = distance;
-      light.current.angle = angle;
-      light.current.intensity = intensity;
-      light.current.decay = decay;
-      light.current.target.position.lerp(
-        vec.set(
-          0,
-          0,
-          -(state.pointer.y * viewport.width) /
-            5 -
-            5
-        ),
-        0.9
-      );
 
-      light.current.target.updateMatrixWorld();
-    }
-  });
   const {
     penumbra,
     distance,

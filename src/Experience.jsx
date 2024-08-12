@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Curtain from "./components/curtain/Curtain";
-import Chair from "./components/chair/Chair";
 import Crown from "./components/crown/Crown";
 import Lights from "./Lights";
 import { Perf } from "r3f-perf";
@@ -8,33 +7,31 @@ import {
   GizmoHelper,
   GizmoViewport,
   Environment,
-  OrbitControls,
   Float,
+  useScroll,
 } from "@react-three/drei";
 import {
   Bloom,
-  DepthOfField,
   EffectComposer,
-  Noise,
   Vignette,
 } from "@react-three/postprocessing";
 import {
   useFrame,
   useThree,
 } from "@react-three/fiber";
-import { useState } from "react";
 import { useControls } from "leva";
 import Gallery from "./components/gallery/Gallery";
-import { Vector3 } from "three";
 import * as THREE from "three";
 import {
   ScrollControls,
   Scroll,
   Text,
 } from "@react-three/drei";
+import "./styles.css";
+import Description from "./components/description/Description";
+import list from "./assets/data.json";
+
 export default function Experience() {
-  const { scene, camera } = useThree();
-  console.log(camera);
   const {
     debug,
     enabledPostProcess,
@@ -43,13 +40,12 @@ export default function Experience() {
     posZ,
     scaleX,
     scaleY,
-
     rotateX,
     rotateY,
     rotateZ,
   } = useControls({
     debug: false,
-    enabledPostProcess: false,
+    enabledPostProcess: true,
 
     posX: {
       value: 0,
@@ -58,31 +54,31 @@ export default function Experience() {
       step: 0.01,
     },
     posY: {
-      value: 6.78,
+      value: 0.5,
       min: -20,
       max: 20,
       step: 0.01,
     },
     posZ: {
-      value: -19.86,
+      value: 1.0,
       min: -40,
-      max: 0,
+      max: 40,
       step: 0.01,
     },
     scaleX: {
-      value: 5.73,
+      value: 10,
       min: -0,
       max: 20,
       step: 0.01,
     },
     scaleY: {
-      value: 9.3,
+      value: 10,
       min: 0,
       max: 20,
       step: 0.01,
     },
     rotateX: {
-      value: -0.35,
+      value: 0,
       min: -Math.PI,
       max: Math.PI,
       step: 0.01,
@@ -107,6 +103,11 @@ export default function Experience() {
   const targetRotation = useRef(
     new THREE.Vector3()
   );
+  const opacity = useRef(0);
+
+  const handleImageClick = (fullName) => {
+    console.log(fullName);
+  };
 
   useFrame(({ pointer, scene }) => {
     if (scene) {
@@ -134,9 +135,8 @@ export default function Experience() {
         attach="background"
         args={["#000"]}
       />
-      <OrbitControls makeDefault />
+      {/* <OrbitControls makeDefault /> */}
 
-      {/* <Lights /> */}
       <GizmoHelper
         alignment="bottom-right"
         margin={[100, 100]}
@@ -146,7 +146,7 @@ export default function Experience() {
           axisHeadScale={1}
         />
       </GizmoHelper>
-      {/* <Lights /> */}
+      <Lights />
       <Environment
         files="/studio.hdr"
         environmentIntensity={1}
@@ -155,7 +155,10 @@ export default function Experience() {
       <axesHelper />
       <ScrollControls damping={0.5} pages={4}>
         <Scroll>
-          <Gallery />
+          <Gallery
+            images={list.data}
+            onImageClick={handleImageClick}
+          />
           <group
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
@@ -166,7 +169,7 @@ export default function Experience() {
               floatIntensity={0.5}
               floatingRange={[0, 0.2]}
             >
-              <Crown position={[0, -0.3, 0.7]} />
+              <Crown position={[0, -0.6, 0.7]} />
             </Float>
           </group>
         </Scroll>
@@ -175,12 +178,15 @@ export default function Experience() {
             color="white"
             anchorX="center"
             anchorY="center"
-            position={[0, 2.5, 0]}
+            position={[0, 1.5, 2.5]}
             fontSize={1}
             font="/bebas-neue-v9-latin-regular.woff"
           >
             EUROWARSZTAT
           </Text>
+        </Scroll>
+        <Scroll html>
+          <Description opacity={opacity} />
         </Scroll>
       </ScrollControls>
       <Curtain
@@ -188,18 +194,10 @@ export default function Experience() {
         scale={[scaleX, scaleY, 1]}
         rotation={[rotateX, rotateY, rotateZ]}
       />
-      {/* <fog
+      <fog
         attach="fog"
         args={["#202025", 0, 80]}
-      /> */}
-      {/* <mesh
-        receiveShadow
-        position={[0, -2.3, 0]}
-        rotation-x={-Math.PI / 2}
-      >
-        <planeGeometry args={[50, 50]} />
-        <meshPhongMaterial />
-      </mesh> */}
+      />
 
       {enabledPostProcess && (
         <EffectComposer>

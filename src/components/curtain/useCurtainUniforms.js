@@ -49,7 +49,7 @@ export const useCurtainUniforms = (props) => {
     uColorB,
   } = useControls({
     uFoldFactor: {
-      value: 2,
+      value: 2.5,
       min: 1,
       max: 10,
       step: 0.01,
@@ -189,27 +189,27 @@ export const useCurtainUniforms = (props) => {
       step: 0.01,
     },
     uTimeFactorZ1: {
-      value: 0.1,
-      min: 0.1,
+      value: 0.01,
+      min: 0,
       max: 5,
       step: 0.01,
     },
     uTimeFactorZ2: {
-      value: 0.1,
-      min: 0.1,
+      value: 0.01,
+      min: 0,
       max: 5,
       step: 0.01,
     },
     uAmpZ1: {
       value: 0.1,
       min: 0.001,
-      max: 0.1,
+      max: 1,
       step: 0.001,
     },
     uAmpZ2: {
       value: 0.1,
       min: 0.001,
-      max: 0.1,
+      max: 1,
       step: 0.001,
     },
     uNoiseZ1: {

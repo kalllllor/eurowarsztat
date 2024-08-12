@@ -12,7 +12,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 const applyTextureSettings = (texture) => {
   texture.wrapS = texture.wrapT = RepeatWrapping;
   texture.flipY = false;
-  texture.repeat.set(2, 2);
+  texture.repeat.set(5, 5);
 };
 
 const Crown = (props) => {
@@ -30,7 +30,7 @@ const Crown = (props) => {
 
   const colorMap = useLoader(
     TextureLoader,
-    "assets/crown/diffMap.jpg"
+    "assets/crown/colorMap.jpg"
   );
   applyTextureSettings(colorMap);
 
@@ -42,7 +42,7 @@ const Crown = (props) => {
 
   const dispMap = useLoader(
     TextureLoader,
-    "assets/crown/dispMap.jpg"
+    "assets/crown/colorMap.jpg"
   );
   applyTextureSettings(dispMap);
 
@@ -74,7 +74,7 @@ const Crown = (props) => {
       >
         <meshPhysicalMaterial
           ref={matRef}
-          displacementScale={0.01}
+          displacementScale={0.1}
           color="#ffcf40"
           map={colorMap}
           aoMap={aoMap}
