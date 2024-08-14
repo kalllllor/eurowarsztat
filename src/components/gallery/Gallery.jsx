@@ -11,12 +11,55 @@ import {
   useThree,
 } from "@react-three/fiber";
 import {
-  useScroll,
   Image as ImageImpl,
   Text,
   Html,
-  Billboard,
+  useTexture,
+  SpotLight,
 } from "@react-three/drei";
+import Lights from "../../Lights";
+
+function ProjectedImage({
+  imageUrl = "",
+  intensity = 0,
+  ...props
+}) {
+  const spotLightRef = useRef();
+
+  const texture = useTexture(
+    imageUrl || "/assets/photos/blank.jpg"
+  );
+
+  useFrame(() => {
+    if (spotLightRef.current) {
+      const currentIntensity =
+        spotLightRef.current.intensity;
+      const targetIntensity = intensity;
+      const lerpedIntensity =
+        currentIntensity +
+        (targetIntensity - currentIntensity) *
+          0.1;
+      spotLightRef.current.intensity =
+        lerpedIntensity;
+      if (lerpedIntensity < 1) {
+        spotLightRef.current.intensity = 0;
+      }
+    }
+  });
+
+  return (
+    <SpotLight
+      {...props}
+      ref={spotLightRef}
+      angle={0.3}
+      penumbra={1}
+      intensity={0}
+      distance={20}
+      castShadow
+      map={texture}
+    />
+  );
+}
 
 function Image({
   c = new THREE.Color(),
@@ -56,7 +99,7 @@ function Image({
             props.position[1],
             props.position[2]
           ),
-      0.01
+      0.2
     );
   });
   return (
@@ -83,7 +126,7 @@ function Image({
   );
 }
 
-function Images({ images }) {
+function Images({ images, isSelected }) {
   const { height } = useThree(
     (state) => state.viewport
   );
@@ -93,6 +136,7 @@ function Images({ images }) {
   const currentPerson = useRef(null);
 
   const handleClick = (active) => {
+    isSelected(active);
     setActive(active);
     if (active) {
       ref.current.parentElement.classList.add(
@@ -112,19 +156,78 @@ function Images({ images }) {
       ref.current.style.height = "0%";
     }
   };
-
   return (
     <>
+      <ProjectedImage
+        position={[0, -10, 10]}
+        intensity={isActive ? 10000 : 0}
+        imageUrl={
+          isActive && currentPerson.current.url
+        }
+      />
+
       <Html
         ref={ref}
         as="div"
         wrapperClass="info__container"
       >
-        <div className="info__content">
-          <h1 onClick={() => handleClick(false)}>
-            {currentPerson.current &&
-              currentPerson.current.fullName}
-          </h1>
+        <div
+          className="info__content"
+          onClick={() => {
+            handleClick(false);
+            currentPerson.current = null;
+          }}
+        >
+          <span className="exit">
+            click anywhere to exit
+          </span>
+          <div className="title">
+            <h1>
+              {isActive &&
+                currentPerson.current.fullName}
+            </h1>
+          </div>
+          <div className="description">
+            <p>
+              Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit.
+              Phasellus sit amet quam hendrerit,
+              sollicitudin orci eget, imperdiet
+              augue. Praesent in justo quis nunc
+              dictum aliquam et ut turpis. In
+              volutpat lectus eu leo commodo
+              blandit. Quisque sit amet massa sit
+              amet est pellentesque hendrerit.
+              Donec sed orci semper, facilisis dui
+              eu, aliquam eros. Maecenas sapien
+              dui, maximus nec est eu, egestas
+              imperdiet orci. Pellentesque ipsum
+              diam, eleifend vel vestibulum ac,
+              malesuada in diam. Donec condimentum
+              condimentum auctor. Ut nec mattis
+              diam, ut faucibus augue. Cras et
+              aliquet diam. Nam placerat sapien
+              sit amet luctus varius. Mauris quam
+              est, euismod vel neque in, porta
+              aliquam tellus. Class aptent taciti
+              sociosqu ad litora torquent per
+              conubia nostra, per inceptos
+              himenaeos.
+            </p>
+          </div>
+          <div className="quote">
+            <p>
+              "usce nec gravida neque. Nulla
+              interdum, nibh at pellentesque
+              mollis, dui turpis ullamcorper eros,
+              nec facilisis lacus erat ut
+              mauris.""
+            </p>
+          </div>
+          <div className="time">
+            <span>Bielsko-Biała</span>
+            <span>14.08.2024</span>
+          </div>
         </div>
       </Html>
 
@@ -153,10 +256,13 @@ function Images({ images }) {
   );
 }
 
-const Gallery = ({ images }) => {
+const Gallery = ({ images, isSelected }) => {
   return (
     <>
-      <Images images={images} />
+      <Images
+        images={images}
+        isSelected={isSelected}
+      />
     </>
   );
 };

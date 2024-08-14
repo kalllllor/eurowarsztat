@@ -18,6 +18,7 @@ import gsap from "gsap";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useCurtainUniforms } from "./useCurtainUniforms";
+import photo1 from "../../assets/photos/abdallahRazikOmar.jpg";
 
 extend({ CustomShaderMaterial });
 
@@ -64,51 +65,33 @@ const Curtain = ({
     // }
   });
 
-  const repeat = 5;
+  const [
+    colorMap,
+    norMap,
+    roughMap,
+    aoMap,
+    alphaMap,
+    dispMap,
+  ] = useLoader(TextureLoader, [
+    "assets/fabric/colorMap.jpg",
+    "assets/fabric/norMap.jpg",
+    "assets/fabric/roughMap.jpg",
+    "assets/fabric/aoMap.jpg",
+    "assets/fabric/alphaMap.jpg",
+    "assets/fabric/dispMap.jpg",
+  ]);
 
-  const colorMap = useLoader(
-    TextureLoader,
-    "assets/fabric/colorMap.jpg"
-  );
-  applyTextureSettings(colorMap);
-
-  const norMap = useLoader(
-    TextureLoader,
-    "assets/fabric/norMap.jpg"
-  );
-
-  applyTextureSettings(norMap);
-
-  const roughMap = useLoader(
-    TextureLoader,
-    "assets/fabric/roughMap.jpg"
-  );
-
-  applyTextureSettings(roughMap);
-
-  const aoMap = useLoader(
-    TextureLoader,
-    "assets/fabric/aoMap.jpg"
-  );
-
-  applyTextureSettings(aoMap);
-
-  const alphaMap = useLoader(
-    TextureLoader,
-    "assets/fabric/alphaMap.jpg"
-  );
-
-  applyTextureSettings(alphaMap);
-
-  const dispMap = useLoader(
-    TextureLoader,
-    "assets/fabric/dispMap.jpg"
-  );
-
-  applyTextureSettings(dispMap);
+  [
+    colorMap,
+    norMap,
+    roughMap,
+    aoMap,
+    alphaMap,
+    dispMap,
+  ].forEach((item) => applyTextureSettings(item));
 
   return (
-    <mesh {...props}>
+    <mesh {...props} receiveShadow>
       <planeGeometry
         args={[scale[0], scale[1], 1024, 1024]}
       />
@@ -123,7 +106,6 @@ const Curtain = ({
         alphaMap={alphaMap}
         displacementMap={dispMap}
         displacementScale={0.01}
-        transparent
         fragmentShader={fragmentShader}
         uniforms={uniforms}
         side={DoubleSide}

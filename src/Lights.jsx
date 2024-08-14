@@ -1,17 +1,12 @@
 import { useEffect, useRef } from "react";
-import {
-  useFrame,
-  useThree,
-} from "@react-three/fiber";
-import {
-  SpotLight,
-  SpotLightShadow,
-  useDepthBuffer,
-} from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import { SpotLight } from "@react-three/drei";
 import * as THREE from "three";
 import { useControls } from "leva";
+
 function MovingSpot({
   vec = new THREE.Vector3(),
+  intensity,
   ...props
 }) {
   const light = useRef();
@@ -23,14 +18,13 @@ function MovingSpot({
   const viewport = useThree(
     (state) => state.viewport
   );
-
+  console.log(intensity);
   const {
     penumbra,
     distance,
     angle,
     attenuation,
     anglePower,
-    intensity,
     decay,
   } = useControls({
     penumbra: {
@@ -40,13 +34,13 @@ function MovingSpot({
       step: 0.01,
     },
     distance: {
-      value: 19.5,
+      value: 21,
       min: 0,
       max: 100,
       step: 0.1,
     },
     angle: {
-      value: 0.75,
+      value: 0.6,
       min: 0,
       max: 1,
       step: 0.001,
@@ -62,12 +56,6 @@ function MovingSpot({
       min: 0,
       max: 40,
       step: 0.01,
-    },
-    intensity: {
-      value: 100,
-      min: 0,
-      max: 100,
-      step: 0.001,
     },
     decay: {
       value: 2,
@@ -92,30 +80,18 @@ function MovingSpot({
   );
 }
 
-export default function Lights() {
-  const depthBuffer = useDepthBuffer({
-    frames: 1,
-  });
-
+export default function Lights({ intensity }) {
   return (
     <group position={[0, 0, 5]}>
       <MovingSpot
         color="#fff"
+        intensity={intensity}
         position={[-2, 3, 0]}
       />
       <MovingSpot
         color="#fff"
+        intensity={intensity}
         position={[2, 3, 0]}
-      />
-      <pointLight
-        position={[0, 6, 1]}
-        intensity={100}
-        color="#FFD700"
-      />
-      <pointLight
-        position={[0, 6, -15]}
-        intensity={100}
-        color="#FFD700"
       />
     </group>
   );

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
-import Lights from "./Lights";
+
 import { Perf } from "r3f-perf";
 import {
   GizmoHelper,
@@ -32,6 +32,7 @@ import {
 import "./styles.css";
 import Description from "./components/description/Description";
 import list from "./assets/data.json";
+import Lights from "./Lights";
 
 export default function Experience() {
   const {
@@ -103,6 +104,8 @@ export default function Experience() {
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
+  const [isActive, setActive] = useState(false);
+
   const targetRotation = useRef(
     new THREE.Vector3()
   );
@@ -134,7 +137,7 @@ export default function Experience() {
         args={["#000"]}
       />
       {/* <OrbitControls makeDefault /> */}
-
+      <Lights intensity={isActive ? 0 : 100} />
       <GizmoHelper
         alignment="bottom-right"
         margin={[100, 100]}
@@ -144,7 +147,7 @@ export default function Experience() {
           axisHeadScale={1}
         />
       </GizmoHelper>
-      <Lights />
+
       <Environment
         files="/studio.hdr"
         environmentIntensity={1}
@@ -153,7 +156,12 @@ export default function Experience() {
       <axesHelper />
       <ScrollControls damping={0.5} pages={4}>
         <Scroll>
-          <Gallery images={data.current} />
+          <Gallery
+            images={data.current}
+            isSelected={(active) =>
+              setActive(active)
+            }
+          />
           <group
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
@@ -176,6 +184,8 @@ export default function Experience() {
             position={[0, 1.5, 2.5]}
             fontSize={1}
             font="/bebas-neue-v9-latin-regular.woff"
+            receiveShadow
+            castShadow
           >
             EUROWARSZTAT
           </Text>
@@ -204,7 +214,7 @@ export default function Experience() {
 
           <Vignette
             eskil={false}
-            offset={0.4}
+            offset={0.1}
             darkness={1.1}
           />
         </EffectComposer>

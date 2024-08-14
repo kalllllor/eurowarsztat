@@ -119,14 +119,14 @@ vec3 waveGenerator(vec3 newPos) {
     newPosition.y += sin(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
     newPosition.y += cos(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
 
-    float test = (cos(newPos.x * 1. + .5 * uTime) * 0.1 + 0.1) * foldFactor;
-    newPosition.x += newPosition.x * (1.0 - newPos.y) * test * .1;
-    newPosition.z += sin(newPos.x * 64. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 1. * foldFactor * test;
-    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 0.1 * foldFactor * test;
-    newPosition.z += cos(newPos.x * 256. / devideFactor - 1.5 * uTime) * 0.5 * (newPos.y - 1.0) * 0.1 * foldFactor * test;
-    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5) * 0.1 * (foldFactor + 0.5);
+    float waveVal = (cos(newPos.x * 1. + .5 * uTime) * 0.1 + 0.1) * foldFactor;
+    newPosition.x += newPosition.x * (1.0 - newPos.y) * waveVal * .1;
+    newPosition.z += sin(newPos.x * 64. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 1. * foldFactor * waveVal;
+    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 0.05 * foldFactor * waveVal;
+    newPosition.z += cos(newPos.x * 256. / devideFactor - 1.5 * uTime) * 0.5 * (newPos.y - 1.0) * 0.05 * foldFactor * waveVal;
+    newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5) * 0.01 * (foldFactor + 0.5);
 
-    newPosition.z += test * .5;
+    newPosition.z += waveVal * .5;
     vHeight = newPosition.z + spreadVal;
     return newPosition;
 }

@@ -43,6 +43,9 @@ vec3 calcColor() {
     // vec4 img2 = texture2D(uTexture2, uvDisplaced2);
     // csm_DiffuseColor = mix(img1, img2, uProgress);
     // float strength = sin(distance(vUv, vec2(0.5)) * 100.);
-
+    // if(vUv.x > 0.2 && vUv.x < 0.8 && vUv.y > 0.2 && vUv.y < 0.8) {
+    //   vec4 t = texture2D(uTexture1, vUv*2.0 - 0.5);
+    //   csm_DiffuseColor = t;
+    // }
     csm_DiffuseColor = vec4(calcColor(), 1.0);
   }
