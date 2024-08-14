@@ -17,7 +17,6 @@ import {
   useTexture,
   SpotLight,
 } from "@react-three/drei";
-import Lights from "../../Lights";
 
 function ProjectedImage({
   imageUrl = "",

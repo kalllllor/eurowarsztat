@@ -33,6 +33,18 @@ import "./styles.css";
 import Description from "./components/description/Description";
 import list from "./assets/data.json";
 import Lights from "./Lights";
+import Carousel from "./components/carousel/Carousel";
+
+const images = [
+  "/img1.jpg",
+  "/img2.jpg",
+  "/img3.jpg",
+  "/img4.jpg",
+  "/img5.jpg",
+  "/img6.jpg",
+  "/img7.jpg",
+  "/img8.jpg",
+];
 
 export default function Experience() {
   const {
@@ -154,7 +166,7 @@ export default function Experience() {
         environmentRotation={[0, 0, 0]}
       />
       <axesHelper />
-      <ScrollControls damping={0.5} pages={4}>
+      <ScrollControls damping={0.5} pages={5}>
         <Scroll>
           <Gallery
             images={data.current}
@@ -195,6 +207,9 @@ export default function Experience() {
             <Description />
           </Scroll>
         )}
+        <Scroll>
+          <Carousel images={images} />
+        </Scroll>
       </ScrollControls>
 
       <Curtain
