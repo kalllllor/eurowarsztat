@@ -190,9 +190,11 @@ export default function Experience() {
             EUROWARSZTAT
           </Text>
         </Scroll>
-        <Scroll html>
-          <Description />
-        </Scroll>
+        {!isActive && (
+          <Scroll html>
+            <Description />
+          </Scroll>
+        )}
       </ScrollControls>
 
       <Curtain
