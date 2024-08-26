@@ -60,7 +60,7 @@ const Credits = () => {
         position={[0, 0, 0]}
         anchorX="center"
         anchorY="middle"
-        maxWidth={100}
+        maxWidth={6}
       >
         Teodor Ajder Khedi Alieva Jan Bačynsjkyi
         Walid Boussad Natalia Chyntalian/ Natali

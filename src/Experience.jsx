@@ -208,7 +208,7 @@ export default function Experience() {
             color="white"
             anchorX="center"
             anchorY="center"
-            position={[0, height * -3.8, 0]}
+            position={[0, height * -3.6, 0]}
             fontSize={0.1}
             font="/Butler-Free-Rmn.woff"
             receiveShadow
@@ -221,7 +221,7 @@ export default function Experience() {
             color="white"
             anchorX="center"
             anchorY="center"
-            position={[0, height * -3.85, 0]}
+            position={[0, height * -3.65, 0]}
             fontSize={0.07}
             font="/Butler-Free-Rmn.woff"
             receiveShadow
