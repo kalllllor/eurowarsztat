@@ -8,6 +8,7 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
+import { useControls } from "leva";
 
 const applyTextureSettings = (texture) => {
   texture.wrapS = texture.wrapT = RepeatWrapping;
@@ -17,6 +18,9 @@ const applyTextureSettings = (texture) => {
 
 const Crown = (props) => {
   const matRef = useRef();
+  const { crownColor } = useControls({
+    crownColor: "#ffcf40",
+  });
 
   const { nodes } = useLoader(
     GLTFLoader,
@@ -75,64 +79,7 @@ const Crown = (props) => {
         <meshPhysicalMaterial
           ref={matRef}
           displacementScale={0.1}
-          color="#ffcf40"
-          map={colorMap}
-          aoMap={aoMap}
-          normalMap={norMap}
-          roughnessMap={roughMap}
-          metalnessMap={metalMap}
-          roughness={0.1}
-          metalness={0.8}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.wire_1.geometry}
-        receiveShadow
-        castShadow
-        dispose={null}
-      >
-        <meshPhysicalMaterial
-          ref={matRef}
-          displacementScale={0.01}
-          color="#000"
-          map={colorMap}
-          aoMap={aoMap}
-          normalMap={norMap}
-          roughnessMap={roughMap}
-          metalnessMap={metalMap}
-          roughness={0.1}
-          metalness={0.8}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.wire_2.geometry}
-        receiveShadow
-        castShadow
-        dispose={null}
-      >
-        <meshPhysicalMaterial
-          ref={matRef}
-          displacementScale={0.01}
-          color="#000"
-          map={colorMap}
-          aoMap={aoMap}
-          normalMap={norMap}
-          roughnessMap={roughMap}
-          metalnessMap={metalMap}
-          roughness={0.1}
-          metalness={0.8}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.wire_3.geometry}
-        receiveShadow
-        castShadow
-        dispose={null}
-      >
-        <meshPhysicalMaterial
-          ref={matRef}
-          displacementScale={0.01}
-          color="#000"
+          color={crownColor}
           map={colorMap}
           aoMap={aoMap}
           normalMap={norMap}

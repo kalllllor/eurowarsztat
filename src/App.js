@@ -26,7 +26,10 @@ const App = () => {
           shadows
           dpr={[1, 1.5]}
           gl={{ antialias: false }}
-          camera={{ fov: 75 }}
+          camera={{
+            fov: 75,
+            position: [0.0, 0, 3],
+          }}
           // camera={{ position: [0.0, 0, -3] }}
         >
           <Experience />

@@ -16,6 +16,8 @@ const Carousel = ({ images }) => {
     useState(false);
   const [lastX, setLastX] = useState(0);
 
+  const totalWidth = (images.length - 1) * 4;
+
   useFrame(() => {
     groupRef.current.position.x =
       THREE.MathUtils.lerp(
@@ -25,53 +27,46 @@ const Carousel = ({ images }) => {
       );
   });
 
-  const handleMouseDown = (e) => {
+  const handlePointerDown = (e) => {
     setIsDragging(true);
     setLastX(e.clientX);
+    e.target.setPointerCapture(e.pointerId);
   };
 
-  const handleMouseMove = (e) => {
+  const handlePointerMove = (e) => {
     if (isDragging) {
       const deltaX = e.clientX - lastX;
-      setPositionX(positionX + deltaX * 0.01);
-      console.log(positionX + deltaX * 0.5);
+      let newPositionX =
+        positionX + deltaX * 0.01;
+
+      newPositionX = Math.max(
+        newPositionX,
+        -totalWidth
+      );
+
+      newPositionX = Math.min(newPositionX, 0);
+
+      setPositionX(newPositionX);
       setLastX(e.clientX);
     }
   };
 
-  const handleMouseUp = () => {
+  const handlePointerUp = (e) => {
     setIsDragging(false);
-  };
-
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    setLastX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    if (isDragging) {
-      const deltaX = e.touches[0].clientX - lastX;
-      setPositionX(positionX + deltaX * 0.5);
-      setLastX(e.touches[0].clientX);
-    }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
+    e.target.releasePointerCapture(e.pointerId);
   };
 
   return (
     <group
-      position={[0, -4 * height, 2.5]}
+      position={[0, -4 * height, 0]}
       ref={groupRef}
-      onPointerDown={handleMouseDown}
-      onPointerMove={handleMouseMove}
-      onPointerUp={handleMouseUp}
-      onPointerOut={handleMouseUp}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchEnd}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerOut={handlePointerUp}
+      onTouchStart={handlePointerDown}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
     >
       {images.map((url, index) => (
         <ImageImpl

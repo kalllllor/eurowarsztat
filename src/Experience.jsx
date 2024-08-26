@@ -55,9 +55,10 @@ export default function Experience() {
     posZ,
     scaleX,
     scaleY,
-    rotateX,
-    rotateY,
-    rotateZ,
+    floatSpeed,
+    rotationIntensity,
+    floatIntensity,
+    floatingRange,
   } = useControls({
     debug: false,
     enabledPostProcess: true,
@@ -69,13 +70,13 @@ export default function Experience() {
       step: 0.01,
     },
     posY: {
-      value: 0.5,
+      value: 0,
       min: -20,
       max: 20,
       step: 0.01,
     },
     posZ: {
-      value: 1.0,
+      value: -1.2,
       min: -40,
       max: 40,
       step: 0.01,
@@ -92,23 +93,29 @@ export default function Experience() {
       max: 20,
       step: 0.01,
     },
-    rotateX: {
-      value: 0,
-      min: -Math.PI,
-      max: Math.PI,
-      step: 0.01,
+    floatSpeed: {
+      value: 0.5,
+      min: 0,
+      max: 3,
+      step: 0.1,
     },
-    rotateY: {
-      value: 0,
-      min: -Math.PI,
-      max: Math.PI,
-      step: 0.01,
+    rotationIntensity: {
+      value: 1,
+      min: 0,
+      max: 3,
+      step: 0.1,
     },
-    rotateZ: {
-      value: 0,
-      min: -Math.PI,
-      max: Math.PI,
-      step: 0.01,
+    floatIntensity: {
+      value: 0.5,
+      min: 0,
+      max: 3,
+      step: 0.1,
+    },
+    floatingRange: {
+      value: [0, 0.2],
+      min: 0,
+      max: 3,
+      step: 0.1,
     },
   });
   const data = useRef(list.data);
@@ -150,19 +157,9 @@ export default function Experience() {
       />
       {/* <OrbitControls makeDefault /> */}
       <Lights intensity={isActive ? 0 : 100} />
-      <GizmoHelper
-        alignment="bottom-right"
-        margin={[100, 100]}
-      >
-        <GizmoViewport
-          labelColor="white"
-          axisHeadScale={1}
-        />
-      </GizmoHelper>
-
       <Environment
-        files="/studio.hdr"
-        environmentIntensity={1}
+        files="/studio.jpg"
+        environmentIntensity={5}
         environmentRotation={[0, 0, 0]}
       />
       <axesHelper />
@@ -179,12 +176,14 @@ export default function Experience() {
             rotation-x={-Math.PI * 0.05}
           >
             <Float
-              speed={0.5}
-              rotationIntensity={1}
-              floatIntensity={0.5}
-              floatingRange={[0, 0.2]}
+              speed={floatSpeed}
+              rotationIntensity={
+                rotationIntensity
+              }
+              floatIntensity={floatIntensity}
+              floatingRange={floatingRange}
             >
-              <Crown position={[0, -0.6, 0.7]} />
+              <Crown position={[0, -0.3, -1.4]} />
             </Float>
           </group>
         </Scroll>
@@ -193,7 +192,7 @@ export default function Experience() {
             color="white"
             anchorX="center"
             anchorY="center"
-            position={[0, 1.5, 2.5]}
+            position={[0, 1.5, 0]}
             fontSize={1}
             font="/bebas-neue-v9-latin-regular.woff"
             receiveShadow
@@ -207,6 +206,7 @@ export default function Experience() {
             <Description />
           </Scroll>
         )}
+
         <Scroll>
           <Carousel images={images} />
         </Scroll>
@@ -215,7 +215,7 @@ export default function Experience() {
       <Curtain
         position={[posX, posY, posZ]}
         scale={[scaleX, scaleY, 1]}
-        rotation={[rotateX, rotateY, rotateZ]}
+        rotation={[0, 0, 0]}
       />
       <fog
         attach="fog"

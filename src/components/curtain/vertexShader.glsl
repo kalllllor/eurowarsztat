@@ -16,38 +16,6 @@ varying vec3 vNorm;
 varying vec2 vUv;
 
 
-uniform float uFreqX1;
-uniform float uFreqX2;
-uniform float uTimeFactorX1;
-uniform float uTimeFactorX2;
-uniform float uAmpX1;
-uniform float uAmpX2;
-uniform float uNoiseX1;
-uniform float uNoiseX2;
-uniform float uNoiseAmpX1;
-uniform float uNoiseAmpX2;
-
-uniform float uFreqY1;
-uniform float uFreqY2;
-uniform float uTimeFactorY1;
-uniform float uTimeFactorY2;
-uniform float uAmpY1;
-uniform float uAmpY2;
-uniform float uNoiseY1;
-uniform float uNoiseY2;
-uniform float uNoiseAmpY1;
-uniform float uNoiseAmpY2;
-
-uniform float uFreqZ1;
-uniform float uFreqZ2;
-uniform float uTimeFactorZ1;
-uniform float uTimeFactorZ2;
-uniform float uAmpZ1;
-uniform float uAmpZ2;
-uniform float uNoiseZ1;
-uniform float uNoiseZ2;
-uniform float uNoiseAmpZ1;
-uniform float uNoiseAmpZ2;
 
 uniform float uFoldFactor;
 
@@ -115,11 +83,11 @@ vec3 waveGenerator(vec3 newPos) {
     float foldFactor = (1.0 - uv.y) * uFoldFactor;
     float radius = 1.;
     float spreadVal = 0.2;
-    float devideFactor = 10.;
+    float devideFactor = 30.;
     newPosition.y += sin(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
     newPosition.y += cos(newPos.x * 10. + uTime * 1.5) * 0.003 * (foldFactor * .5);
 
-    float waveVal = (cos(newPos.x * 1. + .5 * uTime) * 0.1 + 0.1) * foldFactor;
+    float waveVal = (cos(newPos.x * 1. + .5 * uTime) * 0.1 + .1) * foldFactor;
     newPosition.x += newPosition.x * (1.0 - newPos.y) * waveVal * .1;
     newPosition.z += sin(newPos.x * 64. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 1. * foldFactor * waveVal;
     newPosition.z += cos(newPos.x * 128. / devideFactor - 1.5 * uTime) * 0.05 * (newPos.y - 1.0) * 0.05 * foldFactor * waveVal;

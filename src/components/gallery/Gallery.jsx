@@ -15,6 +15,7 @@ import {
   Text,
   Html,
   useTexture,
+  useScroll,
   SpotLight,
 } from "@react-three/drei";
 
@@ -89,7 +90,7 @@ function Image({
         ? new THREE.Vector3(
             props.position[0]
               ? props.position[0] * 6
-              : (props.position[0] + 1) * 3,
+              : (props.position[0] + 1) * 6,
             props.position[1] * 1.2,
             props.position[2]
           )
@@ -117,6 +118,7 @@ function Image({
           fontSize={fontSize}
           lineHeight={hovered ? 1 : 0}
           font="/bebas-neue-v9-latin-regular.woff"
+          position={[0, 0, 0.01]}
         >
           {fullName}
         </Text>
@@ -130,7 +132,6 @@ function Images({ images, isSelected }) {
     (state) => state.viewport
   );
   const ref = useRef();
-
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
 

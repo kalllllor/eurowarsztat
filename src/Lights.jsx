@@ -15,66 +15,18 @@ function MovingSpot({
       new THREE.Vector3(0, 0, 10)
     );
   }, []);
-  const viewport = useThree(
-    (state) => state.viewport
-  );
-  console.log(intensity);
-  const {
-    penumbra,
-    distance,
-    angle,
-    attenuation,
-    anglePower,
-    decay,
-  } = useControls({
-    penumbra: {
-      value: 1,
-      min: 0,
-      max: 10,
-      step: 0.01,
-    },
-    distance: {
-      value: 21,
-      min: 0,
-      max: 100,
-      step: 0.1,
-    },
-    angle: {
-      value: 0.6,
-      min: 0,
-      max: 1,
-      step: 0.001,
-    },
-    attenuation: {
-      value: 27,
-      min: 0,
-      max: 40,
-      step: 0.001,
-    },
-    anglePower: {
-      value: 16.5,
-      min: 0,
-      max: 40,
-      step: 0.01,
-    },
-    decay: {
-      value: 2,
-      min: 0,
-      max: 20,
-      step: 0.001,
-    },
-  });
+
   return (
     <SpotLight
       castShadow
       ref={light}
-      penumbra={penumbra}
-      distance={distance}
-      angle={angle}
-      attenuation={attenuation}
-      anglePower={anglePower}
+      penumbra={1}
+      distance={21}
+      angle={0.6}
+      attenuation={27}
+      anglePower={16.5}
       intensity={intensity}
-      decay={decay}
+      decay={2}
       {...props}
     />
   );
@@ -82,16 +34,16 @@ function MovingSpot({
 
 export default function Lights({ intensity }) {
   return (
-    <group position={[0, 0, 5]}>
+    <group position={[0, 0, 10]}>
       <MovingSpot
         color="#fff"
         intensity={intensity}
-        position={[-2, 3, 0]}
+        position={[-2, 2, 1]}
       />
       <MovingSpot
         color="#fff"
         intensity={intensity}
-        position={[2, 3, 0]}
+        position={[2, 2, 1]}
       />
     </group>
   );

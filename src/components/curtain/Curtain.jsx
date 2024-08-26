@@ -14,11 +14,9 @@ import vertexShader from "./vertexShader.glsl";
 import { useRef } from "react";
 import CustomShaderMaterial from "three-custom-shader-material";
 import { patchShaders } from "gl-noise/build/glNoise.m";
-import gsap from "gsap";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useCurtainUniforms } from "./useCurtainUniforms";
-import photo1 from "../../assets/photos/abdallahRazikOmar.jpg";
 
 extend({ CustomShaderMaterial });
 
@@ -42,27 +40,6 @@ const Curtain = ({
       matRef.current.uniforms.uTime.value =
         clock.getElapsedTime();
     }
-    // if (pointer.x < -0.3333) {
-    //   gsap.to(matRef.current.uniforms.uProgress, {
-    //     value: 0,
-    //     onStart: () => {
-    //       matRef.current.uTexture1 =
-    //         uniforms.uTexture1.value;
-    //     },
-    //   });
-    // } else if (pointer.x < 0.3333) {
-    //   gsap.to(matRef.current.uniforms.uProgress, {
-    //     value: 1,
-    //     onComplete: () => {
-    //       matRef.current.uTexture1 =
-    //         uniforms.uTexture2.value;
-    //     },
-    //   });
-    // } else if (pointer.x > 0.3333) {
-    //   gsap.to(matRef.current.uniforms.uProgress, {
-    //     value: 0,
-    //   });
-    // }
   });
 
   const [

@@ -3,21 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 
 const Description = () => {
-  const data = useScroll();
   const ref = useRef();
-  const [prevScroll, setPrevScroll] = useState(0);
-
-  useFrame(() => {
-    const currentScroll = data.range(
-      0.23,
-      1 / 25
-    );
-    if (currentScroll !== prevScroll) {
-      ref.current.style.opacity =
-        1 - currentScroll;
-      setPrevScroll(currentScroll);
-    }
-  });
 
   return (
     <div className="desc__wrapper" ref={ref}>
