@@ -14,7 +14,7 @@ export const useCurtainUniforms = (props) => {
     uColorB,
   } = useControls({
     uFoldFactor: {
-      value: 3,
+      value: 3.8,
       min: 1,
       max: 10,
       step: 0.01,

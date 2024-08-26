@@ -9,86 +9,92 @@ const Description = () => {
     <div className="desc__wrapper" ref={ref}>
       <div className="desc__container">
         <p>
-          Eurowarsztat to otwarty projekt Marty
-          Romankiv, w którym artystka, bazując na
-          własnym doświadczeniu, rozmawia z
-          migrantami i migrantkami o przyszłości
-          Europy. Wspólnie zastanawiają się, jak
-          uczynić głosy mniejszości - w tym osób
+          Eurowarsztat to otwarty projekt
+          wynikający z refleksji na temat
+          widzialności perspektyw osób
+          migranckich. Według badań Komisji
+          Europejskiej w 2023 roku około 6
+          procent, czyli 27,3 miliona mieszkańców
+          i mieszkanek krajów Unii Europejskiej
+          stanowiły osoby nie posiadające
+          obywatelstwa jednego z krajów
+          członkowskich. Najpewniej w najbliższych
+          latach te liczby będą systematycznie
+          rosnąć.
+        </p>
+        <p>
+          Ze względu na brak obywatelstwa państwa
+          swojego zamieszkania, osoby migranckie
+          na co dzień mierzą się z licznymi
+          nierównościami. W szczególnie trudnej
+          sytuacji znajdują się tzw. obywatele
+          krajów trzecich (osoby pochodzące spoza
+          UE), gdyż brak “unijnego” paszportu
+          wiąże się dla nich ze znacznym
+          ograniczeniem praw obywatelskich, jak i
+          brakiem politycznej sprawczości. Mimo,
+          iż własnymi rękami i intelektem
+          współtworzą wspólnoty w miejscach
+          swojego pobytu, najczęściej nie mogą
+          uczestniczyć w pozwalających na
+          współdecydowanie o wspólnej przyszłości
+          procesach demokratycznych.
+        </p>
+        <p>
+          Zainicjowany przez artystkę Martę
+          Romankiv projekt “Eurowarsztat” jest
+          zbudowany wokół pytania, jak uczynić
+          głosy mniejszości - w tym osób
           mieszkających i pracujących na terenie
           Unii Europejskiej, ale nie posiadających
           europejskich paszportów - tak samo
-          słyszalnymi jak głosy polityków i
-          polityczek.
-        </p>
-        <p>
-          Osoby migranckie na co dzień mierzą się
-          z licznymi nierównościami i brakiem
-          sprawczości politycznej. Działanie
-          “Eurowarsztat” jest jednak skierowane na
-          zerwanie ze stereotypem migrantów i
-          migrantek jako osób cierpiących, w
-          kryzysie, skupionych na przetrwaniu. Na
-          zarejestrowanych nagraniach zaproszone
-          uczestniczki i uczestnicy opowiadają o
-          własnych wizjach przyszłości oraz
-          proponują niezbędne według nich zmiany
-          społeczne.
-        </p>
-        <p>
-          Zdjęcia i nagrania realizowane są w
-          konwencji glamour: profesjonalna
-          wizażystka wykonuje bohaterom i
-          bohaterkom delikatny makijaż, każda z
-          osób ma gładkie, czarne ubranie i koronę
-          ze złotych gwiazd. Estetyka fotografii i
+          słyszalne, jak głosy polityków i
+          polityczek. Na zarejestrowanych
+          nagraniach uczestniczki i uczestnicy
+          opowiadają o własnych wizjach
+          przyszłości oraz proponują niezbędne
+          według nich zmiany społeczne. Zdjęcia i
+          nagrania realizowane są w konwencji
+          glamour: profesjonalna wizażystka
+          wykonuje bohaterom i bohaterkom
+          delikatny makijaż, każda z osób ma
+          gładkie, czarne ubranie i koronę ze
+          złotych gwiazd. Estetyka fotografii i
           nagrań nawiązuje do sesji modowych z
-          luksusowych magazynów. Migranci i
-          migrantki w zdecydowanej większości
-          wypowiadają się w swoich ojczystych
-          językach. Dzięki tym zabiegom
-          symbolicznie przywracają sobie należne,
-          równe miejsce w strukturze europejskiej
-          wspólnoty.
+          luksusowych magazynów. Zabiegi te są
+          skierowane na symbolicznie zerwanie ze
+          stereotypem migrantów i migrantek
+          wyłącznie jako ofiar i przybliżenia
+          perspektywy, w której jako polityczne
+          osoby nieobywatelskie* przywracają sobie
+          należne, równe miejsce w strukturze
+          europejskiej wspólnoty.
         </p>
         <p>
-          Według badań Komisji Europejskiej w 2021
-          roku 8,4 proc. mieszkańców i mieszkanek
-          krajów unijnych stanowiły osoby urodzone
-          poza jej granicami. To aż 37,5 miliona
-          osób. W lipcu 2022 roku UNHCR podała, że
-          od początku rosyjskiej napaści na
-          Ukrainę do Unii przybyło kolejne 6
-          milionów ludzi. Najpewniej w
-          najbliższych latach te liczby będą
-          systematycznie rosnąć.
+          Osoby z doświadczeniem migracji mogą
+          podzielić się swoimi przemyśleniami i
+          opiniami na temat przyszłości wspólnoty
+          europejskiej w formie tekstu, nagrania
+          audio lub wideo przesyłając materiały na
+          adres mailowy:
         </p>
-        <p>
-          Powody migracji są bardzo różne:
-          niezależnie od osobistych motywacji
-          osoby opuszczające kraj urodzenia muszą
-          mierzyć się ze znacznym ograniczeniem
-          praw obywatelskich w nowym miejscu
-          zamieszkania. Mimo że czynnie
-          uczestniczą w życiu swoich nowych
-          społeczności, pracują, płacą podatki czy
-          wykonują nieodpłatną pracę na rzecz
-          wspólnoty nie mogą podejmować decyzji
-          politycznych. Koncepcja obywatelstwa,
-          mająca swoje korzenie w XIX-wiecznych
-          nacjonalizmach, niezmiennie
-          przyporządkowuje ludzi do państw.
-        </p>
-        <p>
-          W swoich działaniach Marta Romankiv pyta
-          o zasadność stosowania dawnych formuł.
-          Jak zmienić reguły, aby bardziej
-          odpowiadały współczesnemu kształtowi
-          świata? Czy możemy dostosować politykę
-          państw do potrzeb osób w nich
-          mieszkających? Co o tym myślą migranci i
-          migrantki? “Eurowarsztat” daje szansę na
-          wysłuchanie ich opinii.
+        <p className="asterisk">
+          *Polityczny nieobywatel – osoba
+          nieposiadająca obywatelstwa kraju
+          swojego zamieszkania, w związku czym
+          jest wykluczona z części lub pełni praw
+          politycznych. W zależności od kraju
+          swojego pochodzenia, posiadanego
+          obywatelstwa, jak i polityki kraju
+          zamieszkania polityczni nieobywatele są
+          zróżnicowaną grupą pod względem dostępu
+          do politycznych praw. [termin
+          zaproponowany w ramach pracy doktorskiej
+          Marty Romankiv] Prezentowane nagrania są
+          częścią badań doktorskich Marty
+          Romankiv, realizowanych na Akademii
+          Sztuk Pięknych w Gdańsku pod opieką
+          prof. dr hab. Moniki Zawadzkiej.
         </p>
       </div>
     </div>

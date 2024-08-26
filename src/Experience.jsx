@@ -34,6 +34,7 @@ import Description from "./components/description/Description";
 import list from "./assets/data.json";
 import Lights from "./Lights";
 import Carousel from "./components/carousel/Carousel";
+import Credits from "./components/credits/Credits";
 
 const images = [
   "/img1.jpg",
@@ -47,6 +48,9 @@ const images = [
 ];
 
 export default function Experience() {
+  const { height } = useThree(
+    (state) => state.viewport
+  );
   const {
     debug,
     enabledPostProcess,
@@ -82,7 +86,7 @@ export default function Experience() {
       step: 0.01,
     },
     scaleX: {
-      value: 10,
+      value: 13,
       min: -0,
       max: 20,
       step: 0.01,
@@ -163,7 +167,7 @@ export default function Experience() {
         environmentRotation={[0, 0, 0]}
       />
       <axesHelper />
-      <ScrollControls damping={0.5} pages={5}>
+      <ScrollControls damping={0.5} pages={6}>
         <Scroll>
           <Gallery
             images={data.current}
@@ -183,7 +187,7 @@ export default function Experience() {
               floatIntensity={floatIntensity}
               floatingRange={floatingRange}
             >
-              <Crown position={[0, -0.3, -1.4]} />
+              <Crown position={[0, 0.3, -2]} />
             </Float>
           </group>
         </Scroll>
@@ -192,14 +196,43 @@ export default function Experience() {
             color="white"
             anchorX="center"
             anchorY="center"
-            position={[0, 1.5, 0]}
-            fontSize={1}
-            font="/bebas-neue-v9-latin-regular.woff"
+            position={[0, 0, 0]}
+            fontSize={0.8}
+            font="/Butler-Free-Rmn.woff"
             receiveShadow
             castShadow
           >
             EUROWARSZTAT
           </Text>
+          <Text
+            color="white"
+            anchorX="center"
+            anchorY="center"
+            position={[0, height * -3.8, 0]}
+            fontSize={0.1}
+            font="/Butler-Free-Rmn.woff"
+            receiveShadow
+            castShadow
+          >
+            Podziel się swoją wizją Europy!
+            Zabierz swój głos!
+          </Text>
+          <Text
+            color="white"
+            anchorX="center"
+            anchorY="center"
+            position={[0, height * -3.85, 0]}
+            fontSize={0.07}
+            font="/Butler-Free-Rmn.woff"
+            receiveShadow
+            castShadow
+          >
+            Dołącz do projektu wysyłając swój
+            tekst/ nagranie wideo lub audio na
+            adres mailowy
+            euroworkshop.contact@gmail.com
+          </Text>
+          <Credits />
         </Scroll>
         {!isActive && (
           <Scroll html>
@@ -231,7 +264,7 @@ export default function Experience() {
 
           <Vignette
             eskil={false}
-            offset={0.1}
+            offset={0.2}
             darkness={1.1}
           />
         </EffectComposer>
