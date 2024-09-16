@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import {
+  useLoader,
+  useFrame,
+} from "@react-three/fiber"; // Import useFrame
+import {
   NearestFilter,
   LinearMipMapLinearFilter,
   RepeatWrapping,
 } from "three";
-import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
@@ -18,6 +21,7 @@ const applyTextureSettings = (texture) => {
 
 const Crown = (props) => {
   const matRef = useRef();
+  const crownRef = useRef(); // Reference for the mesh/group
   const { crownColor } = useControls({
     crownColor: "#ffcf40",
   });
@@ -68,8 +72,18 @@ const Crown = (props) => {
   );
   applyTextureSettings(metalMap);
 
+  useFrame(() => {
+    if (crownRef.current) {
+      crownRef.current.rotation.y += 0.001;
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group
+      ref={crownRef}
+      {...props}
+      dispose={null}
+    >
       <mesh
         geometry={nodes.crown.geometry}
         receiveShadow

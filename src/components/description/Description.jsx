@@ -2,11 +2,15 @@ import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 
-const Description = () => {
+const Description = (props) => {
   const ref = useRef();
 
   return (
-    <div className="desc__wrapper" ref={ref}>
+    <div
+      className="desc__wrapper"
+      ref={ref}
+      {...props}
+    >
       <div className="desc__container">
         <p>
           Eurowarsztat to otwarty projekt

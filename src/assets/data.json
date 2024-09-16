@@ -8,28 +8,28 @@
       "url": "/assets/photos/abdallahRazikOmar.jpg"
     },
     {
-      "position": [1, -1.5, 0.5],
+      "position": [1, -1.8, 0.5],
       "scale": [1, 2, 2],
       "fontSize": 0.15,
       "fullName": "Liubov Savycka",
       "url": "/assets/photos/liubovSavycka.jpg"
     },
     {
-      "position": [-1.3, -2.2, 1],
+      "position": [-1.3, -2.4, 1],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Liudmyla Kabanina",
       "url": "/assets/photos/liudmylaKabanina.jpg"
     },
     {
-      "position": [0, -2.2, 0.5],
+      "position": [0, -2.4, 0.5],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Liza Konovalova",
       "url": "/assets/photos/lizaKonovalova.jpg"
     },
     {
-      "position": [1.3, -2.2, 1],
+      "position": [1.3, -2.4, 1],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Natalia Hladysh",

@@ -70,6 +70,7 @@ export default function Experience() {
     floatIntensity,
     floatingRange,
     fontSize,
+    textColor,
   } = useControls({
     debug: false,
     enabledPostProcess: true,
@@ -159,6 +160,7 @@ export default function Experience() {
       max: 1,
       step: 0.01,
     },
+    textColor: "#fff",
   });
   const data = useRef(list.data);
 
@@ -204,7 +206,7 @@ export default function Experience() {
         environmentIntensity={vignette ? 2 : 0.5}
         environmentRotation={[0, 0, 0]}
       />
-      <axesHelper />
+
       <ScrollControls damping={0.5} pages={6}>
         <Scroll>
           <Gallery
@@ -258,7 +260,12 @@ export default function Experience() {
         </Scroll>
         {!isActive && (
           <Scroll html>
-            <Description />
+            <Description
+              style={{
+                top: `${100}vh`,
+                color: textColor,
+              }}
+            />
             <div
               className="share__wrapper"
               style={{
