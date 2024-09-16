@@ -38,7 +38,6 @@ const Credits = () => {
     "Anna Shchepet",
     "Tomila",
     "Veronika Ismailova",
-
     "Fotografię: Mateusz Lipiński",
     "Zdjęcia wideo: Marta Romankiv",
     "Nagrania dźwięku: Tomasz Koszewnik, Marta Romankiv",
@@ -60,7 +59,7 @@ const Credits = () => {
         position={[0, 0, 0]}
         anchorX="center"
         anchorY="middle"
-        maxWidth={6}
+        maxWidth={4}
       >
         Teodor Ajder Khedi Alieva Jan Bačynsjkyi
         Walid Boussad Natalia Chyntalian/ Natali

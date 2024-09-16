@@ -51,22 +51,29 @@ export default function Experience() {
   const { height } = useThree(
     (state) => state.viewport
   );
+  console.log(height);
   const {
     debug,
     enabledPostProcess,
+    vignette,
     posX,
     posY,
     posZ,
+    crownX,
+    crownY,
+    crownZ,
+    crownScale,
     scaleX,
     scaleY,
     floatSpeed,
     rotationIntensity,
     floatIntensity,
     floatingRange,
+    fontSize,
   } = useControls({
     debug: false,
     enabledPostProcess: true,
-
+    vignette: false,
     posX: {
       value: 0,
       min: -20,
@@ -85,6 +92,31 @@ export default function Experience() {
       max: 40,
       step: 0.01,
     },
+    crownX: {
+      value: 0,
+      min: -3,
+      max: 3,
+      step: 0.01,
+    },
+    crownY: {
+      value: -0.27,
+      min: -3,
+      max: 3,
+      step: 0.01,
+    },
+    crownZ: {
+      value: -2.8,
+      min: -4,
+      max: 3,
+      step: 0.01,
+    },
+    crownScale: {
+      value: 1.62,
+      min: 1,
+      max: 3,
+      step: 0.01,
+    },
+
     scaleX: {
       value: 13,
       min: -0,
@@ -120,6 +152,12 @@ export default function Experience() {
       min: 0,
       max: 3,
       step: 0.1,
+    },
+    fontSize: {
+      value: 0.4,
+      min: 0,
+      max: 1,
+      step: 0.01,
     },
   });
   const data = useRef(list.data);
@@ -160,10 +198,10 @@ export default function Experience() {
         args={["#000"]}
       />
       {/* <OrbitControls makeDefault /> */}
-      <Lights intensity={isActive ? 0 : 100} />
+      <Lights intensity={isActive ? 10 : 1000} />
       <Environment
         files="/studio.jpg"
-        environmentIntensity={5}
+        environmentIntensity={vignette ? 2 : 0.5}
         environmentRotation={[0, 0, 0]}
       />
       <axesHelper />
@@ -187,7 +225,18 @@ export default function Experience() {
               floatIntensity={floatIntensity}
               floatingRange={floatingRange}
             >
-              <Crown position={[0, 0.3, -2]} />
+              <Crown
+                position={[
+                  crownX,
+                  crownY,
+                  crownZ,
+                ]}
+                scale={[
+                  crownScale,
+                  crownScale,
+                  crownScale,
+                ]}
+              />
             </Float>
           </group>
         </Scroll>
@@ -197,46 +246,40 @@ export default function Experience() {
             anchorX="center"
             anchorY="center"
             position={[0, 0, 0]}
-            fontSize={0.8}
-            font="/Butler-Free-Rmn.woff"
+            fontSize={fontSize}
+            font="/BodoniModaSC.woff"
             receiveShadow
             castShadow
           >
             EUROWARSZTAT
           </Text>
-          <Text
-            color="white"
-            anchorX="center"
-            anchorY="center"
-            position={[0, height * -3.6, 0]}
-            fontSize={0.1}
-            font="/Butler-Free-Rmn.woff"
-            receiveShadow
-            castShadow
-          >
-            Podziel się swoją wizją Europy!
-            Zabierz swój głos!
-          </Text>
-          <Text
-            color="white"
-            anchorX="center"
-            anchorY="center"
-            position={[0, height * -3.65, 0]}
-            fontSize={0.07}
-            font="/Butler-Free-Rmn.woff"
-            receiveShadow
-            castShadow
-          >
-            Dołącz do projektu wysyłając swój
-            tekst/ nagranie wideo lub audio na
-            adres mailowy
-            euroworkshop.contact@gmail.com
-          </Text>
+
           <Credits />
         </Scroll>
         {!isActive && (
           <Scroll html>
             <Description />
+            <div
+              className="share__wrapper"
+              style={{
+                top: `${100 * 4.0}vh`,
+              }}
+            >
+              <div className="share__container">
+                <span>
+                  Podziel się swoją wizją Europy!
+                  Zabierz swój głos!
+                </span>
+                <span>
+                  Dołącz do projektu wysyłając
+                  swój tekst/nagranie wideo lub
+                  audio na adres mailowy{" "}
+                  <a href="mailto:euroworkshop.contact@gmail.com">
+                    euroworkshop.contact@gmail.com
+                  </a>
+                </span>
+              </div>
+            </div>
           </Scroll>
         )}
 
@@ -261,12 +304,13 @@ export default function Experience() {
             luminanceThreshold={1}
             luminanceSmoothing={10}
           />
-
-          <Vignette
-            eskil={false}
-            offset={0.2}
-            darkness={1.1}
-          />
+          {vignette && (
+            <Vignette
+              eskil={false}
+              offset={0.5}
+              darkness={1.1}
+            />
+          )}
         </EffectComposer>
       )}
     </>

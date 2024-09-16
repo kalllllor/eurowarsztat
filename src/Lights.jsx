@@ -22,7 +22,7 @@ function MovingSpot({
       ref={light}
       penumbra={1}
       distance={21}
-      angle={0.6}
+      angle={0.3}
       attenuation={27}
       anglePower={16.5}
       intensity={intensity}

@@ -12,7 +12,41 @@ import Header from "./components/header/Header";
 import { Mail } from "./components/icons/Mail";
 import { Facebook } from "./components/icons/Faceboook";
 import { Instagram } from "./components/icons/Instagram";
+
 const App = () => {
+  const { camX, camY, camZ } = useControls({
+    camX: {
+      value: 0,
+      min: -3,
+      max: 3,
+      step: 0.01,
+    },
+    camY: {
+      value: 0,
+      min: -3,
+      max: 3,
+      step: 0.01,
+    },
+    camZ: {
+      value: 3,
+      min: -3,
+      max: 3,
+      step: 0.01,
+    },
+  });
+  const CameraController = ({
+    camX,
+    camY,
+    camZ,
+  }) => {
+    const { camera } = useThree();
+
+    useEffect(() => {
+      camera.position.set(camX, camY, camZ);
+    }, [camX, camY, camZ, camera]);
+
+    return null;
+  };
   return (
     <div className="app">
       <Suspense
@@ -28,19 +62,16 @@ const App = () => {
           gl={{ antialias: false }}
           camera={{
             fov: 75,
-            position: [0.0, 0, 3],
+            position: [camX, camY, camZ],
           }}
         >
+          <CameraController
+            camX={camX}
+            camY={camY}
+            camZ={camZ}
+          />
           <Experience />
         </Canvas>
-        <div className="header__creator">
-          <span>Marta Romankiv</span>
-        </div>
-        <div className="header__socials">
-          <Mail />
-          <Facebook />
-          <Instagram />
-        </div>
       </Suspense>
     </div>
   );
