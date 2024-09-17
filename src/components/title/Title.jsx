@@ -7,7 +7,7 @@ const Title = ({ fontSize }) => {
   const scrollRef = useRef(null);
 
   useFrame(() => {
-    if (scrollRef.current.position.y < 1.8) {
+    if (scrollRef.current.position.y < 1.5) {
       scrollRef.current.children[0].position.y =
         -scrollRef.current.position.y;
     }
@@ -37,11 +37,27 @@ const Title = ({ fontSize }) => {
           anchorY="center"
           position={[textPosX, 0, textPosZ]}
           fontSize={fontSize}
-          font="/BodoniModaSC.woff"
+          font="/BodoniModa_9pt-Regular.woff"
           receiveShadow
           castShadow
         >
-          EUROWARSZTAT
+          EURO
+        </Text>
+        <Text
+          color="white"
+          anchorX="center"
+          anchorY="center"
+          position={[
+            textPosX + 0.22,
+            -1.8,
+            textPosZ,
+          ]}
+          fontSize={fontSize}
+          font="/BodoniModa_9pt-SemiBoldItalic.woff"
+          receiveShadow
+          castShadow
+        >
+          warsztat
         </Text>
       </Scroll>
     </>

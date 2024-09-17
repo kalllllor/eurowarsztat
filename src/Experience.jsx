@@ -244,6 +244,30 @@ export default function Experience() {
             </Float>
           </group>
           <Credits />
+          <Text
+            color="#D4D8D8"
+            anchorX="center"
+            anchorY="center"
+            position={[0, -4 * height, 0]}
+            fontSize={0.3}
+            font="/BodoniModa_9pt-SemiBoldItalic.woff"
+            receiveShadow
+            castShadow
+          >
+            Podziel się swoją wizją
+          </Text>
+          <Text
+            color="#D4D8D8"
+            anchorX="center"
+            anchorY="center"
+            position={[0, -4.07 * height, 0]}
+            fontSize={0.3}
+            font="/BodoniModa_9pt-SemiBoldItalic.woff"
+            receiveShadow
+            castShadow
+          >
+            Europy! Zabierz swój głos!
+          </Text>
         </Scroll>
         <Title fontSize={fontSize} />
 
@@ -255,27 +279,6 @@ export default function Experience() {
                 color: textColor,
               }}
             />
-            <div
-              className="share__wrapper"
-              style={{
-                top: `${100 * 4.0}vh`,
-              }}
-            >
-              <div className="share__container">
-                <span>
-                  Podziel się swoją wizją Europy!
-                  Zabierz swój głos!
-                </span>
-                <span>
-                  Dołącz do projektu wysyłając
-                  swój tekst/nagranie wideo lub
-                  audio na adres mailowy{" "}
-                  <a href="mailto:euroworkshop.contact@gmail.com">
-                    euroworkshop.contact@gmail.com
-                  </a>
-                </span>
-              </div>
-            </div>
           </Scroll>
         )}
 

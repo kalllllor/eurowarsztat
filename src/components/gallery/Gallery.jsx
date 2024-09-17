@@ -81,14 +81,12 @@ function Image({
   );
 
   useFrame(() => {
-    // Calculate whether the image is inside the viewport
     const isInsideView = data.curve(
       -props.position[1] / pages,
       1 / pages,
       0.1
     );
 
-    // Set target color depending on hover state and isInsideView value
     const targetColor = hovered
       ? "white"
       : "#999";
@@ -98,9 +96,8 @@ function Image({
       0.1
     );
 
-    // Adjust opacity based on whether the image is inside the viewport
-    const targetOpacity = isInsideView; // 0.3 is the minimum opacity, 1 is fully visible
-    imageRef.current.material.transparent = true; // Ensure the material is transparent
+    const targetOpacity = isInsideView;
+    imageRef.current.material.transparent = true;
     imageRef.current.material.opacity =
       THREE.MathUtils.lerp(
         imageRef.current.material.opacity,
@@ -108,7 +105,6 @@ function Image({
         0.1
       );
 
-    // Smoothly update the position of the image based on whether it's clicked or not
     groupRef.current.position.lerp(
       isClicked
         ? new THREE.Vector3(
