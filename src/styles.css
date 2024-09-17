@@ -43,7 +43,7 @@ a {
 
 .header__creator {
   font-size: 24px;
-  color: white;
+  color: #a2d9ef;
   position: fixed;
   right: 128px;
   bottom: 64px;
@@ -100,6 +100,7 @@ a {
 }
 
 .desc__container p {
+  color: #a2d9ef;
   width: 60%;
   opacity: 1;
   font-size: 24px;
@@ -108,7 +109,7 @@ a {
 .desc__container span {
   opacity: 1;
   font-size: 32px;
-  color: white;
+  color: #a2d9ef;
 }
 
 @media (max-width: 1440px) and (min-width: 1025px) {
@@ -174,7 +175,7 @@ a {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  color: white;
+  color: #a2d9ef;
 }
 
 .info__content .exit {
@@ -244,11 +245,11 @@ a {
 .share__container span {
   opacity: 1;
   font-size: 48px;
-  color: white;
+  color: #a2d9ef;
 }
 
 .share__container a {
-  color: white;
+  color: #a2d9ef;
 }
 
 .share__container a:hover {
