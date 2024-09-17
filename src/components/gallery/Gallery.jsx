@@ -68,40 +68,65 @@ function Image({
   fullName,
   fontSize,
   isClicked,
+  pages,
   ...props
 }) {
   const imageRef = useRef();
   const groupRef = useRef();
   const [hovered, hover] = useState(false);
   const previousColor = useRef(new THREE.Color());
+  const data = useScroll();
+  const { height } = useThree(
+    (state) => state.viewport
+  );
 
   useFrame(() => {
+    // Calculate whether the image is inside the viewport
+    const isInsideView = data.curve(
+      -props.position[1] / pages,
+      1 / pages,
+      0.1
+    );
+
+    // Set target color depending on hover state and isInsideView value
     const targetColor = hovered
       ? "white"
       : "#999";
-
     previousColor.current.copy(c);
     imageRef.current.material.color.lerp(
       c.set(targetColor),
       0.1
     );
+
+    // Adjust opacity based on whether the image is inside the viewport
+    const targetOpacity = isInsideView; // 0.3 is the minimum opacity, 1 is fully visible
+    imageRef.current.material.transparent = true; // Ensure the material is transparent
+    imageRef.current.material.opacity =
+      THREE.MathUtils.lerp(
+        imageRef.current.material.opacity,
+        targetOpacity,
+        0.1
+      );
+
+    // Smoothly update the position of the image based on whether it's clicked or not
     groupRef.current.position.lerp(
       isClicked
         ? new THREE.Vector3(
             props.position[0]
               ? props.position[0] * 6
               : (props.position[0] + 1) * 6,
-            props.position[1] * 1.2,
+            props.position[1] * 1.2 * height,
             props.position[2]
           )
         : new THREE.Vector3(
             props.position[0],
-            props.position[1],
+            props.position[1] * height,
             props.position[2]
           ),
       0.2
     );
   });
+
   return (
     <group {...props} ref={groupRef}>
       <ImageImpl
@@ -127,10 +152,7 @@ function Image({
   );
 }
 
-function Images({ images, isSelected }) {
-  const { height } = useThree(
-    (state) => state.viewport
-  );
+function Images({ images, isSelected, pages }) {
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
@@ -237,7 +259,7 @@ function Images({ images, isSelected }) {
             key={index}
             position={[
               imageData.position[0],
-              imageData.position[1] * height,
+              imageData.position[1],
               imageData.position[2],
             ]}
             scale={imageData.scale}
@@ -248,6 +270,7 @@ function Images({ images, isSelected }) {
               handleClick(true);
               currentPerson.current = imageData;
             }}
+            pages={pages}
             isClicked={isActive}
           />
         ))}
@@ -256,10 +279,15 @@ function Images({ images, isSelected }) {
   );
 }
 
-const Gallery = ({ images, isSelected }) => {
+const Gallery = ({
+  images,
+  isSelected,
+  pages,
+}) => {
   return (
     <>
       <Images
+        pages={pages}
         images={images}
         isSelected={isSelected}
       />

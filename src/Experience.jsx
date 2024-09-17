@@ -35,6 +35,7 @@ import list from "./assets/data.json";
 import Lights from "./Lights";
 import Carousel from "./components/carousel/Carousel";
 import Credits from "./components/credits/Credits";
+import Title from "./components/title/Title";
 
 const images = [
   "/img1.jpg",
@@ -51,7 +52,7 @@ export default function Experience() {
   const { height } = useThree(
     (state) => state.viewport
   );
-  console.log(height);
+
   const {
     debug,
     enabledPostProcess,
@@ -163,7 +164,7 @@ export default function Experience() {
     textColor: "#fff",
   });
   const data = useRef(list.data);
-
+  const pages = 6;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -207,13 +208,14 @@ export default function Experience() {
         environmentRotation={[0, 0, 0]}
       />
 
-      <ScrollControls damping={0.5} pages={6}>
+      <ScrollControls damping={0.5} pages={pages}>
         <Scroll>
           <Gallery
             images={data.current}
             isSelected={(active) =>
               setActive(active)
             }
+            pages={pages}
           />
           <group
             position={[0, 0, 3]}
@@ -241,23 +243,10 @@ export default function Experience() {
               />
             </Float>
           </group>
-        </Scroll>
-        <Scroll>
-          <Text
-            color="white"
-            anchorX="center"
-            anchorY="center"
-            position={[0, 0, 0]}
-            fontSize={fontSize}
-            font="/BodoniModaSC.woff"
-            receiveShadow
-            castShadow
-          >
-            EUROWARSZTAT
-          </Text>
-
           <Credits />
         </Scroll>
+        <Title fontSize={fontSize} />
+
         {!isActive && (
           <Scroll html>
             <Description
