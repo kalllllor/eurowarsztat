@@ -75,7 +75,7 @@ a {
 .wrapper {
   width: 100vw;
   position: absolute;
-  top: 100vh;
+  top: 155vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,6 +100,7 @@ a {
 }
 
 .desc__container p {
+  text-align: left;
   color: #a2d9ef;
   width: 60%;
   opacity: 1;
@@ -115,7 +116,6 @@ a {
 @media (max-width: 1440px) and (min-width: 1025px) {
   .desc__container p {
     width: 50%;
-
     line-height: 1.5;
   }
 }
@@ -312,25 +312,26 @@ a {
 
 .bold {
   font-weight: 700;
-  width: 70% !important;
+  width: 80% !important;
 }
 
-.bold__subtext {
+.desc__container .bold__subtext {
   font-weight: 700;
   text-align: center;
-
-  font-size: 16px !important;
+  width: 100%;
 }
 
-.asterisk {
+.desc__container .asterisk {
   font-style: italic;
   text-align: center;
+  width: 100%;
   margin: 0;
   font-size: 16px !important;
 }
 
-.subtext {
+.desc__container .subtext {
   text-align: center;
+  width: 100%;
   margin: 0;
   font-size: 16px !important;
 }

@@ -7,9 +7,16 @@ const Title = ({ fontSize }) => {
   const scrollRef = useRef(null);
 
   useFrame(() => {
-    if (scrollRef.current.position.y < 1.5) {
+    if (scrollRef.current.position.y < 4) {
       scrollRef.current.children[0].position.y =
         -scrollRef.current.position.y;
+    }
+    if (
+      scrollRef.current.position.y > 2 &&
+      scrollRef.current.position.y < 4
+    ) {
+      scrollRef.current.children[1].position.y =
+        -scrollRef.current.position.y - 0.3;
     }
   });
 
@@ -49,7 +56,7 @@ const Title = ({ fontSize }) => {
           anchorY="center"
           position={[
             textPosX + 0.22,
-            -1.8,
+            -2.3,
             textPosZ,
           ]}
           fontSize={fontSize}

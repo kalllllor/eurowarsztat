@@ -14,20 +14,20 @@ export const useCurtainUniforms = (props) => {
     uColorB,
   } = useControls({
     uFoldFactor: {
-      value: 3.8,
+      value: 4.6,
       min: 1,
       max: 10,
       step: 0.01,
     },
     uBrightness: {
-      value: 1,
+      value: 1.09,
       min: 0,
       max: 3,
       step: 0.001,
     },
 
-    uColorA: { r: 0, b: 255, g: 19, a: 1 },
-    uColorB: { r: 1, b: 5, g: 30, a: 1 },
+    uColorA: { r: 144, b: 203, g: 245, a: 1 },
+    uColorB: { r: 0, b: 19, g: 3, a: 1 },
   });
 
   return useMemo(

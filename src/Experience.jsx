@@ -89,7 +89,7 @@ export default function Experience() {
       step: 0.01,
     },
     posZ: {
-      value: -1.2,
+      value: -2.7,
       min: -40,
       max: 40,
       step: 0.01,
@@ -101,13 +101,13 @@ export default function Experience() {
       step: 0.01,
     },
     crownY: {
-      value: -0.27,
+      value: -0.4,
       min: -3,
       max: 3,
       step: 0.01,
     },
     crownZ: {
-      value: -2.8,
+      value: -2.2,
       min: -4,
       max: 3,
       step: 0.01,
@@ -120,13 +120,13 @@ export default function Experience() {
     },
 
     scaleX: {
-      value: 13,
+      value: 17.9,
       min: -0,
       max: 20,
       step: 0.01,
     },
     scaleY: {
-      value: 10,
+      value: 18.8,
       min: 0,
       max: 20,
       step: 0.01,
@@ -144,13 +144,13 @@ export default function Experience() {
       step: 0.1,
     },
     floatIntensity: {
-      value: 0.5,
+      value: 0.7,
       min: 0,
       max: 3,
       step: 0.1,
     },
     floatingRange: {
-      value: [0, 0.2],
+      value: [0, 0.95],
       min: 0,
       max: 3,
       step: 0.1,
@@ -164,7 +164,7 @@ export default function Experience() {
     textColor: "#fff",
   });
   const data = useRef(list.data);
-  const pages = 6;
+  const pages = 8;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -248,7 +248,7 @@ export default function Experience() {
             color="#D4D8D8"
             anchorX="center"
             anchorY="center"
-            position={[0, -4 * height, 0]}
+            position={[0, -4.7 * height, 0]}
             fontSize={0.3}
             font="/BodoniModa_9pt-SemiBoldItalic.woff"
             receiveShadow
@@ -260,13 +260,27 @@ export default function Experience() {
             color="#D4D8D8"
             anchorX="center"
             anchorY="center"
-            position={[0, -4.07 * height, 0]}
+            position={[0, -4.77 * height, 0]}
             fontSize={0.3}
             font="/BodoniModa_9pt-SemiBoldItalic.woff"
             receiveShadow
             castShadow
           >
             Europy! Zabierz swój głos!
+          </Text>
+          <Text
+            color="#D4D8D8"
+            anchorX="center"
+            anchorY="center"
+            position={[0, -4.87 * height, 0]}
+            fontSize={0.1}
+            font="/d.woff"
+            receiveShadow
+            castShadow
+          >
+            Dołącz do projektu zgłaszając chęć
+            udziału na adres mailowy:
+            euroworkshop.contact@gmail.com
           </Text>
         </Scroll>
         <Title fontSize={fontSize} />
@@ -275,7 +289,6 @@ export default function Experience() {
           <Scroll html>
             <Description
               style={{
-                top: `${100}vh`,
                 color: textColor,
               }}
             />

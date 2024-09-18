@@ -138,7 +138,7 @@ function Image({
           anchorX="center"
           fontSize={fontSize}
           lineHeight={hovered ? 1 : 0}
-          font="/bebas-neue-v9-latin-regular.woff"
+          font="/BodoniModa_9pt-Regular.woff"
           position={[0, 0, 0.01]}
         >
           {fullName}
@@ -255,7 +255,7 @@ function Images({ images, isSelected, pages }) {
             key={index}
             position={[
               imageData.position[0],
-              imageData.position[1],
+              imageData.position[1] - 0.9,
               imageData.position[2],
             ]}
             scale={imageData.scale}

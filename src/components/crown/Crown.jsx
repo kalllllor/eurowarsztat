@@ -23,7 +23,7 @@ const Crown = (props) => {
   const matRef = useRef();
   const crownRef = useRef(); // Reference for the mesh/group
   const { crownColor } = useControls({
-    crownColor: "#ffcf40",
+    crownColor: "#d8ac27",
   });
 
   const { nodes } = useLoader(

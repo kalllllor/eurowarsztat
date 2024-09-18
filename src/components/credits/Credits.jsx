@@ -52,7 +52,7 @@ const Credits = () => {
   ];
 
   return (
-    <group position={[0, height * -4.5, 0]}>
+    <group position={[0, height * -6, 0]}>
       <Text
         color="white"
         fontSize={0.1}
