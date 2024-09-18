@@ -26,7 +26,7 @@ export const useCurtainUniforms = (props) => {
       step: 0.001,
     },
 
-    uColorA: { r: 144, b: 203, g: 245, a: 1 },
+    uColorA: { r: 0, b: 143, g: 9, a: 1 },
     uColorB: { r: 0, b: 19, g: 3, a: 1 },
   });
 
