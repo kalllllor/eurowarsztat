@@ -1,12 +1,66 @@
 import * as THREE from "three";
-import React, { useRef, useState } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import {
   useFrame,
   useThree,
 } from "@react-three/fiber";
-import { Image as ImageImpl } from "@react-three/drei";
+import {
+  Image as ImageImpl,
+  useVideoTexture,
+} from "@react-three/drei";
 
-const Carousel = ({ images }) => {
+const images = [
+  {
+    photo: "carousel/Marianna.jpg",
+    video: "carousel/Marianna.mp4",
+  },
+  {
+    photo: "carousel/Natalia.jpg",
+    video: "carousel/Natalia.mp4",
+  },
+  {
+    photo: "carousel/Olena.jpg",
+    video: "carousel/Olena.mp4",
+  },
+  {
+    photo: "carousel/1.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/2.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/3.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/4.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/5.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/6.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/7.jpg",
+    video: "",
+  },
+  {
+    photo: "carousel/8.jpg",
+    video: "",
+  },
+];
+
+const Carousel = () => {
   const { height } = useThree(
     (state) => state.viewport
   );
@@ -43,7 +97,6 @@ const Carousel = ({ images }) => {
         newPositionX,
         -totalWidth
       );
-
       newPositionX = Math.min(newPositionX, 0);
 
       setPositionX(newPositionX);
@@ -58,7 +111,7 @@ const Carousel = ({ images }) => {
 
   return (
     <group
-      position={[0, -7 * height, 0]}
+      position={[0, -8 * height, 0]}
       ref={groupRef}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -68,15 +121,92 @@ const Carousel = ({ images }) => {
       onTouchMove={handlePointerMove}
       onTouchEnd={handlePointerUp}
     >
-      {images.map((url, index) => (
-        <ImageImpl
+      {images.map((item, index) => (
+        <ImageOrVideo
           key={index}
-          url={url}
-          scale={[3, 3, 3]}
+          item={item}
           position={[index * 4, 0, 0]}
         />
       ))}
     </group>
+  );
+};
+
+const ImageOrVideo = ({ item, position }) => {
+  const [isVideoLoaded, setIsVideoLoaded] =
+    useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] =
+    useState(false);
+  const [isSoundOn, setIsSoundOn] =
+    useState(false);
+  const videoRef = useRef(null);
+
+  const videoTexture = item.video
+    ? useVideoTexture(item.video, {})
+    : null;
+  console.log(videoTexture);
+  useEffect(() => {
+    if (videoTexture && videoTexture.image) {
+      const videoElement = videoTexture.image;
+      const handleCanplaythrough = () => {
+        console.log(1);
+        setIsVideoLoaded(true);
+      };
+
+      videoElement.addEventListener(
+        "canplaythrough",
+        handleCanplaythrough
+      );
+
+      return () => {
+        videoElement.removeEventListener(
+          "canplaythrough",
+          handleCanplaythrough
+        );
+      };
+    }
+  }, [videoTexture]);
+
+  const handleClick = () => {
+    if (isVideoLoaded && videoRef.current) {
+      const videoElement = videoRef.current;
+
+      if (!isVideoPlaying) {
+        videoElement.play();
+        setIsVideoPlaying(true);
+      } else {
+        setIsSoundOn((prev) => !prev);
+        videoElement.muted = !isSoundOn;
+      }
+    }
+  };
+
+  return (
+    <>
+      {!isVideoLoaded && (
+        <ImageImpl
+          url={item.photo}
+          scale={[3, 3, 3]}
+          position={position}
+          onClick={handleClick}
+        />
+      )}
+      {isVideoLoaded && (
+        <mesh
+          position={position}
+          onClick={handleClick}
+        >
+          <planeGeometry
+            attach="geometry"
+            args={[3, 3]}
+          />
+          <meshStandardMaterial
+            attach="material"
+            map={videoTexture}
+          />
+        </mesh>
+      )}
+    </>
   );
 };
 

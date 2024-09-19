@@ -36,6 +36,7 @@ import Lights from "./Lights";
 import Carousel from "./components/carousel/Carousel";
 import Credits from "./components/credits/Credits";
 import Title from "./components/title/Title";
+import Share from "./components/share/Share";
 
 const images = [
   "/img1.jpg",
@@ -101,7 +102,7 @@ export default function Experience() {
       step: 0.01,
     },
     crownY: {
-      value: -0.23,
+      value: -0.08,
       min: -3,
       max: 3,
       step: 0.01,
@@ -113,7 +114,7 @@ export default function Experience() {
       step: 0.01,
     },
     crownScale: {
-      value: 2.02,
+      value: 2.17,
       min: 1,
       max: 3,
       step: 0.01,
@@ -164,7 +165,7 @@ export default function Experience() {
     textColor: "#fff",
   });
   const data = useRef(list.data);
-  const pages = 8;
+  const pages = 9;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -251,63 +252,25 @@ export default function Experience() {
               ]}
             />
           </group>
-
-          <Text
-            color="#D4D8D8"
-            anchorX="center"
-            anchorY="center"
-            position={[0, -4.7 * height, 0]}
-            fontSize={0.3}
-            font="/BodoniModa_9pt-SemiBoldItalic.woff"
-            receiveShadow
-            castShadow
-          >
-            Podziel się swoją wizją
-          </Text>
-          <Text
-            color="#D4D8D8"
-            anchorX="center"
-            anchorY="center"
-            position={[0, -4.77 * height, 0]}
-            fontSize={0.3}
-            font="/BodoniModa_9pt-SemiBoldItalic.woff"
-            receiveShadow
-            castShadow
-          >
-            Europy! Zabierz swój głos!
-          </Text>
-          <Text
-            color="#D4D8D8"
-            anchorX="center"
-            anchorY="center"
-            position={[0, -4.87 * height, 0]}
-            fontSize={0.1}
-            font="/d.woff"
-            receiveShadow
-            castShadow
-          >
-            Dołącz do projektu zgłaszając chęć
-            udziału na adres mailowy:
-            euroworkshop.contact@gmail.com
-          </Text>
         </Scroll>
+        <Share />
         <Title fontSize={fontSize} />
-
-        {!isActive && (
-          <Scroll html>
-            <Description
-              style={{
-                color: textColor,
-              }}
-            />
-            <Credits
-              style={{
-                color: textColor,
-              }}
-            />
-          </Scroll>
-        )}
-
+        <Scroll html>
+          {!isActive && (
+            <>
+              <Description
+                style={{
+                  color: textColor,
+                }}
+              />
+              <Credits
+                style={{
+                  color: textColor,
+                }}
+              />
+            </>
+          )}
+        </Scroll>
         <Scroll>
           <Carousel images={images} />
         </Scroll>

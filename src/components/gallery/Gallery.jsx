@@ -15,6 +15,7 @@ import {
   Text,
   Html,
   useTexture,
+  useVideoTexture,
   useScroll,
   SpotLight,
 } from "@react-three/drei";
@@ -22,12 +23,14 @@ import {
 function ProjectedImage({
   imageUrl = "",
   intensity = 0,
+  isActive,
   ...props
 }) {
   const spotLightRef = useRef();
 
-  const texture = useTexture(
-    imageUrl || "/assets/photos/blank.jpg"
+  const videoTexture = useVideoTexture(
+    "10.mp4",
+    {}
   );
 
   useFrame(() => {
@@ -47,16 +50,28 @@ function ProjectedImage({
     }
   });
 
+  useEffect(() => {
+    if (videoTexture && videoTexture.image) {
+      const videoElement = videoTexture.image;
+      if (isActive) {
+        videoElement.currentTime = 0;
+        videoElement.play();
+      } else {
+        videoElement.pause();
+      }
+    }
+  }, [isActive, videoTexture]);
+
   return (
     <SpotLight
       {...props}
       ref={spotLightRef}
-      angle={0.3}
+      angle={0.5}
       penumbra={1}
       intensity={0}
       distance={20}
       castShadow
-      map={texture}
+      map={videoTexture}
     />
   );
 }
@@ -135,6 +150,7 @@ function Image({
       {hovered &&
         fullName.split(" ").map((item, i) => (
           <Text
+            key={i}
             color="#D4D8D8"
             anchorX="center"
             fontSize={fontSize}
@@ -183,6 +199,7 @@ function Images({ images, isSelected, pages }) {
         imageUrl={
           isActive && currentPerson.current.url
         }
+        isActive={isActive}
       />
 
       <Html
@@ -244,7 +261,7 @@ function Images({ images, isSelected, pages }) {
             </p>
           </div>
           <div className="time">
-            <span>Bielsko-Biała</span>
+            <span>Bielsko-Biała </span>
             <span>14.08.2024</span>
           </div>
         </div>
