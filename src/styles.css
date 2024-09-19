@@ -50,7 +50,7 @@ a {
 
 .header__creator {
   font-size: 24px;
-  color: #a2d9ef;
+  color: #d4d8d8;
   position: fixed;
   right: 128px;
   bottom: 64px;
@@ -82,10 +82,14 @@ a {
 .wrapper {
   width: 100vw;
   position: absolute;
-  top: 155vh;
+  top: 200vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.credits__wrapper {
+  top: 600vh;
 }
 
 .container {
@@ -108,8 +112,8 @@ a {
 
 .desc__container p {
   text-align: left;
-  color: #a2d9ef;
-  width: 60%;
+  color: #d4d8d8;
+  width: 70%;
   opacity: 1;
   font-size: 1rem;
 }
@@ -117,7 +121,7 @@ a {
 .desc__container span {
   opacity: 1;
   font-size: 32px;
-  color: #a2d9ef;
+  color: #d4d8d8;
 }
 
 @media (max-width: 1440px) and (min-width: 1025px) {
@@ -125,11 +129,16 @@ a {
     width: 50%;
     line-height: 1.5;
   }
+
+  .desc__container {
+    margin: 0px 64px;
+  }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
   .desc__container {
     padding: 0 20px;
+    margin: 0px 32px;
   }
 
   .desc__container p {
@@ -142,6 +151,7 @@ a {
 @media (max-width: 768px) and (min-width: 481px) {
   .desc__container {
     padding: 0 15px;
+    margin: 0px 8px;
   }
 
   .desc__container p {
@@ -164,6 +174,20 @@ a {
   }
 }
 
+.credits__wrapper p {
+  text-align: center;
+  width: 100%;
+}
+
+.credits {
+  margin-top: 0px;
+}
+
+.credits__bold {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
 .info__container {
   position: fixed !important;
   width: 100vw;
@@ -182,7 +206,7 @@ a {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  color: #a2d9ef;
+  color: #d4d8d8;
 }
 
 .info__content .exit {
@@ -252,11 +276,11 @@ a {
 .share__container span {
   opacity: 1;
   font-size: 48px;
-  color: #a2d9ef;
+  color: #d4d8d8;
 }
 
 .share__container a {
-  color: #a2d9ef;
+  color: #d4d8d8;
 }
 
 .share__container a:hover {

@@ -132,18 +132,19 @@ function Image({
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       />
-      {hovered && (
-        <Text
-          color="white"
-          anchorX="center"
-          fontSize={fontSize}
-          lineHeight={hovered ? 1 : 0}
-          font="/BodoniModa_9pt-Regular.woff"
-          position={[0, 0, 0.01]}
-        >
-          {fullName}
-        </Text>
-      )}
+      {hovered &&
+        fullName.split(" ").map((item, i) => (
+          <Text
+            color="#D4D8D8"
+            anchorX="center"
+            fontSize={fontSize}
+            lineHeight={hovered ? 1 : 0}
+            font="/BodoniModa_9pt-Regular.woff"
+            position={[0, i * 0.2, 0.01]}
+          >
+            {item}
+          </Text>
+        ))}
     </group>
   );
 }
@@ -255,7 +256,7 @@ function Images({ images, isSelected, pages }) {
             key={index}
             position={[
               imageData.position[0],
-              imageData.position[1] - 0.9,
+              imageData.position[1] - 1.2,
               imageData.position[2],
             ]}
             scale={imageData.scale}

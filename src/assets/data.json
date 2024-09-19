@@ -3,7 +3,7 @@
     {
       "position": [-0.9, -1.2, 0.5],
       "scale": [1, 2, 2],
-      "fontSize": 0.12,
+      "fontSize": 0.15,
       "fullName": "Abdallah Razik Omar",
       "url": "/assets/photos/abdallahRazikOmar.jpg"
     },
@@ -36,7 +36,7 @@
       "url": "/assets/photos/nataliaHladysh.jpg"
     },
     {
-      "position": [1, -2.9, 0.2],
+      "position": [1, -2.9, 0.5],
       "scale": [1.5, 2.5, 1],
       "fontSize": 0.15,
       "fullName": "Ruslana Poberezhnyk",
@@ -45,7 +45,7 @@
     {
       "position": [-1.3, -3.2, 0.8],
       "scale": [1.5, 2.5, 2],
-      "fontSize": 0.2,
+      "fontSize": 0.15,
       "fullName": "Walid Boussad",
       "url": "/assets/photos/walidBoussad.jpg"
     }

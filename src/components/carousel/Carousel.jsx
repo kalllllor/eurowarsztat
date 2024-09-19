@@ -58,7 +58,7 @@ const Carousel = ({ images }) => {
 
   return (
     <group
-      position={[0, -6 * height, 0]}
+      position={[0, -7 * height, 0]}
       ref={groupRef}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

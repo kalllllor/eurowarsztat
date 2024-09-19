@@ -101,7 +101,7 @@ export default function Experience() {
       step: 0.01,
     },
     crownY: {
-      value: -0.4,
+      value: -0.23,
       min: -3,
       max: 3,
       step: 0.01,
@@ -113,7 +113,7 @@ export default function Experience() {
       step: 0.01,
     },
     crownScale: {
-      value: 1.62,
+      value: 2.02,
       min: 1,
       max: 3,
       step: 0.01,
@@ -156,7 +156,7 @@ export default function Experience() {
       step: 0.1,
     },
     fontSize: {
-      value: 0.4,
+      value: 0.55,
       min: 0,
       max: 1,
       step: 0.01,
@@ -221,7 +221,7 @@ export default function Experience() {
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
           >
-            <Float
+            {/* <Float
               speed={floatSpeed}
               rotationIntensity={
                 rotationIntensity
@@ -241,9 +241,17 @@ export default function Experience() {
                   crownScale,
                 ]}
               />
-            </Float>
+            </Float> */}
+            <Crown
+              position={[crownX, crownY, crownZ]}
+              scale={[
+                crownScale,
+                crownScale,
+                crownScale,
+              ]}
+            />
           </group>
-          <Credits />
+
           <Text
             color="#D4D8D8"
             anchorX="center"
@@ -288,6 +296,11 @@ export default function Experience() {
         {!isActive && (
           <Scroll html>
             <Description
+              style={{
+                color: textColor,
+              }}
+            />
+            <Credits
               style={{
                 color: textColor,
               }}

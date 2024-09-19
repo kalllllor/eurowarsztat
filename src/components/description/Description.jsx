@@ -3,16 +3,10 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 
 const Description = (props) => {
-  const ref = useRef();
-
   return (
     <div className="wrapper">
       <div className="container">
-        <div
-          className="desc__wrapper"
-          ref={ref}
-          {...props}
-        >
+        <div className="desc__wrapper" {...props}>
           <div className="desc__container">
             <p>
               Zainicjowany przez artystkę Martę
@@ -81,38 +75,6 @@ const Description = (props) => {
               przywracają sobie należne, równe
               miejsce w strukturze europejskiej
               politycznej wspólnoty.
-            </p>
-            <p className="bold__subtext">
-              Projekt jest częścią badań
-              doktorskich Marty Romankiv,
-              realizowanych na Akademii Sztuk
-              Pięknych w Gdańsku pod opieką profy.
-              ASP, dry hab. Moniki Zawadzkiej oraz
-              dry Honoraty Martin.
-            </p>
-            <p className="asterisk">
-              *polityczne obywatelstwo – związany
-              z państwem lub z politycznym
-              związkiem państw status, nadający
-              pełnię praw politycznych.
-            </p>
-            <p className="asterisk">
-              **Polityczna osoba nieobywatelska –
-              nieposiadająca obywatelstwa kraju
-              swojego zamieszkania, w związku czym
-              jest wykluczona z części lub pełni
-              praw politycznych. W zależności od
-              kraju swojego pochodzenia,
-              posiadanego obywatelstwa, jak i
-              polityki kraju zamieszkania
-              polityczni nieobywatele są
-              zróżnicowaną grupą pod względem
-              dostępu do politycznych praw.
-            </p>
-            <p className="subtext">
-              [terminy szaproponowane przez Martę
-              Romankiv w ramach jej rozprawy
-              doktorskiej]
             </p>
           </div>
         </div>
