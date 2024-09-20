@@ -129,32 +129,40 @@ a {
 }
 
 @media (max-width: 1440px) and (min-width: 1025px) {
-  .desc__container p {
-    width: 50%;
-    line-height: 1.5;
+  .container {
+    max-width: 1024px;
   }
-
   .desc__container {
-    margin: 0px 64px;
-  }
-}
-
-@media (max-width: 1024px) and (min-width: 769px) {
-  .desc__container {
-    padding: 0 20px;
     margin: 0px 32px;
   }
 
   .desc__container p {
-    width: 720px;
+    width: 74%;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .container {
+    max-width: 768px;
+  }
+  .desc__container p {
+    width: 100%;
+    line-height: 1.5;
+  }
+  .desc__container {
+    margin: 0px 16px;
+  }
+
+  .desc__container p {
+    width: 82%;
     font-size: 0.95rem;
     line-height: 1.4;
   }
 }
 
-@media (max-width: 768px) and (min-width: 481px) {
+@media (max-width: 768px) {
   .desc__container {
-    padding: 0 15px;
+    padding: 0 16px;
     margin: 0px 8px;
   }
 
@@ -378,6 +386,12 @@ a {
 .bold {
   font-weight: 700;
   width: 80% !important;
+}
+
+@media (max-width: 1024px) {
+  .bold {
+    width: 100% !important;
+  }
 }
 
 .desc__container .bold__subtext {
