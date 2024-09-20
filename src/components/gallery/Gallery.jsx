@@ -303,7 +303,7 @@ function Images({ images, isSelected, pages }) {
             key={index}
             position={[
               imageData.position[0],
-              imageData.position[1] - 1.2,
+              imageData.position[1] - 1.4,
               imageData.position[2],
             ]}
             scale={imageData.scale}
