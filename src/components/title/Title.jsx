@@ -10,7 +10,7 @@ const Title = ({ baseFontSize }) => {
   const scrollRef = useRef(null);
   const { viewport, size } = useThree();
   const fontSize =
-    (baseFontSize / size.height) * 1000;
+    (baseFontSize / size.height) * 900;
 
   useFrame(() => {
     if (scrollRef.current.position.y < 6.3) {

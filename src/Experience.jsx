@@ -222,27 +222,6 @@ export default function Experience() {
             position={[0, 0, 3]}
             rotation-x={-Math.PI * 0.05}
           >
-            {/* <Float
-              speed={floatSpeed}
-              rotationIntensity={
-                rotationIntensity
-              }
-              floatIntensity={floatIntensity}
-              floatingRange={floatingRange}
-            >
-              <Crown
-                position={[
-                  crownX,
-                  crownY,
-                  crownZ,
-                ]}
-                scale={[
-                  crownScale,
-                  crownScale,
-                  crownScale,
-                ]}
-              />
-            </Float> */}
             <Crown
               position={[crownX, crownY, crownZ]}
               scale={[

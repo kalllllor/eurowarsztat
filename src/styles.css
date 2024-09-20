@@ -245,7 +245,7 @@ a {
   font-weight: 400;
   font-style: normal;
   line-height: 1em;
-  margin-bottom: 18px;
+  margin-bottom: 0px;
 }
 
 .info__content .exit {
@@ -258,8 +258,62 @@ a {
 
 .info__content .description {
   width: 70%;
-  font-size: 24px;
+  font-size: 16px;
   text-align: justify;
+}
+
+.info__content .film {
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.film {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 8px;
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  width: max-content;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent
+    transparent;
+}
+
+.film:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info__content .film path:hover {
+  fill: white;
+}
+
+.info__content .description p {
+  margin: 0px;
 }
 
 .info__content .quote p {

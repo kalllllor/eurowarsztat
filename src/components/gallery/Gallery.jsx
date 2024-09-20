@@ -20,6 +20,7 @@ import {
   SpotLight,
 } from "@react-three/drei";
 import { useControls } from "leva";
+import { Film } from "../icons/Film";
 
 function ProjectedImage({
   imageUrl = "",
@@ -29,9 +30,8 @@ function ProjectedImage({
 }) {
   const spotLightRef = useRef();
 
-  const videoTexture = useVideoTexture(
-    "RuslanaBG.mp4",
-    {}
+  const texture = useTexture(
+    imageUrl || "/assets/photos/blank.jpg"
   );
 
   useFrame(() => {
@@ -50,33 +50,6 @@ function ProjectedImage({
       }
     }
   });
-  const scale = 2;
-  useEffect(() => {
-    if (videoTexture && videoTexture.image) {
-      const videoElement = videoTexture.image;
-
-      const handleCanPlayThrough = () => {
-        if (isActive) {
-          videoElement.currentTime = 0;
-          videoElement.play();
-        } else {
-          videoElement.pause();
-        }
-      };
-
-      videoElement.addEventListener(
-        "canplaythrough",
-        handleCanPlayThrough
-      );
-
-      return () => {
-        videoElement.removeEventListener(
-          "canplaythrough",
-          handleCanPlayThrough
-        );
-      };
-    }
-  }, [isActive, videoTexture]);
 
   return (
     <SpotLight
@@ -87,7 +60,7 @@ function ProjectedImage({
       intensity={0}
       distance={20}
       castShadow
-      map={videoTexture}
+      map={texture}
     />
   );
 }
@@ -293,6 +266,12 @@ function Images({ images, isSelected, pages }) {
           <div className="time">
             <span>Bielsko-Biała </span>
             <span>14.08.2024</span>
+          </div>
+          <div className="film">
+            <Film />
+            <span className="tooltip">
+              Click to open the video
+            </span>
           </div>
         </div>
       </Html>

@@ -92,15 +92,14 @@ const Crown = (props) => {
       >
         <meshPhysicalMaterial
           ref={matRef}
-          displacementScale={0.1}
           color={crownColor}
           map={colorMap}
           aoMap={aoMap}
           normalMap={norMap}
           roughnessMap={roughMap}
           metalnessMap={metalMap}
-          roughness={0.1}
-          metalness={0.8}
+          roughness={1}
+          metalness={0.95}
         />
       </mesh>
     </group>
