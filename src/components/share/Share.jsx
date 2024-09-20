@@ -14,13 +14,21 @@ const Share = ({ fontSize }) => {
   useFrame(() => {
     if (
       scrollRef.current.position.y > 23.45 &&
-      scrollRef.current.position.y < 27.6
+      scrollRef.current.position.y < 30
     ) {
       scrollRef.current.children[0].children[0].position.y =
         -scrollRef.current.position.y + 23.45;
 
       scrollRef.current.children[0].children[1].position.y =
         -scrollRef.current.position.y + 23.1;
+    }
+
+    if (
+      scrollRef.current.position.y > 27.6 &&
+      scrollRef.current.position.y < 30
+    ) {
+      scrollRef.current.children[0].children[2].position.y =
+        -scrollRef.current.position.y + 22.6;
     }
   });
 

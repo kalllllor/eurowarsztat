@@ -89,7 +89,7 @@ a {
 }
 
 .credits__wrapper {
-  top: 700vh;
+  top: 750vh;
 }
 
 .credits__wrapper .container {
@@ -138,6 +138,10 @@ a {
 
   .desc__container p {
     width: 74%;
+  }
+
+  .credits__wrapper .container {
+    max-width: 600px;
   }
 }
 
@@ -197,7 +201,8 @@ a {
 
 .credits__bold {
   font-weight: 700;
-  margin-bottom: 8px;
+
+  margin-bottom: 0px;
 }
 
 .info__container {

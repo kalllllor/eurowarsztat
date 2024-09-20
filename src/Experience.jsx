@@ -165,7 +165,7 @@ export default function Experience() {
     textColor: "#fff",
   });
   const data = useRef(list.data);
-  const pages = 9;
+  const pages = 10;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 

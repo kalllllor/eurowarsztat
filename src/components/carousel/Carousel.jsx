@@ -111,7 +111,7 @@ const Carousel = () => {
 
   return (
     <group
-      position={[0, -8 * height, 0]}
+      position={[0, -8.5 * height, 0]}
       ref={groupRef}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -125,7 +125,7 @@ const Carousel = () => {
         <ImageOrVideo
           key={index}
           item={item}
-          position={[index * 4, 0, 0]}
+          position={[index * 2.5, 0, 0]}
         />
       ))}
     </group>
@@ -144,7 +144,7 @@ const ImageOrVideo = ({ item, position }) => {
   const videoTexture = item.video
     ? useVideoTexture(item.video, {})
     : null;
-  console.log(videoTexture);
+
   useEffect(() => {
     if (videoTexture && videoTexture.image) {
       const videoElement = videoTexture.image;
@@ -181,12 +181,15 @@ const ImageOrVideo = ({ item, position }) => {
     }
   };
 
+  const size = 2;
+
   return (
     <>
       {!isVideoLoaded && (
         <ImageImpl
+          castShadow
           url={item.photo}
-          scale={[3, 3, 3]}
+          scale={[size, size * 1.3333, 3]}
           position={position}
           onClick={handleClick}
         />
@@ -194,11 +197,12 @@ const ImageOrVideo = ({ item, position }) => {
       {isVideoLoaded && (
         <mesh
           position={position}
+          castShadow
           onClick={handleClick}
         >
           <planeGeometry
             attach="geometry"
-            args={[3, 3]}
+            args={[size, size * 1.3333]}
           />
           <meshStandardMaterial
             attach="material"
