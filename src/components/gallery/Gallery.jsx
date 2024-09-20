@@ -157,7 +157,7 @@ function Image({
 function Images({ images, isSelected, pages }) {
   const { y, z } = useControls({
     y: {
-      value: -11.7,
+      value: -16.7,
       min: -30,
       max: 30,
       step: 0.1,
@@ -211,68 +211,73 @@ function Images({ images, isSelected, pages }) {
         as="div"
         wrapperClass="info__container"
       >
-        <div
-          className="info__content"
-          onClick={() => {
-            handleClick(false);
-            currentPerson.current = null;
-          }}
-        >
-          <span className="exit">
-            click anywhere to exit
-          </span>
-          <div className="title">
-            <h1>
-              {isActive &&
-                currentPerson.current.fullName}
-            </h1>
-          </div>
-          <div className="description">
-            <p>
-              Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit.
-              Phasellus sit amet quam hendrerit,
-              sollicitudin orci eget, imperdiet
-              augue. Praesent in justo quis nunc
-              dictum aliquam et ut turpis. In
-              volutpat lectus eu leo commodo
-              blandit. Quisque sit amet massa sit
-              amet est pellentesque hendrerit.
-              Donec sed orci semper, facilisis dui
-              eu, aliquam eros. Maecenas sapien
-              dui, maximus nec est eu, egestas
-              imperdiet orci. Pellentesque ipsum
-              diam, eleifend vel vestibulum ac,
-              malesuada in diam. Donec condimentum
-              condimentum auctor. Ut nec mattis
-              diam, ut faucibus augue. Cras et
-              aliquet diam. Nam placerat sapien
-              sit amet luctus varius. Mauris quam
-              est, euismod vel neque in, porta
-              aliquam tellus. Class aptent taciti
-              sociosqu ad litora torquent per
-              conubia nostra, per inceptos
-              himenaeos.
-            </p>
-          </div>
-          <div className="quote">
-            <p>
-              "usce nec gravida neque. Nulla
-              interdum, nibh at pellentesque
-              mollis, dui turpis ullamcorper eros,
-              nec facilisis lacus erat ut
-              mauris.""
-            </p>
-          </div>
-          <div className="time">
-            <span>Bielsko-Biała </span>
-            <span>14.08.2024</span>
-          </div>
-          <div className="film">
-            <Film />
-            <span className="tooltip">
-              Click to open the video
+        <div className="info__wrapper">
+          <div
+            className="info__content"
+            onClick={() => {
+              handleClick(false);
+              currentPerson.current = null;
+            }}
+          >
+            <span className="exit">
+              click anywhere to exit
             </span>
+            <div className="title">
+              <h1>
+                {isActive &&
+                  currentPerson.current.fullName}
+              </h1>
+            </div>
+            <div className="description">
+              <p>
+                Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+                Phasellus sit amet quam hendrerit,
+                sollicitudin orci eget, imperdiet
+                augue. Praesent in justo quis nunc
+                dictum aliquam et ut turpis. In
+                volutpat lectus eu leo commodo
+                blandit. Quisque sit amet massa
+                sit amet est pellentesque
+                hendrerit. Donec sed orci semper,
+                facilisis dui eu, aliquam eros.
+                Maecenas sapien dui, maximus nec
+                est eu, egestas imperdiet orci.
+                Pellentesque ipsum diam, eleifend
+                vel vestibulum ac, malesuada in
+                diam. Donec condimentum
+                condimentum auctor. Ut nec mattis
+                diam, ut faucibus augue. Cras et
+                aliquet diam. Nam placerat sapien
+                sit amet luctus varius. Mauris
+                quam est, euismod vel neque in,
+                porta aliquam tellus. Class aptent
+                taciti sociosqu ad litora torquent
+                per conubia nostra, per inceptos
+                himenaeos.
+              </p>
+            </div>
+            <div className="quote">
+              <p>
+                "usce nec gravida neque. Nulla
+                interdum, nibh at pellentesque
+                mollis, dui turpis ullamcorper
+                eros, nec facilisis lacus erat ut
+                mauris.""
+              </p>
+            </div>
+            <div className="time">
+              <span>Bielsko-Biała </span>
+              <span>14.08.2024</span>
+            </div>
+          </div>
+          <div className="icons__container">
+            <div className="film">
+              <Film />
+              <span className="tooltip">
+                Click to open the video
+              </span>
+            </div>
           </div>
         </div>
       </Html>
