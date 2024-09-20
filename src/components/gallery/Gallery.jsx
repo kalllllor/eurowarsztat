@@ -169,6 +169,7 @@ function Images({ images, isSelected, pages }) {
       step: 0.1,
     },
   });
+  const { size } = useThree();
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
