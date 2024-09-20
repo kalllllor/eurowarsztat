@@ -11,14 +11,15 @@ const Title = ({ baseFontSize }) => {
   const { viewport, size } = useThree();
   const fontSize =
     (baseFontSize / size.height) * 1000;
-  console.log(viewport);
+
   useFrame(() => {
     if (scrollRef.current.position.y < 6.3) {
       scrollRef.current.children[0].position.y =
         -scrollRef.current.position.y + 0.5;
     }
     if (
-      scrollRef.current.position.y > 2.5 &&
+      scrollRef.current.position.y >
+        (2.5 * 1000) / size.height &&
       scrollRef.current.position.y < 6.3
     ) {
       scrollRef.current.children[1].position.y =
@@ -60,7 +61,11 @@ const Title = ({ baseFontSize }) => {
           color="white"
           anchorX="center"
           anchorY="center"
-          position={[textPosX, -2.5, textPosZ]}
+          position={[
+            textPosX,
+            (-2.5 * 1000) / size.height,
+            textPosZ,
+          ]}
           fontSize={fontSize * 0.8}
           font="/BodoniModa_18pt-SemiBoldItalic.woff"
           receiveShadow

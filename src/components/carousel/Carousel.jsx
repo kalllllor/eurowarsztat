@@ -149,7 +149,6 @@ const ImageOrVideo = ({ item, position }) => {
     if (videoTexture && videoTexture.image) {
       const videoElement = videoTexture.image;
       const handleCanplaythrough = () => {
-        console.log(1);
         setIsVideoLoaded(true);
       };
 

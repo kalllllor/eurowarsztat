@@ -19,6 +19,7 @@ import {
   useScroll,
   SpotLight,
 } from "@react-three/drei";
+import { useControls } from "leva";
 
 function ProjectedImage({
   imageUrl = "",
@@ -29,7 +30,7 @@ function ProjectedImage({
   const spotLightRef = useRef();
 
   const videoTexture = useVideoTexture(
-    "10.mp4",
+    "RuslanaBG.mp4",
     {}
   );
 
@@ -49,16 +50,31 @@ function ProjectedImage({
       }
     }
   });
-
+  const scale = 2;
   useEffect(() => {
     if (videoTexture && videoTexture.image) {
       const videoElement = videoTexture.image;
-      if (isActive) {
-        videoElement.currentTime = 0;
-        videoElement.play();
-      } else {
-        videoElement.pause();
-      }
+
+      const handleCanPlayThrough = () => {
+        if (isActive) {
+          videoElement.currentTime = 0;
+          videoElement.play();
+        } else {
+          videoElement.pause();
+        }
+      };
+
+      videoElement.addEventListener(
+        "canplaythrough",
+        handleCanPlayThrough
+      );
+
+      return () => {
+        videoElement.removeEventListener(
+          "canplaythrough",
+          handleCanPlayThrough
+        );
+      };
     }
   }, [isActive, videoTexture]);
 
@@ -166,6 +182,20 @@ function Image({
 }
 
 function Images({ images, isSelected, pages }) {
+  const { y, z } = useControls({
+    y: {
+      value: -11.7,
+      min: -30,
+      max: 30,
+      step: 0.1,
+    },
+    z: {
+      value: 4.3,
+      min: -30,
+      max: 30,
+      step: 0.1,
+    },
+  });
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
@@ -194,7 +224,7 @@ function Images({ images, isSelected, pages }) {
   return (
     <>
       <ProjectedImage
-        position={[0, -10, 10]}
+        position={[0, y, z]}
         intensity={isActive ? 10000 : 0}
         imageUrl={
           isActive && currentPerson.current.url

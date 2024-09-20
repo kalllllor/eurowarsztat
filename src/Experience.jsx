@@ -254,7 +254,9 @@ export default function Experience() {
           </group>
         </Scroll>
         <Share />
-        <Title baseFontSize={fontSize} />
+        {!isActive && (
+          <Title baseFontSize={fontSize} />
+        )}
         <Scroll html>
           {!isActive && (
             <>
