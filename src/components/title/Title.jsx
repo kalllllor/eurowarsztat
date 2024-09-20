@@ -1,11 +1,17 @@
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import {
+  useFrame,
+  useThree,
+} from "@react-three/fiber";
 import { Scroll, Text } from "@react-three/drei";
 import { useControls } from "leva";
 
-const Title = ({ fontSize }) => {
+const Title = ({ baseFontSize }) => {
   const scrollRef = useRef(null);
-
+  const { viewport, size } = useThree();
+  const fontSize =
+    (baseFontSize / size.height) * 1000;
+  console.log(viewport);
   useFrame(() => {
     if (scrollRef.current.position.y < 6.3) {
       scrollRef.current.children[0].position.y =
