@@ -8,10 +8,6 @@ import {
 } from "@react-three/fiber";
 import Experience from "./Experience";
 import { useControls } from "leva";
-import Header from "./components/header/Header";
-import { Mail } from "./components/icons/Mail";
-import { Facebook } from "./components/icons/Faceboook";
-import { Instagram } from "./components/icons/Instagram";
 
 const App = () => {
   const { camX, camY, camZ } = useControls({

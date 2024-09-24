@@ -170,7 +170,7 @@ export default function Experience() {
   const easeFactor = 0.1;
 
   const [isActive, setActive] = useState(false);
-
+  const [isScroll, setScroll] = useState(true);
   const targetRotation = useRef(
     new THREE.Vector3()
   );
@@ -209,7 +209,11 @@ export default function Experience() {
         environmentRotation={[0, 0, 0]}
       />
 
-      <ScrollControls damping={0.5} pages={pages}>
+      <ScrollControls
+        damping={0.5}
+        pages={pages}
+        enabled={isScroll}
+      >
         <Scroll>
           <Gallery
             images={data.current}
@@ -253,7 +257,12 @@ export default function Experience() {
           )}
         </Scroll>
         <Scroll>
-          <Carousel images={images} />
+          <Carousel
+            images={images}
+            enableScroll={(enable) =>
+              setScroll(enable)
+            }
+          />
         </Scroll>
       </ScrollControls>
 

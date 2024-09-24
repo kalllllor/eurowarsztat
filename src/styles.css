@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+button {
+  border: none;
+  background: none;
+  color: #d4d8d8;
+  font-family: "agenda-one", sans-serif;
+}
+
 html {
   font-size: 100%;
 
@@ -224,6 +231,35 @@ a {
   height: 100vh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
   display: none;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.carousel__container > div {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel__container button {
+  font-size: 24px;
+  position: absolute;
+  padding: 10px;
+  top: 30px;
+  right: 50%;
+  transform: translateX(50%);
+  cursor: pointer;
+}
+
+.carousel__container button:last-child {
+  top: 60px;
+}
+
+.carousel__container {
+  position: fixed !important;
+  width: 100vw;
+  height: 100vh;
+  transform: translate3d(0px, 0px, 0px) scale(1) !important;
+
   max-width: 100%;
   margin: 0 auto;
 }

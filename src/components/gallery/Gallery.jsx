@@ -157,13 +157,13 @@ function Image({
 function Images({ images, isSelected, pages }) {
   const { y, z } = useControls({
     y: {
-      value: -16.7,
+      value: -14.9,
       min: -30,
       max: 30,
       step: 0.1,
     },
     z: {
-      value: 4.3,
+      value: 3.7,
       min: -30,
       max: 30,
       step: 0.1,

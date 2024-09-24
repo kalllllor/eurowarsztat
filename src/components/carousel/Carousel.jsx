@@ -3,14 +3,19 @@ import React, {
   useRef,
   useState,
   useEffect,
+  Suspense,
 } from "react";
 import {
   useFrame,
   useThree,
 } from "@react-three/fiber";
 import {
+  Html,
   Image as ImageImpl,
+  useAspect,
   useVideoTexture,
+  useTexture,
+  Billboard,
 } from "@react-three/drei";
 
 const images = [
@@ -60,7 +65,7 @@ const images = [
   },
 ];
 
-const Carousel = () => {
+const Carousel = ({ enableScroll }) => {
   const { height } = useThree(
     (state) => state.viewport
   );
@@ -69,26 +74,34 @@ const Carousel = () => {
   const [isDragging, setIsDragging] =
     useState(false);
   const [lastX, setLastX] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] =
+    useState(false);
+  const [activeIndex, setActiveIndex] =
+    useState(null);
 
   const totalWidth = (images.length - 1) * 4;
 
   useFrame(() => {
-    groupRef.current.position.x =
-      THREE.MathUtils.lerp(
-        groupRef.current.position.x,
-        positionX,
-        0.1
-      );
+    if (!isVideoPlaying) {
+      groupRef.current.position.x =
+        THREE.MathUtils.lerp(
+          groupRef.current.position.x,
+          positionX,
+          0.1
+        );
+    }
   });
 
   const handlePointerDown = (e) => {
-    setIsDragging(true);
-    setLastX(e.clientX);
-    e.target.setPointerCapture(e.pointerId);
+    if (!isVideoPlaying) {
+      setIsDragging(true);
+      setLastX(e.clientX);
+      e.target.setPointerCapture(e.pointerId);
+    }
   };
 
   const handlePointerMove = (e) => {
-    if (isDragging) {
+    if (isDragging && !isVideoPlaying) {
       const deltaX = e.clientX - lastX;
       let newPositionX =
         positionX + deltaX * 0.01;
@@ -109,6 +122,18 @@ const Carousel = () => {
     e.target.releasePointerCapture(e.pointerId);
   };
 
+  const handleClick = (index) => {
+    setActiveIndex(index);
+    setIsVideoPlaying(true);
+    enableScroll(false);
+  };
+
+  const handleClose = () => {
+    setIsVideoPlaying(false);
+    setActiveIndex(null);
+    enableScroll(true);
+  };
+
   return (
     <group
       position={[0, -8.5 * height, 0]}
@@ -124,93 +149,126 @@ const Carousel = () => {
       {images.map((item, index) => (
         <ImageOrVideo
           key={index}
+          index={index}
           item={item}
           position={[index * 2.5, 0, 0]}
+          isVideoPlaying={isVideoPlaying}
+          activeIndex={activeIndex}
+          handleClickCallback={handleClick}
+          handleCloseCallback={handleClose}
         />
       ))}
     </group>
   );
 };
 
-const ImageOrVideo = ({ item, position }) => {
-  const [isVideoLoaded, setIsVideoLoaded] =
-    useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] =
-    useState(false);
-  const [isSoundOn, setIsSoundOn] =
-    useState(false);
-  const videoRef = useRef(null);
+const ImageOrVideo = ({
+  item,
+  position,
+  index,
+  isVideoPlaying,
+  activeIndex,
+  handleClickCallback,
+  handleCloseCallback,
+}) => {
+  const [isMuted, setIsMuted] = useState(false);
 
-  const videoTexture = item.video
-    ? useVideoTexture(item.video, {})
-    : null;
+  const size = useAspect(1080, 1920).map(
+    (item) => item / 4
+  );
 
-  useEffect(() => {
-    if (videoTexture && videoTexture.image) {
-      const videoElement = videoTexture.image;
-      const handleCanplaythrough = () => {
-        setIsVideoLoaded(true);
-      };
-
-      videoElement.addEventListener(
-        "canplaythrough",
-        handleCanplaythrough
-      );
-
-      return () => {
-        videoElement.removeEventListener(
-          "canplaythrough",
-          handleCanplaythrough
-        );
-      };
-    }
-  }, [videoTexture]);
+  const handleMuteToggle = () => {
+    setIsMuted(!isMuted);
+  };
 
   const handleClick = () => {
-    if (isVideoLoaded && videoRef.current) {
-      const videoElement = videoRef.current;
-
-      if (!isVideoPlaying) {
-        videoElement.play();
-        setIsVideoPlaying(true);
-      } else {
-        setIsSoundOn((prev) => !prev);
-        videoElement.muted = !isSoundOn;
-      }
+    if (item.video) {
+      handleClickCallback(index);
     }
   };
 
-  const size = 2;
-
   return (
     <>
-      {!isVideoLoaded && (
+      {!isVideoPlaying && (
         <ImageImpl
           castShadow
           url={item.photo}
-          scale={[size, size * 1.3333, 3]}
+          scale={size}
           position={position}
           onClick={handleClick}
         />
       )}
-      {isVideoLoaded && (
-        <mesh
-          position={position}
-          castShadow
-          onClick={handleClick}
-        >
-          <planeGeometry
-            attach="geometry"
-            args={[size, size * 1.3333]}
-          />
-          <meshStandardMaterial
-            attach="material"
-            map={videoTexture}
-          />
-        </mesh>
-      )}
+      {isVideoPlaying &&
+        activeIndex === index && (
+          <Billboard follow={true}>
+            <mesh scale={size}>
+              <planeGeometry />
+              <Suspense
+                fallback={
+                  <FallbackMaterial
+                    url={item.photo}
+                  />
+                }
+              >
+                <VideoMaterial
+                  url={item.video}
+                  isMuted={isMuted}
+                />
+              </Suspense>
+            </mesh>
+
+            <Html
+              as="div"
+              wrapperClass="carousel__container"
+            >
+              <button
+                onClick={handleCloseCallback}
+              >
+                X
+              </button>
+              <button onClick={handleMuteToggle}>
+                {isMuted ? "Unmute" : "Mute"}
+              </button>
+            </Html>
+          </Billboard>
+        )}
     </>
   );
 };
+
+function VideoMaterial({ url, isMuted }) {
+  const texture = useVideoTexture(url, {
+    muted: isMuted,
+  });
+  useEffect(() => {
+    if (texture.image) {
+      texture.image.muted = isMuted;
+    }
+  }, [isMuted, texture.image]);
+
+  useEffect(() => {
+    return () => (
+      (texture.image.muted = true),
+      (texture.image.currentTime = 0)
+    );
+  }, []);
+
+  return (
+    <meshBasicMaterial
+      map={texture}
+      toneMapped={false}
+    />
+  );
+}
+
+function FallbackMaterial({ url }) {
+  const texture = useTexture(url);
+  return (
+    <meshBasicMaterial
+      map={texture}
+      toneMapped={false}
+    />
+  );
+}
 
 export default Carousel;
