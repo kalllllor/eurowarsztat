@@ -1,21 +1,22 @@
 import { useEffect, useRef } from "react";
-import { useThree } from "@react-three/fiber";
+import {
+  useFrame,
+  useThree,
+} from "@react-three/fiber";
 import { SpotLight } from "@react-three/drei";
 import * as THREE from "three";
 import { useControls } from "leva";
 
-function MovingSpot({
-  vec = new THREE.Vector3(),
-  intensity,
-  ...props
-}) {
+function MovingSpot({ intensity, ...props }) {
   const light = useRef();
-  useEffect(() => {
-    light.current.target.lookAt(
-      new THREE.Vector3(0, 0, 10)
-    );
-  }, []);
-
+  useFrame(() => {
+    light.current.intensity =
+      THREE.MathUtils.lerp(
+        light.current.intensity,
+        intensity,
+        0.1
+      );
+  });
   return (
     <SpotLight
       castShadow
@@ -25,7 +26,7 @@ function MovingSpot({
       angle={0.3}
       attenuation={27}
       anglePower={16.5}
-      intensity={intensity}
+      intensity={1000}
       decay={2}
       {...props}
     />
@@ -36,7 +37,7 @@ export default function Lights({ intensity }) {
   return (
     <group position={[0, 0, 10]}>
       <MovingSpot
-        color="#fff"
+        color="red"
         intensity={intensity}
         position={[-2, 2, 1]}
       />

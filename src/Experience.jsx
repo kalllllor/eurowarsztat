@@ -191,6 +191,12 @@ export default function Experience() {
         (targetRotation.current.y -
           scene.environmentRotation.y) *
         easeFactor;
+
+      const targetIntensity = isScroll ? 0.5 : 0;
+      scene.environmentIntensity +=
+        (targetIntensity -
+          scene.environmentIntensity) *
+        easeFactor;
     }
   });
 
@@ -202,7 +208,11 @@ export default function Experience() {
         args={["#000"]}
       />
       {/* <OrbitControls makeDefault /> */}
-      <Lights intensity={isActive ? 10 : 1000} />
+      <Lights
+        intensity={
+          isActive || !isScroll ? 0 : 1000
+        }
+      />
       <Environment
         files="/studio.jpg"
         environmentIntensity={vignette ? 2 : 0.5}
