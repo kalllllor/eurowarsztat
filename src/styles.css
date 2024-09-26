@@ -96,7 +96,7 @@ a {
 }
 
 .credits__wrapper {
-  top: 750vh;
+  top: 800vh;
 }
 
 .credits__wrapper .container {
@@ -289,7 +289,7 @@ a {
   font-weight: 400;
   font-style: normal;
   line-height: 1em;
-  margin-bottom: 0px;
+  margin-bottom: 16px;
 }
 
 .info__content .exit {
@@ -414,7 +414,7 @@ a {
 }
 
 .info__content h1 {
-  font-size: 64px;
+  font-size: 72px;
 }
 
 .active {

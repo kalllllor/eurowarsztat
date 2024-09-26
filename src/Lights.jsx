@@ -37,7 +37,7 @@ export default function Lights({ intensity }) {
   return (
     <group position={[0, 0, 10]}>
       <MovingSpot
-        color="red"
+        color="#fff"
         intensity={intensity}
         position={[-2, 2, 1]}
       />

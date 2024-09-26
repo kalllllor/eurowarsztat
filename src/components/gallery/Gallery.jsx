@@ -22,50 +22,6 @@ import {
 import { useControls } from "leva";
 import { Film } from "../icons/Film";
 
-function ProjectedImage({
-  imageUrl = "",
-  intensity = 0,
-  isActive,
-  ...props
-}) {
-  const spotLightRef = useRef();
-  const data = useScroll();
-
-  const texture = useTexture(
-    imageUrl || "/assets/photos/blank.jpg"
-  );
-
-  useFrame(() => {
-    if (spotLightRef.current) {
-      const currentIntensity =
-        spotLightRef.current.intensity;
-      const targetIntensity = intensity;
-      const lerpedIntensity =
-        currentIntensity +
-        (targetIntensity - currentIntensity) *
-          0.1;
-      spotLightRef.current.intensity =
-        lerpedIntensity;
-      if (lerpedIntensity < 1) {
-        spotLightRef.current.intensity = 0;
-      }
-    }
-  });
-
-  return (
-    <SpotLight
-      {...props}
-      ref={spotLightRef}
-      angle={0.5}
-      penumbra={1}
-      intensity={0}
-      distance={0}
-      castShadow
-      map={texture}
-    />
-  );
-}
-
 function Image({
   c = new THREE.Color(),
   url,
@@ -156,27 +112,12 @@ function Image({
 }
 
 function Images({ images, isSelected, pages }) {
-  const { y, z } = useControls({
-    y: {
-      value: -14.9,
-      min: -30,
-      max: 30,
-      step: 0.1,
-    },
-    z: {
-      value: 3.7,
-      min: -30,
-      max: 30,
-      step: 0.1,
-    },
-  });
-  const { size } = useThree();
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
 
-  const handleClick = (active) => {
-    isSelected(active);
+  const handleClick = (active, imageData) => {
+    isSelected(imageData);
     setActive(active);
     if (active) {
       ref.current.parentElement.classList.add(
@@ -198,15 +139,6 @@ function Images({ images, isSelected, pages }) {
   };
   return (
     <>
-      <ProjectedImage
-        position={[0, y, z]}
-        intensity={isActive ? 10000 : 0}
-        imageUrl={
-          isActive && currentPerson.current.url
-        }
-        isActive={isActive}
-      />
-
       <Html
         ref={ref}
         as="div"
@@ -216,7 +148,7 @@ function Images({ images, isSelected, pages }) {
           <div
             className="info__content"
             onClick={() => {
-              handleClick(false);
+              handleClick(false, null);
               currentPerson.current = null;
             }}
           >
@@ -289,7 +221,7 @@ function Images({ images, isSelected, pages }) {
             key={index}
             position={[
               imageData.position[0],
-              imageData.position[1] - 1.2,
+              imageData.position[1] - 1.5,
               imageData.position[2],
             ]}
             scale={imageData.scale}
@@ -297,7 +229,7 @@ function Images({ images, isSelected, pages }) {
             fullName={imageData.fullName}
             url={imageData.url}
             onClick={() => {
-              handleClick(true);
+              handleClick(true, imageData);
               currentPerson.current = imageData;
             }}
             pages={pages}

@@ -10,6 +10,8 @@ import {
   Float,
   useScroll,
   Html,
+  useTexture,
+  SpotLight,
 } from "@react-three/drei";
 import {
   Bloom,
@@ -73,6 +75,8 @@ export default function Experience() {
     floatingRange,
     fontSize,
     textColor,
+    y,
+    z,
   } = useControls({
     debug: false,
     enabledPostProcess: true,
@@ -163,13 +167,25 @@ export default function Experience() {
       step: 0.01,
     },
     textColor: "#fff",
+    y: {
+      value: 4,
+      min: -30,
+      max: 30,
+      step: 0.1,
+    },
+    z: {
+      value: 6,
+      min: -30,
+      max: 30,
+      step: 0.1,
+    },
   });
   const data = useRef(list.data);
   const pages = 10;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(null);
   const [isScroll, setScroll] = useState(true);
   const targetRotation = useRef(
     new THREE.Vector3()
@@ -200,6 +216,10 @@ export default function Experience() {
     }
   });
 
+  const handleIsSelected = (person) => {
+    setActive(person);
+  };
+
   return (
     <>
       {debug && <Perf position="top-left" />}
@@ -218,6 +238,12 @@ export default function Experience() {
         environmentIntensity={vignette ? 2 : 0.5}
         environmentRotation={[0, 0, 0]}
       />
+      <ProjectedImage
+        position={[0, y, z]}
+        intensity={isActive ? 10000 : 0}
+        imageUrl={isActive && isActive.url}
+        isActive={isActive}
+      />
 
       <ScrollControls
         damping={0.5}
@@ -227,9 +253,7 @@ export default function Experience() {
         <Scroll>
           <Gallery
             images={data.current}
-            isSelected={(active) =>
-              setActive(active)
-            }
+            isSelected={handleIsSelected}
             pages={pages}
           />
           <group
@@ -302,5 +326,49 @@ export default function Experience() {
         </EffectComposer>
       )}
     </>
+  );
+}
+
+function ProjectedImage({
+  imageUrl = "",
+  intensity = 0,
+  isActive,
+  ...props
+}) {
+  const spotLightRef = useRef();
+  const data = useScroll();
+
+  const texture = useTexture(
+    imageUrl || "/assets/photos/blank.jpg"
+  );
+
+  useFrame(() => {
+    if (spotLightRef.current) {
+      const currentIntensity =
+        spotLightRef.current.intensity;
+      const targetIntensity = intensity;
+      const lerpedIntensity =
+        currentIntensity +
+        (targetIntensity - currentIntensity) *
+          0.1;
+      spotLightRef.current.intensity =
+        lerpedIntensity;
+      if (lerpedIntensity < 1) {
+        spotLightRef.current.intensity = 0;
+      }
+    }
+  });
+
+  return (
+    <SpotLight
+      {...props}
+      ref={spotLightRef}
+      angle={0.5}
+      penumbra={1}
+      intensity={0}
+      distance={0}
+      castShadow
+      map={texture}
+    />
   );
 }

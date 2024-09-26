@@ -136,7 +136,7 @@ const Carousel = ({ enableScroll }) => {
 
   return (
     <group
-      position={[0, -8.5 * height, 0]}
+      position={[0, -9 * height, 0]}
       ref={groupRef}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

@@ -13,43 +13,28 @@ const Share = ({ fontSize }) => {
   );
   useFrame(() => {
     if (
-      scrollRef.current.position.y > 23.45 &&
-      scrollRef.current.position.y < 30
+      scrollRef.current.position.y > 25.7 &&
+      scrollRef.current.position.y < 33
     ) {
       scrollRef.current.children[0].children[0].position.y =
-        -scrollRef.current.position.y + 23.45;
+        -scrollRef.current.position.y + 25.7;
 
       scrollRef.current.children[0].children[1].position.y =
-        -scrollRef.current.position.y + 23.1;
+        -scrollRef.current.position.y + 25.35;
     }
 
     if (
-      scrollRef.current.position.y > 27.6 &&
-      scrollRef.current.position.y < 30
+      scrollRef.current.position.y > 29.9 &&
+      scrollRef.current.position.y < 33
     ) {
       scrollRef.current.children[0].children[2].position.y =
-        -scrollRef.current.position.y + 22.6;
+        -scrollRef.current.position.y + 24.9;
     }
-  });
-
-  const { textPosX, textPosZ } = useControls({
-    textPosX: {
-      value: 0,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-    textPosZ: {
-      value: 0,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
   });
 
   return (
     <Scroll ref={scrollRef}>
-      <group position={[0, -5 * height, 0]}>
+      <group position={[0, -5.5 * height, 0]}>
         <Text
           color="#D4D8D8"
           anchorX="center"
