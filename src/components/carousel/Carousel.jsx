@@ -24,14 +24,13 @@ const images = [
   { photo: "carousel/5.jpg", video: "" },
 ];
 
-const Carousel = () => {
+const Carousel = ({ enableScroll }) => {
   const slider = useRef(null);
   let isDown = useRef(false);
   let startX = useRef(null);
   let scrollLeft = useRef(null);
   const [selectedVideo, setSelectedVideo] =
-    useState(null); // To handle the video player
-
+    useState(null);
   useEffect(() => {
     if (slider && slider.current) {
       let sliderRef = slider.current;
@@ -113,13 +112,9 @@ const Carousel = () => {
 
   const handleImageClick = (videoUrl) => {
     if (videoUrl) {
-      setSelectedVideo(videoUrl); // Open video player
+      setSelectedVideo(videoUrl);
     }
-  };
-
-  // Close Video Player
-  const handleCloseVideo = () => {
-    setSelectedVideo(null);
+    enableScroll(false, videoUrl);
   };
 
   return (
@@ -145,55 +140,8 @@ const Carousel = () => {
           ></div>
         ))}
       </div>
-
-      {selectedVideo && (
-        <div
-          className="video-overlay"
-          style={overlayStyles}
-        >
-          <video
-            src={selectedVideo}
-            controls
-            autoPlay
-            style={{
-              width: "auto",
-              height: "80%",
-            }}
-          ></video>
-          <button
-            onClick={handleCloseVideo}
-            style={closeButtonStyles}
-          >
-            Close Video
-          </button>
-        </div>
-      )}
     </div>
   );
-};
-
-const overlayStyles = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100vw",
-  height: "100vh",
-  backgroundColor: "rgba(0, 0, 0, 0.8)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-};
-
-const closeButtonStyles = {
-  position: "absolute",
-  top: "60px",
-  right: "30px",
-  fontSize: "24px",
-  color: "#fff",
-  background: "none",
-  border: "none",
-  cursor: "pointer",
 };
 
 export default Carousel;

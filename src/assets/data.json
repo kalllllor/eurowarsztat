@@ -5,49 +5,56 @@
       "scale": [1, 2, 2],
       "fontSize": 0.15,
       "fullName": "Abdallah Razik Omar",
-      "url": "/assets/photos/abdallahRazikOmar.jpg"
+      "url": "/assets/photos/abdallahRazikOmar.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [1, -1.4, 0.9],
       "scale": [1, 2, 2],
       "fontSize": 0.15,
       "fullName": "Liubov Savycka",
-      "url": "/assets/photos/liubovSavycka.jpg"
+      "url": "/assets/photos/liubovSavycka.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [-1.1, -2, 1],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Liudmyla Kabanina",
-      "url": "/assets/photos/liudmylaKabanina.jpg"
+      "url": "/assets/photos/liudmylaKabanina.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [0, -2, 0.5],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Liza Konovalova",
-      "url": "/assets/photos/lizaKonovalova.jpg"
+      "url": "/assets/photos/lizaKonovalova.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [1.1, -2, 1],
       "scale": [1, 2, 1],
       "fontSize": 0.15,
       "fullName": "Natalia Hladysh",
-      "url": "/assets/photos/nataliaHladysh.jpg"
+      "url": "/assets/photos/nataliaHladysh.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [1, -2.9, 0.5],
       "scale": [1.5, 2.5, 1],
       "fontSize": 0.15,
       "fullName": "Ruslana Poberezhnyk",
-      "url": "/assets/photos/ruslanaPoberezhnyk.jpg"
+      "url": "/assets/photos/ruslanaPoberezhnyk.jpg",
+      "video": "RuslanaBG.mp4"
     },
     {
       "position": [-1.3, -3.2, 0.8],
       "scale": [1.5, 2.5, 2],
       "fontSize": 0.15,
       "fullName": "Walid Boussad",
-      "url": "/assets/photos/walidBoussad.jpg"
+      "url": "/assets/photos/walidBoussad.jpg",
+      "video": "RuslanaBG.mp4"
     }
   ]
 }

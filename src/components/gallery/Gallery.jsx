@@ -111,7 +111,12 @@ function Image({
   );
 }
 
-function Images({ images, isSelected, pages }) {
+function Images({
+  images,
+  isSelected,
+  pages,
+  enableScroll,
+}) {
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
@@ -145,15 +150,15 @@ function Images({ images, isSelected, pages }) {
         wrapperClass="info__container"
       >
         <div className="info__wrapper">
-          <div
-            className="info__content"
-            onClick={() => {
-              handleClick(false, null);
-              currentPerson.current = null;
-            }}
-          >
-            <span className="exit">
-              click anywhere to exit
+          <div className="info__content">
+            <span
+              className="exit"
+              onClick={() => {
+                handleClick(false, null);
+                currentPerson.current = null;
+              }}
+            >
+              x
             </span>
             <div className="title">
               <h1>
@@ -163,40 +168,23 @@ function Images({ images, isSelected, pages }) {
             </div>
             <div className="description">
               <p>
-                Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit.
-                Phasellus sit amet quam hendrerit,
-                sollicitudin orci eget, imperdiet
-                augue. Praesent in justo quis nunc
-                dictum aliquam et ut turpis. In
-                volutpat lectus eu leo commodo
-                blandit. Quisque sit amet massa
-                sit amet est pellentesque
-                hendrerit. Donec sed orci semper,
-                facilisis dui eu, aliquam eros.
-                Maecenas sapien dui, maximus nec
-                est eu, egestas imperdiet orci.
-                Pellentesque ipsum diam, eleifend
-                vel vestibulum ac, malesuada in
-                diam. Donec condimentum
-                condimentum auctor. Ut nec mattis
-                diam, ut faucibus augue. Cras et
-                aliquet diam. Nam placerat sapien
-                sit amet luctus varius. Mauris
-                quam est, euismod vel neque in,
-                porta aliquam tellus. Class aptent
-                taciti sociosqu ad litora torquent
-                per conubia nostra, per inceptos
-                himenaeos.
+                Psycholożka rozwoju dziecka i
+                pielęgniarka. Przyjechała do
+                Polski ponad 25 lat temu,
+                aktualnie pracuje jako opiekunka
+                dzieci. Lubi czytać prawo,
+                prywatnie interweniowała w sprawie
+                prawa pracy znajomych z Ukrainy.
+                Jest jedną z założycielek Komisji
+                Pracownic i Pracowników Domowych w
+                ramach Inicjatywy Pracowniczej.
               </p>
             </div>
             <div className="quote">
               <p>
-                "usce nec gravida neque. Nulla
-                interdum, nibh at pellentesque
-                mollis, dui turpis ullamcorper
-                eros, nec facilisis lacus erat ut
-                mauris.""
+                “W Europie powinni zauważyć
+                pracowniczek szarej strefy, które
+                są niewidoczne”
               </p>
             </div>
             <div className="time">
@@ -205,7 +193,15 @@ function Images({ images, isSelected, pages }) {
             </div>
           </div>
           <div className="icons__container">
-            <div className="film">
+            <div
+              className="film"
+              onClick={() =>
+                enableScroll(
+                  false,
+                  currentPerson.current.video
+                )
+              }
+            >
               <Film />
               <span className="tooltip">
                 Click to open the video
@@ -245,6 +241,7 @@ const Gallery = ({
   images,
   isSelected,
   pages,
+  enableScroll,
 }) => {
   return (
     <>
@@ -252,6 +249,7 @@ const Gallery = ({
         pages={pages}
         images={images}
         isSelected={isSelected}
+        enableScroll={enableScroll}
       />
     </>
   );

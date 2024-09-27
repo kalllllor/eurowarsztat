@@ -1,4 +1,8 @@
-import { useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
 
@@ -39,23 +43,9 @@ import Carousel from "./components/carousel/Carousel";
 import Credits from "./components/credits/Credits";
 import Title from "./components/title/Title";
 import Share from "./components/share/Share";
-
-const images = [
-  "/img1.jpg",
-  "/img2.jpg",
-  "/img3.jpg",
-  "/img4.jpg",
-  "/img5.jpg",
-  "/img6.jpg",
-  "/img7.jpg",
-  "/img8.jpg",
-];
+import Footer from "./components/footer/Footer";
 
 export default function Experience() {
-  const { height } = useThree(
-    (state) => state.viewport
-  );
-
   const {
     debug,
     enabledPostProcess,
@@ -181,12 +171,13 @@ export default function Experience() {
     },
   });
   const data = useRef(list.data);
-  const pages = 10;
+  const pages = 11;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
   const [isActive, setActive] = useState(null);
   const [isScroll, setScroll] = useState(true);
+  const videoUrl = useRef(null);
   const targetRotation = useRef(
     new THREE.Vector3()
   );
@@ -220,6 +211,17 @@ export default function Experience() {
     setActive(person);
   };
 
+  const handleEnableScroll = (enable, url) => {
+    videoUrl.current = url;
+    setScroll(enable);
+  };
+
+  const handleCloseVideo = () => {
+    console.log("close");
+    videoUrl.current = null;
+    setScroll(true);
+  };
+
   return (
     <>
       {debug && <Perf position="top-left" />}
@@ -245,6 +247,34 @@ export default function Experience() {
         isActive={isActive}
       />
 
+      {videoUrl.current && (
+        <Html
+          as="div"
+          wrapperClass="video__container"
+        >
+          <div
+            className="video-overlay"
+            style={overlayStyles}
+          >
+            <video
+              src={videoUrl.current}
+              controls
+              muted
+              autoPlay
+              style={{
+                width: "auto",
+                height: "80%",
+              }}
+            ></video>
+            <button
+              onClick={handleCloseVideo}
+              style={closeButtonStyles}
+            >
+              x
+            </button>
+          </div>
+        </Html>
+      )}
       <ScrollControls
         damping={0.5}
         pages={pages}
@@ -255,6 +285,7 @@ export default function Experience() {
             images={data.current}
             isSelected={handleIsSelected}
             pages={pages}
+            enableScroll={handleEnableScroll}
           />
           <group
             position={[0, 0, 3]}
@@ -287,7 +318,10 @@ export default function Experience() {
                   color: textColor,
                 }}
               />
-              <Carousel />
+              <Carousel
+                enableScroll={handleEnableScroll}
+              />
+              <Footer />
             </>
           )}
         </Scroll>
@@ -365,3 +399,27 @@ function ProjectedImage({
     />
   );
 }
+
+const overlayStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.9)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+};
+
+const closeButtonStyles = {
+  position: "absolute",
+  top: "30px",
+  right: "58px",
+  fontSize: "48px",
+  color: "#fff",
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+};
