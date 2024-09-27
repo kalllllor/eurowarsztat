@@ -1,23 +1,9 @@
-import * as THREE from "three";
 import React, {
   useRef,
   useState,
   useEffect,
-  Suspense,
 } from "react";
-import {
-  useFrame,
-  useThree,
-} from "@react-three/fiber";
-import {
-  Html,
-  Image as ImageImpl,
-  useAspect,
-  useVideoTexture,
-  useTexture,
-  Billboard,
-} from "@react-three/drei";
-
+import { Html } from "@react-three/drei";
 const images = [
   {
     photo: "carousel/Marianna.jpg",
@@ -31,244 +17,183 @@ const images = [
     photo: "carousel/Olena.jpg",
     video: "carousel/Olena.mp4",
   },
-  {
-    photo: "carousel/1.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/2.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/3.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/4.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/5.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/6.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/7.jpg",
-    video: "",
-  },
-  {
-    photo: "carousel/8.jpg",
-    video: "",
-  },
+  { photo: "carousel/1.jpg", video: "" },
+  { photo: "carousel/2.jpg", video: "" },
+  { photo: "carousel/3.jpg", video: "" },
+  { photo: "carousel/4.jpg", video: "" },
+  { photo: "carousel/5.jpg", video: "" },
 ];
 
-const Carousel = ({ enableScroll }) => {
-  const { height } = useThree(
-    (state) => state.viewport
-  );
-  const groupRef = useRef();
-  const [positionX, setPositionX] = useState(0);
-  const [isDragging, setIsDragging] =
-    useState(false);
-  const [lastX, setLastX] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] =
-    useState(false);
-  const [activeIndex, setActiveIndex] =
-    useState(null);
+const Carousel = () => {
+  const slider = useRef(null);
+  let isDown = useRef(false);
+  let startX = useRef(null);
+  let scrollLeft = useRef(null);
+  const [selectedVideo, setSelectedVideo] =
+    useState(null); // To handle the video player
 
-  const totalWidth = (images.length - 1) * 4;
-
-  useFrame(() => {
-    if (!isVideoPlaying) {
-      groupRef.current.position.x =
-        THREE.MathUtils.lerp(
-          groupRef.current.position.x,
-          positionX,
-          0.1
-        );
-    }
-  });
-
-  const handlePointerDown = (e) => {
-    if (!isVideoPlaying) {
-      setIsDragging(true);
-      setLastX(e.clientX);
-      e.target.setPointerCapture(e.pointerId);
-    }
-  };
-
-  const handlePointerMove = (e) => {
-    if (isDragging && !isVideoPlaying) {
-      const deltaX = e.clientX - lastX;
-      let newPositionX =
-        positionX + deltaX * 0.01;
-
-      newPositionX = Math.max(
-        newPositionX,
-        -totalWidth
+  useEffect(() => {
+    if (slider && slider.current) {
+      let sliderRef = slider.current;
+      sliderRef.addEventListener(
+        "mousedown",
+        one
       );
-      newPositionX = Math.min(newPositionX, 0);
+      sliderRef.addEventListener(
+        "mousedown",
+        two
+      );
+      sliderRef.addEventListener(
+        "mouseleave",
+        three
+      );
+      sliderRef.addEventListener("mouseup", four);
+      sliderRef.addEventListener(
+        "mousemove",
+        five
+      );
 
-      setPositionX(newPositionX);
-      setLastX(e.clientX);
+      return () => {
+        sliderRef.removeEventListener(
+          "mousedown",
+          one
+        );
+        sliderRef.removeEventListener(
+          "mousedown",
+          two
+        );
+        sliderRef.removeEventListener(
+          "mouseleave",
+          three
+        );
+        sliderRef.removeEventListener(
+          "mouseup",
+          four
+        );
+        sliderRef.removeEventListener(
+          "mousemove",
+          five
+        );
+      };
     }
-  };
-
-  const handlePointerUp = (e) => {
-    setIsDragging(false);
-    e.target.releasePointerCapture(e.pointerId);
-  };
-
-  const handleClick = (index) => {
-    setActiveIndex(index);
-    setIsVideoPlaying(true);
-    enableScroll(false);
-  };
-
-  const handleClose = () => {
-    setIsVideoPlaying(false);
-    setActiveIndex(null);
-    enableScroll(true);
-  };
-
-  return (
-    <group
-      position={[0, -9 * height, 0]}
-      ref={groupRef}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerOut={handlePointerUp}
-      onTouchStart={handlePointerDown}
-      onTouchMove={handlePointerMove}
-      onTouchEnd={handlePointerUp}
-    >
-      {images.map((item, index) => (
-        <ImageOrVideo
-          key={index}
-          index={index}
-          item={item}
-          position={[index * 2.5, 0, 0]}
-          isVideoPlaying={isVideoPlaying}
-          activeIndex={activeIndex}
-          handleClickCallback={handleClick}
-          handleCloseCallback={handleClose}
-        />
-      ))}
-    </group>
-  );
-};
-
-const ImageOrVideo = ({
-  item,
-  position,
-  index,
-  isVideoPlaying,
-  activeIndex,
-  handleClickCallback,
-  handleCloseCallback,
-}) => {
-  const [isMuted, setIsMuted] = useState(false);
-
-  const size = useAspect(1080, 1920).map(
-    (item) => item / 4
-  );
-
-  const handleMuteToggle = () => {
-    setIsMuted(!isMuted);
-  };
-
-  const handleClick = () => {
-    if (item.video) {
-      handleClickCallback(index);
-    }
-  };
-
-  return (
-    <>
-      {!isVideoPlaying && (
-        <ImageImpl
-          castShadow
-          url={item.photo}
-          scale={size}
-          position={position}
-          onClick={handleClick}
-        />
-      )}
-      {isVideoPlaying &&
-        activeIndex === index && (
-          <Billboard follow={true}>
-            <mesh scale={size}>
-              <planeGeometry />
-              <Suspense
-                fallback={
-                  <FallbackMaterial
-                    url={item.photo}
-                  />
-                }
-              >
-                <VideoMaterial
-                  url={item.video}
-                  isMuted={isMuted}
-                />
-              </Suspense>
-            </mesh>
-
-            <Html
-              as="div"
-              wrapperClass="carousel__container"
-            >
-              <button
-                onClick={handleCloseCallback}
-              >
-                X
-              </button>
-              <button onClick={handleMuteToggle}>
-                {isMuted ? "Unmute" : "Mute"}
-              </button>
-            </Html>
-          </Billboard>
-        )}
-    </>
-  );
-};
-
-function VideoMaterial({ url, isMuted }) {
-  const texture = useVideoTexture(url, {
-    muted: isMuted,
-  });
-  useEffect(() => {
-    if (texture.image) {
-      texture.image.muted = isMuted;
-    }
-  }, [isMuted, texture.image]);
-
-  useEffect(() => {
-    return () => (
-      (texture.image.muted = true),
-      (texture.image.currentTime = 0)
-    );
   }, []);
 
-  return (
-    <meshBasicMaterial
-      map={texture}
-      toneMapped={false}
-    />
-  );
-}
+  function one(e) {
+    isDown.current = true;
+    startX.current =
+      e.pageX - slider.current.offsetLeft;
+    scrollLeft.current =
+      slider.current.scrollLeft;
+  }
 
-function FallbackMaterial({ url }) {
-  const texture = useTexture(url);
+  function two(e) {
+    isDown.current = true;
+    startX.current =
+      e.pageX - slider.current.offsetLeft;
+    scrollLeft.current =
+      slider.current.scrollLeft;
+  }
+
+  function three() {
+    isDown.current = false;
+  }
+
+  function four() {
+    isDown.current = false;
+  }
+
+  function five(e) {
+    if (!isDown.current) return;
+    e.preventDefault();
+    const x = e.pageX - slider.current.offsetLeft;
+    const walk = x - startX.current;
+    slider.current.scrollLeft =
+      scrollLeft.current - walk;
+  }
+
+  const handleImageClick = (videoUrl) => {
+    if (videoUrl) {
+      setSelectedVideo(videoUrl); // Open video player
+    }
+  };
+
+  // Close Video Player
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
+  };
+
   return (
-    <meshBasicMaterial
-      map={texture}
-      toneMapped={false}
-    />
+    <div className="carousel__container">
+      <div
+        className="carousel__items"
+        ref={slider}
+        style={{
+          gap: "10px",
+          padding: "20px",
+        }}
+      >
+        {images.map((item, index) => (
+          <div
+            key={index}
+            className="carousel__item"
+            style={{
+              background: `url(${item.photo}) center center / cover no-repeat`,
+            }}
+            onClick={() =>
+              handleImageClick(item.video)
+            }
+          ></div>
+        ))}
+      </div>
+
+      {selectedVideo && (
+        <div
+          className="video-overlay"
+          style={overlayStyles}
+        >
+          <video
+            src={selectedVideo}
+            controls
+            autoPlay
+            style={{
+              width: "auto",
+              height: "80%",
+            }}
+          ></video>
+          <button
+            onClick={handleCloseVideo}
+            style={closeButtonStyles}
+          >
+            Close Video
+          </button>
+        </div>
+      )}
+    </div>
   );
-}
+};
+
+const overlayStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.8)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+};
+
+const closeButtonStyles = {
+  position: "absolute",
+  top: "60px",
+  right: "30px",
+  fontSize: "24px",
+  color: "#fff",
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+};
 
 export default Carousel;

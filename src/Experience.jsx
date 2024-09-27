@@ -287,16 +287,9 @@ export default function Experience() {
                   color: textColor,
                 }}
               />
+              <Carousel />
             </>
           )}
-        </Scroll>
-        <Scroll>
-          <Carousel
-            images={images}
-            enableScroll={(enable) =>
-              setScroll(enable)
-            }
-          />
         </Scroll>
       </ScrollControls>
 

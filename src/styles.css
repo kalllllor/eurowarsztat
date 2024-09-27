@@ -235,33 +235,56 @@ a {
   margin: 0 auto;
 }
 
-.carousel__container > div {
-  width: 100%;
-  height: 100%;
-}
-
-.carousel__container button {
-  font-size: 24px;
-  position: absolute;
-  padding: 10px;
-  top: 30px;
-  right: 50%;
-  transform: translateX(50%);
-  cursor: pointer;
-}
-
-.carousel__container button:last-child {
-  top: 60px;
-}
-
 .carousel__container {
-  position: fixed !important;
+  position: absolute !important;
   width: 100vw;
   height: 100vh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
+  top: 900vh;
 
-  max-width: 100%;
   margin: 0 auto;
+}
+
+.carousel__items {
+  position: relative;
+  width: 500px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  transition: all 0.2s;
+  transform: scale(0.98);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+  padding: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.carousel__items {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.carousel__items::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.carousel__item {
+  width: 400px;
+  height: 600px;
+}
+
+.carousel__container > div {
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .info__wrapper {
