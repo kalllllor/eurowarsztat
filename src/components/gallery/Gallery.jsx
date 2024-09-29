@@ -21,6 +21,7 @@ import {
 } from "@react-three/drei";
 import { useControls } from "leva";
 import { Film } from "../icons/Film";
+import { Play } from "../icons/Play";
 
 function Image({
   c = new THREE.Color(),
@@ -180,6 +181,22 @@ function Images({
                 Pracownic i Pracowników Domowych w
                 ramach Inicjatywy Pracowniczej.
               </p>
+              <div className="icons__container">
+                <div
+                  className="film"
+                  onClick={() =>
+                    enableScroll(
+                      false,
+                      currentPerson.current.video
+                    )
+                  }
+                >
+                  <Play />
+                  <span className="tooltip">
+                    Click to open the video
+                  </span>
+                </div>
+              </div>
             </div>
             <div className="quote">
               <p>
@@ -191,22 +208,6 @@ function Images({
             <div className="time">
               <span>Bielsko-Biała </span>
               <span>14.08.2024</span>
-            </div>
-          </div>
-          <div className="icons__container">
-            <div
-              className="film"
-              onClick={() =>
-                enableScroll(
-                  false,
-                  currentPerson.current.video
-                )
-              }
-            >
-              <img src={"play3.png"} />
-              <span className="tooltip">
-                Click to open the video
-              </span>
             </div>
           </div>
         </div>

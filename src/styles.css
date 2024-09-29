@@ -390,7 +390,7 @@ a {
 }
 
 .info__content .film {
-  margin-top: 16px;
+  margin-left: 16px;
   cursor: pointer;
 }
 
@@ -398,6 +398,8 @@ a {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  width: 64px;
+  height: auto;
 }
 
 .tooltip {
@@ -438,6 +440,11 @@ a {
 
 .info__content .film path:hover {
   fill: white;
+}
+
+.info__content .description {
+  display: flex;
+  align-items: flex-start;
 }
 
 .info__content .description p {
@@ -616,11 +623,27 @@ a {
   font-size: 16px !important;
 }
 
-.icons__container {
-  width: 30%;
-}
-
 .icons__container img {
   width: 88px;
   height: auto;
+}
+
+.cls-1 {
+  fill: #515151;
+}
+
+.cls-2 {
+  fill: none;
+  stroke: #d4d8d8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 18px;
+}
+
+.cls-3 {
+  opacity: 0.07;
+}
+
+.cls-4 {
+  fill: #d4d8d8;
 }
