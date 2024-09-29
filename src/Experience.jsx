@@ -65,6 +65,7 @@ export default function Experience() {
     floatingRange,
     fontSize,
     textColor,
+    x,
     y,
     z,
   } = useControls({
@@ -157,8 +158,14 @@ export default function Experience() {
       step: 0.01,
     },
     textColor: "#fff",
+    x: {
+      value: 0,
+      min: -30,
+      max: 30,
+      step: 0.1,
+    },
     y: {
-      value: 4,
+      value: 0,
       min: -30,
       max: 30,
       step: 0.1,
@@ -366,7 +373,16 @@ function ProjectedImage({
   const data = useScroll();
 
   const texture = useTexture(
-    imageUrl || "/assets/photos/blank.jpg"
+    imageUrl || "/assets/photos/blank.jpg",
+    (item) => {
+      spotLightRef.current.shadow.mapSize.width = 1440;
+      spotLightRef.current.shadow.mapSize.height = 1800;
+      spotLightRef.current.shadow.focus = 1.2;
+
+      spotLightRef.current.lookAt(
+        new THREE.Vector3(3, 0, 0)
+      );
+    }
   );
 
   useFrame(() => {

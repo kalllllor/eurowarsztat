@@ -202,7 +202,7 @@ function Images({
                 )
               }
             >
-              <Film />
+              <img src={"play3.png"} />
               <span className="tooltip">
                 Click to open the video
               </span>

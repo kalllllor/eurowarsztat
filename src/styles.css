@@ -329,7 +329,7 @@ a {
 }
 
 .info__content {
-  width: 70%;
+  width: 1000px;
   height: 100%;
   margin: auto auto;
   display: flex;
@@ -439,18 +439,21 @@ a {
 @media (min-width: 1440px) {
   .info__content {
     padding: 0px 128px;
+    width: 1000px;
     max-width: 1440px;
   }
 }
 
 @media (max-width: 1440px) and (min-width: 1025px) {
   .info__content {
+    width: 800px;
     padding: 0px 64px;
   }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
   .info__content {
+    width: 100%;
     padding: 0px 32px;
   }
 }
@@ -469,6 +472,7 @@ a {
   }
 
   .info__content {
+    width: 100%;
     padding: 0px 32px 0px 16px;
   }
 }
@@ -586,4 +590,9 @@ a {
 
 .icons__container {
   width: 30%;
+}
+
+.icons__container img {
+  width: 88px;
+  height: auto;
 }
