@@ -151,15 +151,16 @@ function Images({
       >
         <div className="info__wrapper">
           <div className="info__content">
-            <span
+            <button
               className="exit"
               onClick={() => {
                 handleClick(false, null);
                 currentPerson.current = null;
               }}
             >
-              x
-            </span>
+              <img src={"back.png"} />
+              <span>exit</span>
+            </button>
             <div className="title">
               <h1>
                 {isActive &&

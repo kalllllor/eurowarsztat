@@ -248,10 +248,10 @@ a {
 .footer__container {
   position: absolute !important;
   width: 100vw;
-  background-color: black;
-  height: 50vh;
+  background-color: #020a32;
+  height: 25vh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
-  top: 1050vh;
+  top: 1075vh;
   margin: 0 auto;
 }
 
@@ -266,16 +266,28 @@ a {
 
 .footer__content span,
 .footer__content a {
-  font-size: 48px;
-  color: white;
+  font-size: 24px;
+  color: #d4d8d8;
   margin: 0px;
   padding: 0px;
   padding-bottom: 8px;
 }
 
+.footer__content svg {
+  fill: #d4d8d8;
+}
+
+.footer__socials {
+  display: flex;
+  align-items: center;
+}
+
+.footer__socials a {
+  margin: 0px 8px;
+}
+
 .carousel__items {
   position: relative;
-
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -300,7 +312,7 @@ a {
 }
 
 .carousel__item {
-  width: 400px;
+  width: 340px;
   height: 600px;
 }
 
@@ -332,6 +344,7 @@ a {
   width: 1000px;
   height: 100%;
   margin: auto auto;
+  padding-bottom: 96px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -345,10 +358,10 @@ a {
   font-weight: 400;
   font-style: normal;
   line-height: 1em;
-  margin-bottom: 16px;
+  margin-bottom: 42px;
 }
 
-.info__content .exit {
+.exit {
   position: fixed;
   top: 30px;
   right: 60px;
@@ -356,6 +369,18 @@ a {
   border: none;
   cursor: pointer;
   font-size: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.exit span {
+  font-size: 16px;
+  margin-left: 12px;
+}
+
+.exit img {
+  width: 48px;
+  height: auto;
 }
 
 .info__content .description {
@@ -431,8 +456,8 @@ a {
 
 .info__content .time {
   font-family: "agenda-one", sans-serif;
-  font-size: 16px;
-  margin-top: 8px;
+  font-size: 14px;
+  margin-top: 16px;
   margin-right: 8px;
 }
 
@@ -448,6 +473,7 @@ a {
   .info__content {
     width: 800px;
     padding: 0px 64px;
+    padding-bottom: 74px;
   }
 }
 
@@ -455,6 +481,7 @@ a {
   .info__content {
     width: 100%;
     padding: 0px 32px;
+    padding-bottom: 64px;
   }
 }
 
@@ -474,6 +501,7 @@ a {
   .info__content {
     width: 100%;
     padding: 0px 32px 0px 16px;
+    padding-bottom: 48px;
   }
 }
 

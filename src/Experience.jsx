@@ -165,7 +165,7 @@ export default function Experience() {
       step: 0.1,
     },
     y: {
-      value: 0,
+      value: 1.1,
       min: -30,
       max: 30,
       step: 0.1,
@@ -184,7 +184,8 @@ export default function Experience() {
 
   const [isActive, setActive] = useState(null);
   const [isScroll, setScroll] = useState(true);
-  const videoUrl = useRef(null);
+  const videoRef = useRef(null);
+  const photoRef = useRef(null);
   const targetRotation = useRef(
     new THREE.Vector3()
   );
@@ -218,14 +219,19 @@ export default function Experience() {
     setActive(person);
   };
 
-  const handleEnableScroll = (enable, url) => {
-    videoUrl.current = url;
+  const handleEnableScroll = (
+    enable,
+    videoUrl,
+    photoUrl = null
+  ) => {
+    videoRef.current = videoUrl;
+    photoRef.current = photoUrl;
     setScroll(enable);
   };
 
   const handleCloseVideo = () => {
-    console.log("close");
-    videoUrl.current = null;
+    photoRef.current = null;
+    videoRef.current = null;
     setScroll(true);
   };
 
@@ -254,7 +260,34 @@ export default function Experience() {
         isActive={isActive}
       />
 
-      {videoUrl.current && (
+      {photoRef.current && (
+        <Html
+          as="div"
+          wrapperClass="video__container"
+        >
+          <div
+            className="video-overlay"
+            style={overlayStyles}
+          >
+            <img
+              src={photoRef.current}
+              style={{
+                width: "auto",
+                height: "80%",
+              }}
+            ></img>
+            <button
+              className="exit"
+              onClick={handleCloseVideo}
+            >
+              <img src={"back.png"} />
+              <span>exit</span>
+            </button>
+          </div>
+        </Html>
+      )}
+
+      {videoRef.current && !photoRef.current && (
         <Html
           as="div"
           wrapperClass="video__container"
@@ -264,7 +297,7 @@ export default function Experience() {
             style={overlayStyles}
           >
             <video
-              src={videoUrl.current}
+              src={videoRef.current}
               controls
               muted
               autoPlay
@@ -273,11 +306,13 @@ export default function Experience() {
                 height: "80%",
               }}
             ></video>
+
             <button
+              className="exit"
               onClick={handleCloseVideo}
-              style={closeButtonStyles}
             >
-              x
+              <img src={"back.png"} />
+              <span>exit</span>
             </button>
           </div>
         </Html>

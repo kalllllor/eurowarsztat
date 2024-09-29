@@ -29,8 +29,7 @@ const Carousel = ({ enableScroll }) => {
   let isDown = useRef(false);
   let startX = useRef(null);
   let scrollLeft = useRef(null);
-  const [selectedVideo, setSelectedVideo] =
-    useState(null);
+
   useEffect(() => {
     if (slider && slider.current) {
       let sliderRef = slider.current;
@@ -110,11 +109,11 @@ const Carousel = ({ enableScroll }) => {
       scrollLeft.current - walk;
   }
 
-  const handleImageClick = (videoUrl) => {
-    if (videoUrl) {
-      setSelectedVideo(videoUrl);
-    }
-    enableScroll(false, videoUrl);
+  const handleImageClick = (
+    videoUrl,
+    photoUrl
+  ) => {
+    enableScroll(false, videoUrl, photoUrl);
   };
 
   return (
@@ -135,7 +134,12 @@ const Carousel = ({ enableScroll }) => {
               background: `url(${item.photo}) center center / cover no-repeat`,
             }}
             onClick={() =>
-              handleImageClick(item.video)
+              item.video
+                ? handleImageClick(item.video)
+                : handleImageClick(
+                    item.video,
+                    item.photo
+                  )
             }
           ></div>
         ))}
