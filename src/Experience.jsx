@@ -43,7 +43,7 @@ import Credits from "./components/credits/Credits";
 import Title from "./components/title/Title";
 import Share from "./components/share/Share";
 import Footer from "./components/footer/Footer";
-
+import Event from "./components/event/Event";
 export default function Experience() {
   const [data, setData] = useState([]);
   const [totalHeight, setTotalHeight] =
@@ -188,7 +188,7 @@ export default function Experience() {
     },
   });
 
-  const pages = 9;
+  const pages = 10;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -369,7 +369,7 @@ export default function Experience() {
                   color: textColor,
                 }}
               />
-              <Credits
+              <Event
                 style={{
                   color: textColor,
                   top: `${
@@ -379,12 +379,22 @@ export default function Experience() {
                   }vh`,
                 }}
               />
+              <Credits
+                style={{
+                  color: textColor,
+                  top: `${
+                    totalHeight
+                      ? totalHeight * 100 + 150
+                      : 100
+                  }vh`,
+                }}
+              />
               <Carousel
                 enableScroll={handleEnableScroll}
                 style={{
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 450
+                      ? totalHeight * 100 + 500
                       : 100
                   }vh`,
                 }}

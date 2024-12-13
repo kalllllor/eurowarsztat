@@ -648,3 +648,28 @@ a {
 .cls-4 {
   fill: #d4d8d8;
 }
+
+.event__wrapper {
+  color: #d4d8d8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.event__wrapper h3 {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.event__wrapper p {
+  width: 100%;
+  max-width: 500px;
+  text-align: justify;
+}
+
+.event_place {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
