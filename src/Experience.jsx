@@ -37,7 +37,6 @@ import {
 } from "@react-three/drei";
 import "./styles.css";
 import Description from "./components/description/Description";
-import list from "./assets/data.json";
 import Lights from "./Lights";
 import Carousel from "./components/carousel/Carousel";
 import Credits from "./components/credits/Credits";
@@ -46,6 +45,17 @@ import Share from "./components/share/Share";
 import Footer from "./components/footer/Footer";
 
 export default function Experience() {
+  const [data, setData] = useState([]);
+  const [totalHeight, setTotalHeight] =
+    useState(0);
+  useEffect(() => {
+    fetch(
+      "https://serwer2458198.home.pl/autoinstalator/wordpress/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard"
+    )
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
+
   const {
     debug,
     enabledPostProcess,
@@ -177,8 +187,8 @@ export default function Experience() {
       step: 0.1,
     },
   });
-  const data = useRef(list.data);
-  const pages = 11;
+
+  const pages = 9;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -229,6 +239,10 @@ export default function Experience() {
     setScroll(enable);
   };
 
+  const handleTotalHeight = (val) => {
+    setTotalHeight(val);
+  };
+
   const handleCloseVideo = () => {
     photoRef.current = null;
     videoRef.current = null;
@@ -242,7 +256,6 @@ export default function Experience() {
         attach="background"
         args={["#000"]}
       />
-      {/* <OrbitControls makeDefault /> */}
       <Lights
         intensity={
           isActive || !isScroll ? 0 : 1000
@@ -256,7 +269,7 @@ export default function Experience() {
       <ProjectedImage
         position={[0, y, z]}
         intensity={isActive ? 10000 : 0}
-        imageUrl={isActive && isActive.url}
+        imageUrl={isActive && isActive.image.url}
         isActive={isActive}
       />
 
@@ -324,10 +337,11 @@ export default function Experience() {
       >
         <Scroll>
           <Gallery
-            images={data.current}
+            images={data}
             isSelected={handleIsSelected}
             pages={pages}
             enableScroll={handleEnableScroll}
+            totalHeight={handleTotalHeight}
           />
           <group
             position={[0, 0, 3]}
@@ -343,7 +357,7 @@ export default function Experience() {
             />
           </group>
         </Scroll>
-        <Share />
+        <Share totalHeight={totalHeight} />
         {!isActive && (
           <Title baseFontSize={fontSize} />
         )}
@@ -358,12 +372,28 @@ export default function Experience() {
               <Credits
                 style={{
                   color: textColor,
+                  top: `${
+                    totalHeight
+                      ? totalHeight * 100 + 100
+                      : 100
+                  }vh`,
                 }}
               />
               <Carousel
                 enableScroll={handleEnableScroll}
+                style={{
+                  top: `${
+                    totalHeight
+                      ? totalHeight * 100 + 450
+                      : 100
+                  }vh`,
+                }}
               />
-              <Footer />
+              <Footer
+                style={{
+                  top: `${pages * 100 - 25}vh`,
+                }}
+              />
             </>
           )}
         </Scroll>

@@ -6,7 +6,7 @@ import {
 import { Scroll, Text } from "@react-three/drei";
 import { useControls } from "leva";
 
-const Share = ({ fontSize }) => {
+const Share = () => {
   const scrollRef = useRef(null);
   const { height } = useThree(
     (state) => state.viewport

@@ -95,9 +95,9 @@ a {
   align-items: center;
 }
 
-.credits__wrapper {
+/* .credits__wrapper {
   top: 800vh;
-}
+} */
 
 .credits__wrapper .container {
   max-width: 960px;
@@ -241,7 +241,6 @@ a {
   width: 100vw;
   height: 100vh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
-  top: 950vh;
   margin: 0 auto;
 }
 
@@ -289,7 +288,7 @@ a {
 .carousel__items {
   position: relative;
   overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-y: scroll;
   white-space: nowrap;
   transition: all 0.2s;
   transform: scale(0.98);
@@ -297,8 +296,6 @@ a {
   user-select: none;
   cursor: pointer;
   padding: 0;
-  overflow-x: scroll;
-  overflow-y: hidden;
   display: grid;
   grid-auto-flow: column;
 }
@@ -465,6 +462,10 @@ a {
   font-family: "agenda-one", sans-serif;
   font-size: 14px;
   margin-top: 16px;
+  margin-right: 8px;
+}
+
+.info__content .time span {
   margin-right: 8px;
 }
 

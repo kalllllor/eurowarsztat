@@ -1,8 +1,8 @@
 import { Instagram } from "../icons/Instagram";
 import { Facebook } from "../icons/Facebook";
-const Footer = () => {
+const Footer = (props) => {
   return (
-    <div className="footer__container">
+    <div className="footer__container" {...props}>
       <div className="footer__content">
         <span>Marta Romankiv</span>
         <a href="mailto:Marta.romankiv@gmail.com">

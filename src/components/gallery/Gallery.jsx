@@ -117,11 +117,16 @@ function Images({
   isSelected,
   pages,
   enableScroll,
+  totalHeight,
 }) {
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
 
+  const itemsPerRow = 3;
+  const spacingX = 1.5;
+  const spacingY = 0.7;
+  const topY = 2.5;
   const handleClick = (active, imageData) => {
     isSelected(imageData);
     setActive(active);
@@ -143,6 +148,13 @@ function Images({
       ref.current.style.height = "0%";
     }
   };
+
+  totalHeight(
+    Math.ceil(images.length / itemsPerRow) +
+      Math.ceil(images.length / itemsPerRow) *
+        spacingY
+  );
+
   return (
     <>
       <Html
@@ -162,78 +174,121 @@ function Images({
               <img src={"back.png"} />
               <span>exit</span>
             </button>
-            <div className="title">
-              <h1>
-                {isActive &&
-                  currentPerson.current.fullName}
-              </h1>
-            </div>
+            {isActive &&
+              currentPerson.current.fullname && (
+                <div className="title">
+                  <h1>
+                    {
+                      currentPerson.current
+                        .fullname
+                    }
+                  </h1>
+                </div>
+              )}
             <div className="description">
               <p>
-                Psycholożka rozwoju dziecka i
-                pielęgniarka. Przyjechała do
-                Polski ponad 25 lat temu,
-                aktualnie pracuje jako opiekunka
-                dzieci. Lubi czytać prawo,
-                prywatnie interweniowała w sprawie
-                prawa pracy znajomych z Ukrainy.
-                Jest jedną z założycielek Komisji
-                Pracownic i Pracowników Domowych w
-                ramach Inicjatywy Pracowniczej.
+                {isActive &&
+                  currentPerson.current
+                    .description}
               </p>
-              <div className="icons__container">
-                <div
-                  className="film"
-                  onClick={() =>
-                    enableScroll(
-                      false,
-                      currentPerson.current.video
-                    )
-                  }
-                >
-                  <Play />
-                  <span className="tooltip">
-                    Click to open the video
+              {isActive &&
+                currentPerson.current.video && (
+                  <div className="icons__container">
+                    <div
+                      className="film"
+                      onClick={() =>
+                        enableScroll(
+                          false,
+                          currentPerson.current
+                            .video
+                        )
+                      }
+                    >
+                      <Play />
+                      <span className="tooltip">
+                        Click to open the video
+                      </span>
+                    </div>
+                  </div>
+                )}
+            </div>
+            {isActive &&
+              currentPerson.current.quote
+                ?.length && (
+                <div className="quote">
+                  <p>
+                    {currentPerson.current.quote}
+                  </p>
+                </div>
+              )}
+            {isActive &&
+              currentPerson.current.date && (
+                <div className="time">
+                  <span>Bielsko-Biała</span>
+                  <span>
+                    {currentPerson.current.date}
                   </span>
                 </div>
-              </div>
-            </div>
-            <div className="quote">
-              <p>
-                “W Europie powinni zauważyć
-                pracowniczek szarej strefy, które
-                są niewidoczne”
-              </p>
-            </div>
-            <div className="time">
-              <span>Bielsko-Biała </span>
-              <span>14.08.2024</span>
-            </div>
+              )}
           </div>
         </div>
       </Html>
-
       <group>
-        {images.map((imageData, index) => (
-          <Image
-            key={index}
-            position={[
-              imageData.position[0],
-              imageData.position[1] - 1.5,
-              imageData.position[2],
-            ]}
-            scale={imageData.scale}
-            fontSize={imageData.fontSize}
-            fullName={imageData.fullName}
-            url={imageData.url}
-            onClick={() => {
-              handleClick(true, imageData);
-              currentPerson.current = imageData;
-            }}
-            pages={pages}
-            isClicked={isActive}
-          />
-        ))}
+        {images.map((imageData, index) => {
+          const row = Math.floor(
+            index / itemsPerRow
+          );
+          const col = index % itemsPerRow;
+
+          const modulo6 = index % 6;
+
+          let zIndex = 0;
+          switch (modulo6) {
+            case 0:
+              zIndex = -0.2;
+              break;
+            case 1:
+              zIndex = 0.5;
+              break;
+            case 2:
+              zIndex = 0.3;
+              break;
+            case 3:
+              zIndex = 0.2;
+              break;
+            case 4:
+              zIndex = -0.5;
+              break;
+            case 5:
+              zIndex = 0;
+              break;
+          }
+
+          const position = [
+            col * spacingX -
+              ((itemsPerRow - 1) * spacingX) / 2,
+            -topY - row * spacingY,
+            zIndex,
+          ];
+
+          return (
+            <Image
+              key={index}
+              position={position}
+              scale={[1, 2, 1]}
+              fontSize={0.15}
+              fullName={imageData.acf.fullname}
+              url={imageData.acf.image.url}
+              onClick={() => {
+                handleClick(true, imageData.acf);
+                currentPerson.current =
+                  imageData.acf;
+              }}
+              pages={pages}
+              isClicked={isActive}
+            />
+          );
+        })}
       </group>
     </>
   );
@@ -244,6 +299,7 @@ const Gallery = ({
   isSelected,
   pages,
   enableScroll,
+  totalHeight,
 }) => {
   return (
     <>
@@ -252,6 +308,7 @@ const Gallery = ({
         images={images}
         isSelected={isSelected}
         enableScroll={enableScroll}
+        totalHeight={totalHeight}
       />
     </>
   );

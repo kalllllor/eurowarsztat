@@ -24,90 +24,90 @@ const images = [
   { photo: "carousel/5.jpg", video: "" },
 ];
 
-const Carousel = ({ enableScroll }) => {
+const Carousel = ({ enableScroll, ...props }) => {
   const slider = useRef(null);
   let isDown = useRef(false);
   let startX = useRef(null);
   let scrollLeft = useRef(null);
 
-  useEffect(() => {
-    if (slider && slider.current) {
-      let sliderRef = slider.current;
-      sliderRef.addEventListener(
-        "mousedown",
-        one
-      );
-      sliderRef.addEventListener(
-        "mousedown",
-        two
-      );
-      sliderRef.addEventListener(
-        "mouseleave",
-        three
-      );
-      sliderRef.addEventListener("mouseup", four);
-      sliderRef.addEventListener(
-        "mousemove",
-        five
-      );
+  // useEffect(() => {
+  //   if (slider && slider.current) {
+  //     let sliderRef = slider.current;
+  //     sliderRef.addEventListener(
+  //       "mousedown",
+  //       one
+  //     );
+  //     sliderRef.addEventListener(
+  //       "mousedown",
+  //       two
+  //     );
+  //     sliderRef.addEventListener(
+  //       "mouseleave",
+  //       three
+  //     );
+  //     sliderRef.addEventListener("mouseup", four);
+  //     sliderRef.addEventListener(
+  //       "mousemove",
+  //       five
+  //     );
 
-      return () => {
-        sliderRef.removeEventListener(
-          "mousedown",
-          one
-        );
-        sliderRef.removeEventListener(
-          "mousedown",
-          two
-        );
-        sliderRef.removeEventListener(
-          "mouseleave",
-          three
-        );
-        sliderRef.removeEventListener(
-          "mouseup",
-          four
-        );
-        sliderRef.removeEventListener(
-          "mousemove",
-          five
-        );
-      };
-    }
-  }, []);
+  //     return () => {
+  //       sliderRef.removeEventListener(
+  //         "mousedown",
+  //         one
+  //       );
+  //       sliderRef.removeEventListener(
+  //         "mousedown",
+  //         two
+  //       );
+  //       sliderRef.removeEventListener(
+  //         "mouseleave",
+  //         three
+  //       );
+  //       sliderRef.removeEventListener(
+  //         "mouseup",
+  //         four
+  //       );
+  //       sliderRef.removeEventListener(
+  //         "mousemove",
+  //         five
+  //       );
+  //     };
+  //   }
+  // }, []);
 
-  function one(e) {
-    isDown.current = true;
-    startX.current =
-      e.pageX - slider.current.offsetLeft;
-    scrollLeft.current =
-      slider.current.scrollLeft;
-  }
+  // function one(e) {
+  //   isDown.current = true;
+  //   startX.current =
+  //     e.pageX - slider.current.offsetLeft;
+  //   scrollLeft.current =
+  //     slider.current.scrollLeft;
+  // }
 
-  function two(e) {
-    isDown.current = true;
-    startX.current =
-      e.pageX - slider.current.offsetLeft;
-    scrollLeft.current =
-      slider.current.scrollLeft;
-  }
+  // function two(e) {
+  //   isDown.current = true;
+  //   startX.current =
+  //     e.pageX - slider.current.offsetLeft;
+  //   scrollLeft.current =
+  //     slider.current.scrollLeft;
+  // }
 
-  function three() {
-    isDown.current = false;
-  }
+  // function three() {
+  //   isDown.current = false;
+  // }
 
-  function four() {
-    isDown.current = false;
-  }
+  // function four() {
+  //   isDown.current = false;
+  // }
 
-  function five(e) {
-    if (!isDown.current) return;
-    e.preventDefault();
-    const x = e.pageX - slider.current.offsetLeft;
-    const walk = x - startX.current;
-    slider.current.scrollLeft =
-      scrollLeft.current - walk;
-  }
+  // function five(e) {
+  //   if (!isDown.current) return;
+  //   e.preventDefault();
+  //   const x = e.pageX - slider.current.offsetLeft;
+  //   const walk = x - startX.current;
+  //   slider.current.scrollLeft =
+  //     scrollLeft.current - walk;
+  // }
 
   const handleImageClick = (
     videoUrl,
@@ -117,10 +117,12 @@ const Carousel = ({ enableScroll }) => {
   };
 
   return (
-    <div className="carousel__container">
+    <div
+      className="carousel__container"
+      {...props}
+    >
       <div
         className="carousel__items"
-        ref={slider}
         style={{
           gap: "10px",
           padding: "20px",

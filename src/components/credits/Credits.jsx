@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  Canvas,
-  useThree,
-} from "@react-three/fiber";
-import { Text, Scroll } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 
 const Credits = (props) => {
-  const { height } = useThree(
-    (state) => state.viewport
-  );
-
   return (
     <div
       className="wrapper credits__wrapper"
