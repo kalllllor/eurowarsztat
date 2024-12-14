@@ -61,7 +61,7 @@ const Title = ({ baseFontSize }) => {
     <>
       <Scroll ref={scrollRef}>
         <Text
-          color="white"
+          color="#d4d8d8"
           anchorX="center"
           anchorY="center"
           position={[textPosX, 0, textPosZ]}
@@ -73,7 +73,7 @@ const Title = ({ baseFontSize }) => {
           EURO
         </Text>
         <Text
-          color="white"
+          color="#d4d8d8"
           anchorX="center"
           anchorY="center"
           position={[

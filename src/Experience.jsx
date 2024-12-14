@@ -1,4 +1,5 @@
 import {
+  Suspense,
   useEffect,
   useRef,
   useState,
@@ -44,18 +45,12 @@ import Title from "./components/title/Title";
 import Share from "./components/share/Share";
 import Footer from "./components/footer/Footer";
 import Event from "./components/event/Event";
-export default function Experience() {
-  const [data, setData] = useState([]);
-  const [totalHeight, setTotalHeight] =
-    useState(0);
-  useEffect(() => {
-    fetch(
-      "https://serwer2458198.home.pl/autoinstalator/wordpress/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard"
-    )
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
-
+import VideoOverlay from "./components/videoOverlay/VideoOverlay";
+export default function Experience({
+  galleryData,
+  carouselData,
+  eventsData,
+}) {
   const {
     debug,
     enabledPostProcess,
@@ -188,12 +183,20 @@ export default function Experience() {
     },
   });
 
+  const [totalHeight, setTotalHeight] =
+    useState(0);
+
+  const [isLoading, setIsLoading] =
+    useState(false);
+  const [isActive, setActive] = useState(null);
+  const [isScroll, setScroll] = useState(true);
+  const [currentIndex, setCurrentIndex] =
+    useState(0);
+
   const pages = 10;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
-  const [isActive, setActive] = useState(null);
-  const [isScroll, setScroll] = useState(true);
   const videoRef = useRef(null);
   const photoRef = useRef(null);
   const targetRotation = useRef(
@@ -229,14 +232,17 @@ export default function Experience() {
     setActive(person);
   };
 
-  const handleEnableScroll = (
-    enable,
-    videoUrl,
-    photoUrl = null
-  ) => {
-    videoRef.current = videoUrl;
-    photoRef.current = photoUrl;
+  const handleEnableScroll = (enable, index) => {
+    const item = carouselData[index];
+
+    videoRef.current =
+      item.videoToDisplay ?? null;
+    photoRef.current = item.videoToDisplay
+      ? null
+      : item.mainImage;
     setScroll(enable);
+    setIsLoading(!enable);
+    setCurrentIndex(index);
   };
 
   const handleTotalHeight = (val) => {
@@ -247,6 +253,46 @@ export default function Experience() {
     photoRef.current = null;
     videoRef.current = null;
     setScroll(true);
+    setIsLoading(false);
+  };
+
+  const handleNextVideo = () => {
+    if (carouselData && carouselData.length > 0) {
+      const nextIndex =
+        currentIndex !== null &&
+        currentIndex < carouselData.length - 1
+          ? currentIndex + 1
+          : 0;
+      setCurrentIndex(nextIndex);
+
+      const nextItem = carouselData[nextIndex];
+      videoRef.current =
+        nextItem.videoToDisplay ?? null;
+      photoRef.current = nextItem.videoToDisplay
+        ? null
+        : nextItem.mainImage;
+
+      setIsLoading(true);
+    }
+  };
+
+  const handlePreviousVideo = () => {
+    if (carouselData && carouselData.length > 0) {
+      const prevIndex =
+        currentIndex !== null && currentIndex > 0
+          ? currentIndex - 1
+          : carouselData.length - 1;
+      setCurrentIndex(prevIndex);
+
+      const prevItem = carouselData[prevIndex];
+      videoRef.current =
+        prevItem.videoToDisplay ?? null;
+      photoRef.current = prevItem.videoToDisplay
+        ? null
+        : prevItem.mainImage;
+
+      setIsLoading(true);
+    }
   };
 
   return (
@@ -272,64 +318,20 @@ export default function Experience() {
         imageUrl={isActive && isActive.image.url}
         isActive={isActive}
       />
-
-      {photoRef.current && (
-        <Html
-          as="div"
-          wrapperClass="video__container"
-        >
-          <div
-            className="video-overlay"
-            style={overlayStyles}
-          >
-            <img
-              src={photoRef.current}
-              style={{
-                width: "auto",
-                height: "80%",
-              }}
-            ></img>
-            <button
-              className="exit"
-              onClick={handleCloseVideo}
-            >
-              <img src={"back.png"} />
-              <span>exit</span>
-            </button>
-          </div>
-        </Html>
+      {(photoRef.current || videoRef.current) && (
+        <VideoOverlay
+          videoSrc={videoRef.current}
+          photoSrc={photoRef.current}
+          isLoading={isLoading}
+          onClose={handleCloseVideo}
+          onNext={handleNextVideo}
+          onPrevious={handlePreviousVideo}
+          onLoadComplete={() =>
+            setIsLoading(false)
+          }
+        />
       )}
 
-      {videoRef.current && !photoRef.current && (
-        <Html
-          as="div"
-          wrapperClass="video__container"
-        >
-          <div
-            className="video-overlay"
-            style={overlayStyles}
-          >
-            <video
-              src={videoRef.current}
-              controls
-              muted
-              autoPlay
-              style={{
-                width: "auto",
-                height: "80%",
-              }}
-            ></video>
-
-            <button
-              className="exit"
-              onClick={handleCloseVideo}
-            >
-              <img src={"back.png"} />
-              <span>exit</span>
-            </button>
-          </div>
-        </Html>
-      )}
       <ScrollControls
         damping={0.5}
         pages={pages}
@@ -337,7 +339,7 @@ export default function Experience() {
       >
         <Scroll>
           <Gallery
-            images={data}
+            images={galleryData}
             isSelected={handleIsSelected}
             pages={pages}
             enableScroll={handleEnableScroll}
@@ -369,7 +371,7 @@ export default function Experience() {
                   color: textColor,
                 }}
               />
-              <Event
+              <Credits
                 style={{
                   color: textColor,
                   top: `${
@@ -379,18 +381,20 @@ export default function Experience() {
                   }vh`,
                 }}
               />
-              <Credits
+              <Event
                 style={{
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 150
+                      ? totalHeight * 100 + 200
                       : 100
                   }vh`,
                 }}
+                data={eventsData}
               />
               <Carousel
                 enableScroll={handleEnableScroll}
+                data={carouselData}
                 style={{
                   top: `${
                     totalHeight
@@ -502,15 +506,4 @@ const overlayStyles = {
   justifyContent: "center",
   alignItems: "center",
   zIndex: 1000,
-};
-
-const closeButtonStyles = {
-  position: "absolute",
-  top: "30px",
-  right: "58px",
-  fontSize: "48px",
-  color: "#fff",
-  background: "none",
-  border: "none",
-  cursor: "pointer",
 };

@@ -8,8 +8,19 @@ import {
 } from "@react-three/fiber";
 import Experience from "./Experience";
 import { useControls } from "leva";
+import useFetchGalleryData from "./hooks/useFetchGalleryData"; // Import the custom hook
 
 const App = () => {
+  const {
+    galleryData,
+    carouselData,
+    eventsData,
+    error,
+    loading,
+  } = useFetchGalleryData(
+    "https://serwer2458198.home.pl/autoinstalator/wordpress/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard&per_page=100"
+  );
+
   const { camX, camY, camZ } = useControls({
     camX: {
       value: 0,
@@ -30,6 +41,7 @@ const App = () => {
       step: 0.01,
     },
   });
+
   const CameraController = ({
     camX,
     camY,
@@ -43,6 +55,19 @@ const App = () => {
 
     return null;
   };
+
+  if (loading) {
+    return (
+      <div className="loading__screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className="app">
       <Suspense
@@ -66,7 +91,11 @@ const App = () => {
             camY={camY}
             camZ={camZ}
           />
-          <Experience />
+          <Experience
+            galleryData={galleryData}
+            carouselData={carouselData}
+            eventsData={eventsData}
+          />
         </Canvas>
       </Suspense>
     </div>

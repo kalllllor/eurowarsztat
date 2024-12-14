@@ -200,7 +200,7 @@ function Images({
                         enableScroll(
                           false,
                           currentPerson.current
-                            .video
+                            .index
                         )
                       }
                     >
@@ -275,14 +275,19 @@ function Images({
             <Image
               key={index}
               position={position}
-              scale={[1, 2, 1]}
+              scale={[1.2, 2.4, 1.2]}
               fontSize={0.15}
-              fullName={imageData.acf.fullname}
-              url={imageData.acf.image.url}
+              fullName={imageData.fullname}
+              url={
+                imageData.image.url ??
+                "/blank.jpg"
+              }
               onClick={() => {
-                handleClick(true, imageData.acf);
-                currentPerson.current =
-                  imageData.acf;
+                handleClick(true, imageData);
+                currentPerson.current = {
+                  index,
+                  ...imageData,
+                };
               }}
               pages={pages}
               isClicked={isActive}
