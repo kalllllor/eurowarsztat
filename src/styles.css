@@ -399,6 +399,7 @@ a {
   font-style: normal;
   line-height: 1em;
   margin-bottom: 42px;
+  width: 70%;
 }
 
 .exit {
@@ -420,7 +421,7 @@ a {
 }
 
 .exit img {
-  width: 48px;
+  width: 32px;
   height: auto;
   transition: transform 0.2s ease;
 }
@@ -456,7 +457,7 @@ a {
   border-radius: 8px;
   padding: 8px;
   position: absolute;
-  bottom: 150%;
+  bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -495,6 +496,7 @@ a {
 
 .info__content .description p {
   margin: 0px;
+  width: 70%;
 }
 
 .info__content .quote p {
@@ -504,7 +506,7 @@ a {
 }
 
 .quote {
-  width: 60%;
+  width: 70%;
 }
 
 .info__content .time {
@@ -776,6 +778,7 @@ a {
 }
 .event_place {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }

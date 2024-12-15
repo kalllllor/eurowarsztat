@@ -182,7 +182,7 @@ export default function Experience({
       step: 0.1,
     },
   });
-  console.log(galleryData);
+
   const totalHeight =
     Math.ceil(galleryData.length / 3) +
     Math.ceil(galleryData.length / 3) * 0.7;
@@ -199,6 +199,7 @@ export default function Experience({
   const easeFactor = 0.1;
 
   const videoRef = useRef(null);
+  const singleVideoRef = useRef(null);
   const photoRef = useRef(null);
   const targetRotation = useRef(
     new THREE.Vector3()
@@ -233,17 +234,29 @@ export default function Experience({
     setActive(person);
   };
 
-  const handleEnableScroll = (enable, index) => {
-    const item = carouselData[index];
+  const handleEnableScroll = (
+    enable,
+    index,
+    single = false
+  ) => {
+    console.log(enable, index, single);
+    if (!single) {
+      const item = carouselData[index];
 
-    videoRef.current =
-      item.videoToDisplay ?? null;
-    photoRef.current = item.videoToDisplay
-      ? null
-      : item.mainImage;
-    setScroll(enable);
-    setIsLoading(!enable);
-    setCurrentIndex(index);
+      videoRef.current =
+        item.videoToDisplay ?? null;
+      photoRef.current = item.videoToDisplay
+        ? null
+        : item.mainImage;
+      setScroll(enable);
+      setIsLoading(!enable);
+      setCurrentIndex(index);
+    } else {
+      const item = galleryData[index];
+      setScroll(enable);
+      setIsLoading(!enable);
+      singleVideoRef.current = item.video;
+    }
   };
 
   const handleTotalHeight = (val) => {
@@ -253,6 +266,7 @@ export default function Experience({
   const handleCloseVideo = () => {
     photoRef.current = null;
     videoRef.current = null;
+    singleVideoRef.current = null;
     setScroll(true);
     setIsLoading(false);
   };
@@ -319,9 +333,14 @@ export default function Experience({
         imageUrl={isActive && isActive.image.url}
         isActive={isActive}
       />
-      {(photoRef.current || videoRef.current) && (
+      {(photoRef.current ||
+        videoRef.current ||
+        singleVideoRef.current) && (
         <VideoOverlay
-          videoSrc={videoRef.current}
+          videoSrc={
+            videoRef.current ||
+            singleVideoRef.current
+          }
           photoSrc={photoRef.current}
           isLoading={isLoading}
           onClose={handleCloseVideo}
@@ -330,6 +349,7 @@ export default function Experience({
           onLoadComplete={() =>
             setIsLoading(false)
           }
+          isSingle={!!singleVideoRef.current}
         />
       )}
 
@@ -360,9 +380,12 @@ export default function Experience({
             />
           </group>
         </Scroll>
-        <Share totalHeight={totalHeight} />
+        <Share
+          totalHeight={totalHeight}
+          baseFontSize={0.55}
+        />
         {!isActive && (
-          <Title baseFontSize={fontSize} />
+          <Title baseFontSize={0.55} />
         )}
         <Scroll html>
           {!isActive && (

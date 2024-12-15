@@ -192,7 +192,8 @@ function Images({
                         enableScroll(
                           false,
                           currentPerson.current
-                            .index
+                            .index,
+                          true
                         )
                       }
                     >

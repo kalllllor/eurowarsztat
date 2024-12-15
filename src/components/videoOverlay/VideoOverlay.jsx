@@ -10,6 +10,7 @@ const VideoOverlay = ({
   onNext,
   onPrevious,
   onLoadComplete,
+  isSingle,
 }) => {
   return (
     <Html
@@ -61,19 +62,25 @@ const VideoOverlay = ({
           <img src={"back.png"} alt="Exit" />
           <span>exit</span>
         </button>
-
-        <button
-          className="moveBtn next"
-          onClick={onNext}
-        >
-          <img src={"back.png"} alt="Next" />
-        </button>
-        <button
-          className="moveBtn previous"
-          onClick={onPrevious}
-        >
-          <img src={"back.png"} alt="Previous" />
-        </button>
+        {!isSingle && (
+          <>
+            <button
+              className="moveBtn next"
+              onClick={onNext}
+            >
+              <img src={"back.png"} alt="Next" />
+            </button>
+            <button
+              className="moveBtn previous"
+              onClick={onPrevious}
+            >
+              <img
+                src={"back.png"}
+                alt="Previous"
+              />
+            </button>
+          </>
+        )}
       </div>
     </Html>
   );

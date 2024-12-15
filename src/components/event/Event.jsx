@@ -12,33 +12,37 @@ const Event = ({ data = [], ...props }) => {
     )
   );
 
-  // Split events into past and future
-  const { previous, after } = data.reduce(
+  const filteredData = data.reduce(
     (acc, current) => {
       if (new Date(current.startDate) > today) {
         acc.after.push(current);
+      } else if (
+        new Date(current.startDate) < today &&
+        new Date(current.finishDate) > today
+      ) {
+        acc.now.push(current);
       } else {
         acc.previous.push(current);
       }
       return acc;
     },
-    { previous: [], after: [] }
+    { now: [], previous: [], after: [] }
   );
 
-  // Handle button click with transition
   const handleToggle = (showPast) => {
     if (
       isTransitioning ||
       showPast === isPastSelected
     )
-      return; // Prevent mid-transition clicks
+      return;
 
-    setIsTransitioning(true); // Start transition
+    setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentData(showPast ? previous : after); // Change data after fade-out
-      setIsPastSelected(showPast); // Update state
-      setIsTransitioning(false); // End transition
-    }, 300); // Match the CSS fade-out duration
+      setCurrentData(filteredData[showPast]);
+      console.log(filteredData[showPast]);
+      setIsPastSelected(showPast);
+      setIsTransitioning(false);
+    }, 300);
   };
 
   return (
@@ -51,27 +55,35 @@ const Event = ({ data = [], ...props }) => {
         <div className="event__header">
           <button
             className={
-              !isPastSelected ? "active" : ""
+              isPastSelected === "now"
+                ? "active"
+                : ""
             }
-            onClick={() => handleToggle(false)}
+            onClick={() => handleToggle("now")}
           >
             OBECNE
           </button>
           <span>/</span>
           <button
             className={
-              !isPastSelected ? "active" : ""
+              isPastSelected === "after"
+                ? "active"
+                : ""
             }
-            onClick={() => handleToggle(false)}
+            onClick={() => handleToggle("after")}
           >
             PRZYSZŁE
           </button>
           <span>/</span>
           <button
             className={
-              isPastSelected ? "active" : ""
+              isPastSelected === "previous"
+                ? "active"
+                : ""
             }
-            onClick={() => handleToggle(true)}
+            onClick={() =>
+              handleToggle("previous")
+            }
           >
             PRZESZŁE
           </button>
@@ -90,6 +102,7 @@ const Event = ({ data = [], ...props }) => {
                   eventTitle,
                   link,
                   startDate,
+                  finishDate,
                   place,
                 },
                 index
@@ -100,7 +113,11 @@ const Event = ({ data = [], ...props }) => {
                 >
                   <a href={link}>{eventTitle}</a>
                   <div className="event_place">
-                    <span>{startDate}</span>
+                    <div>
+                      <span>{startDate}</span>
+                      <span>{" - "}</span>
+                      <span>{finishDate}</span>
+                    </div>
                     <span>{place}</span>
                   </div>
                 </div>
