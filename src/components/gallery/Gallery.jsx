@@ -117,7 +117,6 @@ function Images({
   isSelected,
   pages,
   enableScroll,
-  totalHeight,
 }) {
   const ref = useRef();
   const [isActive, setActive] = useState(false);
@@ -148,13 +147,6 @@ function Images({
       ref.current.style.height = "0%";
     }
   };
-
-  totalHeight(
-    Math.ceil(images.length / itemsPerRow) +
-      Math.ceil(images.length / itemsPerRow) *
-        spacingY
-  );
-
   return (
     <>
       <Html
@@ -304,7 +296,6 @@ const Gallery = ({
   isSelected,
   pages,
   enableScroll,
-  totalHeight,
 }) => {
   return (
     <>
@@ -313,7 +304,6 @@ const Gallery = ({
         images={images}
         isSelected={isSelected}
         enableScroll={enableScroll}
-        totalHeight={totalHeight}
       />
     </>
   );

@@ -165,11 +165,11 @@ a {
   color: #d4d8d8;
   width: 65%;
   opacity: 1;
-  font-size: 1.8vh;
+  font-size: 2vh;
 }
 
 .desc__container .asterisk {
-  font-size: 1vh;
+  font-size: 1.3vh;
 }
 
 .bold {
@@ -259,13 +259,13 @@ a {
 }
 
 .credits {
-  margin-top: 0px;
+  margin: 0px;
 }
 
 .credits__bold {
   font-weight: 700;
-
   margin-bottom: 0px;
+  margin-top: 3vh;
 }
 
 .info__container {
@@ -706,8 +706,9 @@ a {
 }
 
 .event__title h3 {
-  font-family: "BodoniModa";
-  font-size: 48px;
+  color: #d4d8d8;
+  font-weight: bold;
+  font-size: 24px;
   margin: 0px;
 }
 
@@ -744,7 +745,7 @@ a {
 }
 
 .event__header button {
-  font-size: 24px;
+  font-size: 16px;
   cursor: pointer;
   transition: color 0.1s ease-in-out;
 }
@@ -754,7 +755,7 @@ a {
 }
 
 .event__header span {
-  font-size: 32px;
+  font-size: 1vh;
 }
 
 .event__wrapper a {

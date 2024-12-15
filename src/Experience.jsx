@@ -182,9 +182,10 @@ export default function Experience({
       step: 0.1,
     },
   });
-
-  const [totalHeight, setTotalHeight] =
-    useState(0);
+  console.log(galleryData);
+  const totalHeight =
+    Math.ceil(galleryData.length / 3) +
+    Math.ceil(galleryData.length / 3) * 0.7;
 
   const [isLoading, setIsLoading] =
     useState(false);
@@ -386,7 +387,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 270
+                      ? totalHeight * 100 + 300
                       : 100
                   }vh`,
                 }}
@@ -398,7 +399,7 @@ export default function Experience({
                 style={{
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 500
+                      ? totalHeight * 100 + 550
                       : 100
                   }vh`,
                 }}

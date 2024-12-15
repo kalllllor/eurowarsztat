@@ -5,17 +5,17 @@ const Event = ({ data = [], ...props }) => {
   const [isPastSelected, setIsPastSelected] =
     useState(false);
   const [isTransitioning, setIsTransitioning] =
-    useState(false); // For controlling fade animation
+    useState(false);
   const [currentData, setCurrentData] = useState(
     data.filter(
-      (event) => new Date(event.date) > today
-    ) // Start with future data
+      (event) => new Date(event.startDate) > today
+    )
   );
 
   // Split events into past and future
   const { previous, after } = data.reduce(
     (acc, current) => {
-      if (new Date(current.date) > today) {
+      if (new Date(current.startDate) > today) {
         acc.after.push(current);
       } else {
         acc.previous.push(current);
@@ -86,7 +86,12 @@ const Event = ({ data = [], ...props }) => {
           <div className="event__wrapper-content">
             {currentData.map(
               (
-                { eventTitle, link, date, place },
+                {
+                  eventTitle,
+                  link,
+                  startDate,
+                  place,
+                },
                 index
               ) => (
                 <div
@@ -95,7 +100,7 @@ const Event = ({ data = [], ...props }) => {
                 >
                   <a href={link}>{eventTitle}</a>
                   <div className="event_place">
-                    <span>{date}</span>
+                    <span>{startDate}</span>
                     <span>{place}</span>
                   </div>
                 </div>
