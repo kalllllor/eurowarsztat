@@ -376,7 +376,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 100
+                      ? totalHeight * 100 + 150
                       : 100
                   }vh`,
                 }}
@@ -386,7 +386,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 200
+                      ? totalHeight * 100 + 270
                       : 100
                   }vh`,
                 }}

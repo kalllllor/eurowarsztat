@@ -126,7 +126,7 @@ function Images({
   const itemsPerRow = 3;
   const spacingX = 1.5;
   const spacingY = 0.7;
-  const topY = 2.5;
+  const topY = 3;
   const handleClick = (active, imageData) => {
     isSelected(imageData);
     setActive(active);

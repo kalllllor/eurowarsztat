@@ -1,7 +1,16 @@
 @import url("https://use.typekit.net/gct6lrl.css");
 @import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
+
 * {
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "BodoniModa";
+  src: local("BodoniModa"),
+    url("/BodoniModa_9pt-SemiBoldItalic.woff")
+      format("opentype");
+  font-weight: normal;
 }
 
 button {
@@ -150,12 +159,17 @@ a {
   text-align: justify;
 }
 
-.desc__container p {
+.desc__container p,
+.asterisk {
   text-align: left;
   color: #d4d8d8;
   width: 65%;
   opacity: 1;
-  font-size: 1.5vh;
+  font-size: 1.8vh;
+}
+
+.desc__container .asterisk {
+  font-size: 1vh;
 }
 
 .bold {
@@ -337,8 +351,8 @@ a {
 }
 
 .carousel__item {
-  width: 340px;
-  height: 600px;
+  height: 50%;
+  width: auto;
 }
 
 .video__container {
@@ -644,14 +658,6 @@ a {
   width: 100%;
 }
 
-.desc__container .asterisk {
-  font-style: italic;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  font-size: 16px !important;
-}
-
 .desc__container .subtext {
   text-align: center;
   width: 100%;
@@ -700,6 +706,7 @@ a {
 }
 
 .event__title h3 {
+  font-family: "BodoniModa";
   font-size: 48px;
   margin: 0px;
 }

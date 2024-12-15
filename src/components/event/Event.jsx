@@ -45,10 +45,19 @@ const Event = ({ data = [], ...props }) => {
     <div className="wrapper" {...props}>
       <div className="container">
         <div className="event__title">
-          <h3>EVENTY</h3>
+          <h3>prezentacje projektu</h3>
         </div>
 
         <div className="event__header">
+          <button
+            className={
+              !isPastSelected ? "active" : ""
+            }
+            onClick={() => handleToggle(false)}
+          >
+            OBECNE
+          </button>
+          <span>/</span>
           <button
             className={
               !isPastSelected ? "active" : ""

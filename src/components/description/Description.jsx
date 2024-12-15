@@ -9,72 +9,88 @@ const Description = (props) => {
         <div className="desc__wrapper" {...props}>
           <div className="desc__container">
             <p>
-              Zainicjowany przez artystkę Martę
-              Romankiv projekt Eurowarsztat jest
-              zbudowany wokół pytania, jak uczynić
-              głosy mniejszości - w tym osób
-              mieszkających i pracujących na
-              terenie Unii Europejskiej, ale nie
-              posiadających europejskich
-              paszportów - tak samo słyszalne, jak
-              głosy polityków i polityczek.
+              Według Davida Lowenthala Europa
+              funkcjonuje przede wszystkim jako
+              konstrukt mentalny, a nie jako
+              jednolita całość geograficzna czy
+              społeczna[1]. Mimo to, Europa często
+              bywa utożsamiana z granicami Unii
+              Europejskiej. Proces ten ujawnia się
+              nie tylko w „eurointegracjach” tzw.
+              państw trzecich z UE, ale także w
+              podziale ludzi na politycznych
+              obywateli* Unii Europejskiej i na
+              osób z politycznym obywatelstwem
+              tzw. krajów trzecich
             </p>
             <p className="bold">
-              Otwarty projekt wynika z refleksji
-              na temat widzialności perspektyw
-              osób migranckich. Według badań
-              Komisji Europejskiej w 2023 roku
-              około 6 procent, czyli 27,3 miliona
-              mieszkańców i mieszkanek krajów Unii
-              Europejskiej stanowiły osoby nie
-              posiadające obywatelstwa jednego z
-              krajów członkowskich. Najpewniej w
-              najbliższych latach te liczby będą
-              systematycznie rosnąć.
+              Projekt Eurowarsztat ma na celu
+              przełamanie granic przynależności do
+              „europejskości”, która często jest
+              zawężona do granic UE. Razem z
+              zaproszonymi do projektu migrantkami
+              i migrantami z tzw. krajów trzecich
+              zauważamy, że osoby migranckie są
+              nieodłączną częścią współczesnego
+              krajobrazu społecznego. Ich obecność
+              – obok innych obywateli –
+              współtworzy teraźniejszość i
+              przyszłość Europy.
             </p>
             <p>
-              Ze względu na brak politycznego
-              obywatelstwa* państwa swojego
-              zamieszkania, osoby migranckie na co
-              dzień mierzą się z licznymi
-              nierównościami. W szczególnie
-              trudnej sytuacji znajdują się tzw.
-              obywatele krajów trzecich (osoby
-              pochodzące spoza UE), gdyż brak
-              “unijnego” paszportu wiąże się dla
-              nich ze znacznym ograniczeniem praw
-              obywatelskich, jak i brakiem
-              politycznej sprawczości. Mimo, iż
-              własnymi rękami i intelektem
-              współtworzą wspólnoty w miejscach
-              swojego pobytu, najczęściej nie mogą
-              uczestniczyć w pozwalających na
-              współdecydowanie o wspólnej
-              przyszłości procesach
-              demokratycznych.
+              Podjęte w ramach projektu działania
+              opierają się na założeniu, że w
+              kontekście globalnej migracji i
+              związanych z nią zmian społecznych
+              temat wspólnej, heterogenicznej
+              przyszłości wciąż jest pomijany.
+              Projekt koncentruje się na refleksji
+              nad współczesnym systemem
+              obywatelstwa politycznego**. W
+              przypadku politycznych osób
+              nieobywatelskich*** jego brak wiąże
+              się z wykluczeniem z pełni praw
+              politycznych, czyli ograniczeniem
+              możliwości wpływania na sprawy
+              publiczne oraz kształtowania
+              przyszłości swoich wspólnot.
             </p>
             <p>
-              Na zarejestrowanych nagraniach
-              uczestniczki i uczestnicy opowiadają
-              o własnych wizjach przyszłości oraz
-              proponują niezbędne według nich
-              zmiany społeczne. Zdjęcia i nagrania
-              realizowane są w konwencji glamour:
-              profesjonalna wizażystka wykonuje
-              bohaterom i bohaterkom delikatny
-              makijaż, każda z osób ma gładkie,
-              czarne ubranie i koronę ze złotych
-              gwiazd. Estetyka fotografii i nagrań
-              nawiązuje do sesji modowych z
-              luksusowych magazynów. Zabiegi te są
-              skierowane na symbolicznie zerwanie
-              ze stereotypem migrantów i migrantek
-              wyłącznie jako ofiar i przybliżenia
-              perspektywy, w której jako
-              polityczne osoby nieobywatelskie**
-              przywracają sobie należne, równe
-              miejsce w strukturze europejskiej
-              politycznej wspólnoty.
+              W ramach Eurowarsztatu, razem z
+              osobami uczestniczącymi w projekcie,
+              wskazujemy dostrzegane przez nas
+              problemy i proponujemy ich
+              rozwiązania. Projekt stanowi próbę
+              wyobrażenia przyszłości, w której
+              głosy migrantów i migrantek będą
+              miały prawo współkształtować tę
+              przyszłość.
+            </p>
+            <p className="asterisk">
+              * polityczny obywatel – osoba
+              posiadająca prawny status
+              obywatelski w miejscu swojego
+              zamieszkania.
+            </p>
+            <p className="asterisk">
+              ** obywatelstwo polityczne –
+              formalny status przynależności do
+              państwa, które gwarantuje swoim
+              politycznym obywatelom pełnię praw,
+              w tym prawa polityczne.
+            </p>
+            <p className="asterisk">
+              *** polityczna osoba nieobywatelska
+              – osoba nieposiadająca obywatelstwa
+              politycznego w kraju swojego
+              zamieszkania, w związku z czym jest
+              wykluczona z części lub pełni praw
+              politycznych. W zależności od kraju
+              swojego pochodzenia, posiadanego
+              obywatelstwa, jak i polityki kraju
+              zamieszkania polityczni nieobywatele
+              są zróżnicowaną grupą pod względem
+              dostępu do praw politycznych.
             </p>
           </div>
         </div>
