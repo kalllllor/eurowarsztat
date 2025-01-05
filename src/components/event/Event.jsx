@@ -39,7 +39,7 @@ const Event = ({ data = [], ...props }) => {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentData(filteredData[showPast]);
-      console.log(filteredData[showPast]);
+
       setIsPastSelected(showPast);
       setIsTransitioning(false);
     }, 300);

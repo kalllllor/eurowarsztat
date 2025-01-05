@@ -11,7 +11,6 @@ const Share = () => {
     (state) => state.viewport
   );
   useFrame(() => {
-    console.log(scrollRef.current.position.y);
     if (
       scrollRef.current.position.y > 30 &&
       scrollRef.current.position.y < 37

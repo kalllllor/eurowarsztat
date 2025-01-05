@@ -284,7 +284,7 @@ function Images({
               fullName={imageData.fullname}
               url={
                 imageData.image.url ??
-                "/blank.jpg"
+                "/assets/blank.jpg"
               }
               onClick={() => {
                 handleClick(true, imageData);

@@ -113,7 +113,6 @@ export default function Experience({
     index,
     single = false
   ) => {
-    console.log(enable, index, single);
     if (!single) {
       const item = carouselData[index];
 
