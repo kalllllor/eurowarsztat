@@ -7,14 +7,9 @@ import {
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
 
-import { Perf } from "r3f-perf";
 import {
-  GizmoHelper,
-  GizmoViewport,
   Environment,
-  Float,
   useScroll,
-  Html,
   useTexture,
   SpotLight,
 } from "@react-three/drei";
@@ -23,18 +18,13 @@ import {
   EffectComposer,
   Vignette,
 } from "@react-three/postprocessing";
-import {
-  useFrame,
-  useThree,
-} from "@react-three/fiber";
-import { useControls } from "leva";
+import { useFrame } from "@react-three/fiber";
+
 import Gallery from "./components/gallery/Gallery";
 import * as THREE from "three";
 import {
   ScrollControls,
   Scroll,
-  Text,
-  OrbitControls,
 } from "@react-three/drei";
 import "./styles.css";
 import Description from "./components/description/Description";
@@ -46,142 +36,26 @@ import Share from "./components/share/Share";
 import Footer from "./components/footer/Footer";
 import Event from "./components/event/Event";
 import VideoOverlay from "./components/videoOverlay/VideoOverlay";
+
 export default function Experience({
   galleryData,
   carouselData,
   eventsData,
 }) {
-  const {
-    debug,
-    enabledPostProcess,
-    vignette,
-    posX,
-    posY,
-    posZ,
-    crownX,
-    crownY,
-    crownZ,
-    crownScale,
-    scaleX,
-    scaleY,
-    floatSpeed,
-    rotationIntensity,
-    floatIntensity,
-    floatingRange,
-    fontSize,
-    textColor,
-    x,
-    y,
-    z,
-  } = useControls({
-    debug: false,
-    enabledPostProcess: true,
-    vignette: false,
-    posX: {
-      value: 0,
-      min: -20,
-      max: 20,
-      step: 0.01,
-    },
-    posY: {
-      value: 0,
-      min: -20,
-      max: 20,
-      step: 0.01,
-    },
-    posZ: {
-      value: -2.7,
-      min: -40,
-      max: 40,
-      step: 0.01,
-    },
-    crownX: {
-      value: 0,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-    crownY: {
-      value: -0.08,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-    crownZ: {
-      value: -2.2,
-      min: -4,
-      max: 3,
-      step: 0.01,
-    },
-    crownScale: {
-      value: 2.17,
-      min: 1,
-      max: 3,
-      step: 0.01,
-    },
-
-    scaleX: {
-      value: 17.9,
-      min: -0,
-      max: 20,
-      step: 0.01,
-    },
-    scaleY: {
-      value: 18.8,
-      min: 0,
-      max: 20,
-      step: 0.01,
-    },
-    floatSpeed: {
-      value: 0.5,
-      min: 0,
-      max: 3,
-      step: 0.1,
-    },
-    rotationIntensity: {
-      value: 1,
-      min: 0,
-      max: 3,
-      step: 0.1,
-    },
-    floatIntensity: {
-      value: 0.7,
-      min: 0,
-      max: 3,
-      step: 0.1,
-    },
-    floatingRange: {
-      value: [0, 0.95],
-      min: 0,
-      max: 3,
-      step: 0.1,
-    },
-    fontSize: {
-      value: 0.55,
-      min: 0,
-      max: 1,
-      step: 0.01,
-    },
-    textColor: "#fff",
-    x: {
-      value: 0,
-      min: -30,
-      max: 30,
-      step: 0.1,
-    },
-    y: {
-      value: 1.1,
-      min: -30,
-      max: 30,
-      step: 0.1,
-    },
-    z: {
-      value: 6,
-      min: -30,
-      max: 30,
-      step: 0.1,
-    },
-  });
+  const enabledPostProcess = true;
+  const vignette = false;
+  const posX = 0;
+  const posY = 0;
+  const posZ = -2.7;
+  const crownX = 0;
+  const crownY = -0.08;
+  const crownZ = -2.2;
+  const crownScale = 2.17;
+  const scaleX = 17.9;
+  const scaleY = 18.8;
+  const textColor = "#fff";
+  const y = 1.1;
+  const z = 6;
 
   const totalHeight =
     Math.ceil(galleryData.length / 3) +
@@ -194,7 +68,7 @@ export default function Experience({
   const [currentIndex, setCurrentIndex] =
     useState(0);
 
-  const pages = 10;
+  const pages = 12;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -312,7 +186,6 @@ export default function Experience({
 
   return (
     <>
-      {debug && <Perf position="top-left" />}
       <color
         attach="background"
         args={["#000"]}
@@ -400,7 +273,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 150
+                      ? totalHeight * 100 + 220
                       : 100
                   }vh`,
                 }}
@@ -410,7 +283,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 300
+                      ? totalHeight * 100 + 350
                       : 100
                   }vh`,
                 }}
@@ -476,7 +349,7 @@ function ProjectedImage({
   const data = useScroll();
 
   const texture = useTexture(
-    imageUrl || "/assets/photos/blank.jpg",
+    imageUrl || "/assets/blank.jpg",
     (item) => {
       spotLightRef.current.shadow.mapSize.width = 1440;
       spotLightRef.current.shadow.mapSize.height = 1800;

@@ -4,7 +4,6 @@ import {
   useThree,
 } from "@react-three/fiber";
 import { Scroll, Text } from "@react-three/drei";
-import { useControls } from "leva";
 
 const Title = ({ baseFontSize }) => {
   const scrollRef = useRef(null);
@@ -19,26 +18,9 @@ const Title = ({ baseFontSize }) => {
   const topBreakpoint =
     baseValue + heightAdjustment * 0.1;
 
-  const { textPosX, textPosZ, lowerVal } =
-    useControls({
-      textPosX: {
-        value: 0,
-        min: -3,
-        max: 3,
-        step: 0.01,
-      },
-      textPosZ: {
-        value: 0,
-        min: -3,
-        max: 3,
-        step: 0.01,
-      },
-      lowerVal: {
-        value: (2.9 * 1000) / size.height,
-        min: (2.5 * 1000) / size.height - 10,
-        max: (2.5 * 1000) / size.height + 10,
-      },
-    });
+  const textPosX = 0;
+  const textPosZ = 0;
+  const lowerVal = (2.9 * 1000) / size.height;
 
   useFrame(() => {
     if (

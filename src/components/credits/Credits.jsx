@@ -1,5 +1,4 @@
 import React from "react";
-import { useThree } from "@react-three/fiber";
 
 const Credits = (props) => {
   return (

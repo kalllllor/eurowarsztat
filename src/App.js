@@ -7,7 +7,6 @@ import {
   useThree,
 } from "@react-three/fiber";
 import Experience from "./Experience";
-import { useControls } from "leva";
 import useFetchGalleryData from "./hooks/useFetchGalleryData"; // Import the custom hook
 
 const App = () => {
@@ -21,26 +20,9 @@ const App = () => {
     "https://serwer2458198.home.pl/autoinstalator/wordpress/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard&per_page=100"
   );
 
-  const { camX, camY, camZ } = useControls({
-    camX: {
-      value: 0,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-    camY: {
-      value: 0,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-    camZ: {
-      value: 3,
-      min: -3,
-      max: 3,
-      step: 0.01,
-    },
-  });
+  const camX = 0;
+  const camY = 0;
+  const camZ = 3;
 
   const CameraController = ({
     camX,

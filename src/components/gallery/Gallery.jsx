@@ -1,11 +1,5 @@
 import * as THREE from "three";
-import {
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect,
-} from "react";
+import { useRef, useState } from "react";
 import {
   useFrame,
   useThree,
@@ -14,13 +8,9 @@ import {
   Image as ImageImpl,
   Text,
   Html,
-  useTexture,
-  useVideoTexture,
   useScroll,
-  SpotLight,
 } from "@react-three/drei";
-import { useControls } from "leva";
-import { Film } from "../icons/Film";
+
 import { Play } from "../icons/Play";
 
 function Image({
@@ -215,14 +205,35 @@ function Images({
                 </div>
               )}
             {isActive &&
-              currentPerson.current.date && (
-                <div className="time">
-                  <span>Bielsko-Biała</span>
-                  <span>
-                    {currentPerson.current.date}
-                  </span>
+              currentPerson.current.quoteSecond
+                ?.length && (
+                <div className="quote">
+                  <p>
+                    {
+                      currentPerson.current
+                        .quoteSecond
+                    }
+                  </p>
                 </div>
               )}
+            {isActive && (
+              <div className="time">
+                {["place", "date"].map(
+                  (key) =>
+                    currentPerson.current[
+                      key
+                    ] && (
+                      <span key={key}>
+                        {
+                          currentPerson.current[
+                            key
+                          ]
+                        }
+                      </span>
+                    )
+                )}
+              </div>
+            )}
           </div>
         </div>
       </Html>

@@ -1,11 +1,7 @@
-import { useEffect, useRef } from "react";
-import {
-  useFrame,
-  useThree,
-} from "@react-three/fiber";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { SpotLight } from "@react-three/drei";
 import * as THREE from "three";
-import { useControls } from "leva";
 
 function MovingSpot({ intensity, ...props }) {
   const light = useRef();

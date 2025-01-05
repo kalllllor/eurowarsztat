@@ -124,16 +124,13 @@ a {
 
 .wrapper {
   width: 100vw;
+  height: 100vh;
   position: absolute;
   top: 200vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-/* .credits__wrapper {
-  top: 800vh;
-} */
 
 .credits__wrapper .container {
   max-width: 960px;
@@ -545,8 +542,12 @@ a {
 }
 
 @media (max-width: 1024px) {
+  .info__content .description p {
+    width: 100%;
+  }
   .info__content .title h1 {
-    font-size: 32px;
+    font-size: 48px;
+    margin-bottom: 16px;
   }
   .info__content .description {
     width: 100%;
@@ -561,6 +562,14 @@ a {
     width: 100%;
     padding: 0px 32px 0px 16px;
     padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 769px) {
+  .info__content {
+    padding: 0px 16px;
+    margin: 0px 8px;
+    padding-bottom: 16px;
   }
 }
 

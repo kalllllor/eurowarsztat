@@ -4,7 +4,6 @@ import {
   useThree,
 } from "@react-three/fiber";
 import { Scroll, Text } from "@react-three/drei";
-import { useControls } from "leva";
 
 const Share = () => {
   const scrollRef = useRef(null);
@@ -12,6 +11,7 @@ const Share = () => {
     (state) => state.viewport
   );
   useFrame(() => {
+    console.log(scrollRef.current.position.y);
     if (
       scrollRef.current.position.y > 30 &&
       scrollRef.current.position.y < 37

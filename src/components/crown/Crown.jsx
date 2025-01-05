@@ -1,17 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   useLoader,
   useFrame,
-} from "@react-three/fiber"; // Import useFrame
-import {
-  NearestFilter,
-  LinearMipMapLinearFilter,
-  RepeatWrapping,
-} from "three";
+} from "@react-three/fiber";
+import { RepeatWrapping } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useControls } from "leva";
 
 const applyTextureSettings = (texture) => {
   texture.wrapS = texture.wrapT = RepeatWrapping;
@@ -21,10 +16,7 @@ const applyTextureSettings = (texture) => {
 
 const Crown = (props) => {
   const matRef = useRef();
-  const crownRef = useRef(); // Reference for the mesh/group
-  const { crownColor } = useControls({
-    crownColor: "#d8ac27",
-  });
+  const crownRef = useRef();
 
   const { nodes } = useLoader(
     GLTFLoader,
@@ -92,7 +84,7 @@ const Crown = (props) => {
       >
         <meshPhysicalMaterial
           ref={matRef}
-          color={crownColor}
+          color="#d8ac27"
           map={colorMap}
           aoMap={aoMap}
           normalMap={norMap}
