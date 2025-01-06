@@ -38,7 +38,7 @@ const Credits = (props) => {
               Fotografię
             </p>
             <p className="credits">
-              Mateusz Lipiński
+              Marta Romankiv, Mateusz Lipiński
             </p>
             <p className="credits__bold">
               Zdjęcia wideo
@@ -90,7 +90,7 @@ const Credits = (props) => {
               Natalia Jakimowicz
             </p>
             <p className="credits__bold">
-              Strona internetowa
+              Implementacja strony internetowej
             </p>
             <p className="credits">Karol Greń</p>
             <p>
