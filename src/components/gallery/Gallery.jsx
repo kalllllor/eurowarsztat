@@ -114,7 +114,7 @@ function Images({
 
   const itemsPerRow = 3;
   const spacingX = 1.5;
-  const spacingY = 0.7;
+  const spacingY = 0.8;
   const topY = 3;
   const handleClick = (active, imageData) => {
     isSelected(imageData);

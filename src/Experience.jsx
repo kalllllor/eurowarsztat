@@ -57,9 +57,9 @@ export default function Experience({
   const y = 1.1;
   const z = 6;
 
-  const totalHeight =
-    Math.ceil(galleryData.length / 3) +
-    Math.ceil(galleryData.length / 3) * 0.7;
+  const totalHeight = Math.ceil(
+    galleryData.length / 3
+  );
 
   const [isLoading, setIsLoading] =
     useState(false);
@@ -68,7 +68,7 @@ export default function Experience({
   const [currentIndex, setCurrentIndex] =
     useState(0);
 
-  const pages = 12;
+  const pages = 14;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -272,7 +272,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 220
+                      ? totalHeight * 100 + 320
                       : 100
                   }vh`,
                 }}
@@ -282,7 +282,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 350
+                      ? totalHeight * 100 + 400
                       : 100
                   }vh`,
                 }}
@@ -294,7 +294,7 @@ export default function Experience({
                 style={{
                   top: `${
                     totalHeight
-                      ? totalHeight * 100 + 550
+                      ? totalHeight * 100 + 480
                       : 100
                   }vh`,
                 }}

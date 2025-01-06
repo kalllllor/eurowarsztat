@@ -12,28 +12,28 @@ const Share = () => {
   );
   useFrame(() => {
     if (
-      scrollRef.current.position.y > 30 &&
-      scrollRef.current.position.y < 37
+      scrollRef.current.position.y > 42 &&
+      scrollRef.current.position.y < 47.5
     ) {
       scrollRef.current.children[0].children[0].position.y =
-        -scrollRef.current.position.y + 30;
+        -scrollRef.current.position.y + 39.4;
 
       scrollRef.current.children[0].children[1].position.y =
-        -scrollRef.current.position.y + 29.7;
+        -scrollRef.current.position.y + 39.1;
     }
 
     if (
-      scrollRef.current.position.y > 34.3 &&
-      scrollRef.current.position.y < 37
+      scrollRef.current.position.y > 45.7 &&
+      scrollRef.current.position.y < 47.5
     ) {
       scrollRef.current.children[0].children[2].position.y =
-        -scrollRef.current.position.y + 29.3;
+        -scrollRef.current.position.y + 38.7;
     }
   });
 
   return (
     <Scroll ref={scrollRef}>
-      <group position={[0, -6.5 * height, 0]}>
+      <group position={[0, -8.5 * height, 0]}>
         <Text
           color="#D4D8D8"
           anchorX="center"
