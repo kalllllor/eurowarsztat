@@ -5,40 +5,39 @@ import {
 } from "@react-three/fiber";
 import { Scroll, Text } from "@react-three/drei";
 
-const Title = ({ baseFontSize }) => {
+const Title = () => {
   const scrollRef = useRef(null);
-  const { size } = useThree();
-  const fontSize =
-    (baseFontSize / size.height) * 1000;
-  const baseValue = 6;
-  const heightAdjustment = Math.max(
-    0,
-    Math.floor((size.height - 700) / 300) * 3
+  const viewport = useThree(
+    (state) => state.viewport
   );
-  const topBreakpoint =
-    baseValue + heightAdjustment * 0.1;
 
-  const textPosX = 0;
-  const textPosZ = 0;
-  const lowerVal = (2.9 * 1000) / size.height;
+  const bottomVal = viewport.height * 1.4;
+  const addedTopVal = 0.5;
+  const topSecondBreakpoint = viewport.height;
+  const mobileBreakpoint = 769;
 
   useFrame(() => {
+    const totalWidth =
+      viewport.width * viewport.factor;
     if (
-      scrollRef.current.position.y < topBreakpoint
+      scrollRef.current.position.y <
+      bottomVal - 10 / totalWidth
     ) {
       scrollRef.current.children[0].position.y =
         -scrollRef.current.position.y +
-        (0.5 / size.height) * 1000;
+        addedTopVal +
+        100 / totalWidth;
     }
     if (
-      scrollRef.current.position.y > lowerVal &&
-      scrollRef.current.position.y < topBreakpoint
+      scrollRef.current.position.y >
+        topSecondBreakpoint &&
+      scrollRef.current.position.y <
+        bottomVal - 100 / totalWidth
     ) {
       scrollRef.current.children[1].position.y =
         -scrollRef.current.position.y;
     }
   });
-
   return (
     <>
       <Scroll ref={scrollRef}>
@@ -46,8 +45,14 @@ const Title = ({ baseFontSize }) => {
           color="#d4d8d8"
           anchorX="center"
           anchorY="center"
-          position={[textPosX, 0, textPosZ]}
-          fontSize={fontSize}
+          position={[0, addedTopVal, 0]}
+          fontSize={
+            viewport.width * viewport.factor >
+            mobileBreakpoint
+              ? 1000 /
+                (viewport.width * viewport.factor)
+              : viewport.width * 0.3
+          }
           font="/BodoniModa_18pt-Black.woff"
           receiveShadow
           castShadow
@@ -58,12 +63,14 @@ const Title = ({ baseFontSize }) => {
           color="#d4d8d8"
           anchorX="center"
           anchorY="center"
-          position={[
-            textPosX,
-            -lowerVal,
-            textPosZ,
-          ]}
-          fontSize={fontSize * 0.8}
+          position={[0, -topSecondBreakpoint, 0]}
+          fontSize={
+            viewport.width * viewport.factor >
+            mobileBreakpoint
+              ? 800 /
+                (viewport.width * viewport.factor)
+              : viewport.width * 0.24
+          }
           font="/BodoniModa_18pt-SemiBoldItalic.woff"
           receiveShadow
           castShadow

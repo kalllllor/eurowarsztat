@@ -42,6 +42,24 @@ export default function Experience({
   carouselData,
   eventsData,
 }) {
+  const [isSingleColumn, setSingleColumn] =
+    useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSingleColumn(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+    return () =>
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+  }, []);
   const enabledPostProcess = true;
   const vignette = false;
   const posX = 0;
@@ -57,9 +75,12 @@ export default function Experience({
   const y = 1.1;
   const z = 6;
 
-  const totalHeight = Math.ceil(
-    galleryData.length / 3
-  );
+  const galleryHeight =
+    (isSingleColumn
+      ? galleryData.length
+      : Math.ceil(galleryData.length / 3)) + 3;
+  const pages = galleryHeight + 6;
+  const singlePageCameraHeight = 4.6;
 
   const [isLoading, setIsLoading] =
     useState(false);
@@ -68,7 +89,6 @@ export default function Experience({
   const [currentIndex, setCurrentIndex] =
     useState(0);
 
-  const pages = 14;
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
 
@@ -130,10 +150,6 @@ export default function Experience({
       setIsLoading(!enable);
       singleVideoRef.current = item.video;
     }
-  };
-
-  const handleTotalHeight = (val) => {
-    setTotalHeight(val);
   };
 
   const handleCloseVideo = () => {
@@ -236,7 +252,6 @@ export default function Experience({
             isSelected={handleIsSelected}
             pages={pages}
             enableScroll={handleEnableScroll}
-            totalHeight={handleTotalHeight}
           />
           <group
             position={[0, 0, 3]}
@@ -253,12 +268,12 @@ export default function Experience({
           </group>
         </Scroll>
         <Share
-          totalHeight={totalHeight}
-          baseFontSize={0.55}
+          galleryHeight={galleryHeight}
+          singlePageCameraHeight={
+            singlePageCameraHeight
+          }
         />
-        {!isActive && (
-          <Title baseFontSize={0.55} />
-        )}
+        {!isActive && <Title />}
         <Scroll html>
           {!isActive && (
             <>
@@ -271,8 +286,8 @@ export default function Experience({
                 style={{
                   color: textColor,
                   top: `${
-                    totalHeight
-                      ? totalHeight * 100 + 320
+                    galleryHeight
+                      ? galleryHeight * 100 + 300
                       : 100
                   }vh`,
                 }}
@@ -281,8 +296,8 @@ export default function Experience({
                 style={{
                   color: textColor,
                   top: `${
-                    totalHeight
-                      ? totalHeight * 100 + 400
+                    galleryHeight
+                      ? galleryHeight * 100 + 410
                       : 100
                   }vh`,
                 }}
@@ -293,8 +308,8 @@ export default function Experience({
                 data={carouselData}
                 style={{
                   top: `${
-                    totalHeight
-                      ? totalHeight * 100 + 480
+                    galleryHeight
+                      ? galleryHeight * 100 + 500
                       : 100
                   }vh`,
                 }}

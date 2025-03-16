@@ -1,5 +1,9 @@
 import * as THREE from "three";
-import { useRef, useState } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import {
   useFrame,
   useThree,
@@ -21,6 +25,8 @@ function Image({
   fontSize,
   isClicked,
   pages,
+  height,
+  isSingleColumn,
   ...props
 }) {
   const imageRef = useRef();
@@ -28,9 +34,6 @@ function Image({
   const [hovered, hover] = useState(false);
   const previousColor = useRef(new THREE.Color());
   const data = useScroll();
-  const { height } = useThree(
-    (state) => state.viewport
-  );
 
   useFrame(() => {
     const isInsideView = data.curve(
@@ -84,7 +87,7 @@ function Image({
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
       />
-      {hovered &&
+      {(hovered || isSingleColumn) &&
         fullName.split(" ").map((item, i) => (
           <Text
             key={i}
@@ -111,11 +114,33 @@ function Images({
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const currentPerson = useRef(null);
+  const { height } = useThree(
+    (state) => state.viewport
+  );
+  const [isSingleColumn, setSingleColumn] =
+    useState(false);
 
-  const itemsPerRow = 3;
-  const spacingX = 1.5;
-  const spacingY = 0.8;
+  useEffect(() => {
+    const handleResize = () => {
+      setSingleColumn(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+    return () =>
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+  }, []);
+
+  const itemsPerRow = isSingleColumn ? 1 : 3;
+  const spacingX = isSingleColumn ? 0 : 1.5;
+  const spacingY = isSingleColumn ? 1 : 1;
   const topY = 3;
+
   const handleClick = (active, imageData) => {
     isSelected(imageData);
     setActive(active);
@@ -137,6 +162,7 @@ function Images({
       ref.current.style.height = "0%";
     }
   };
+
   return (
     <>
       <Html
@@ -243,9 +269,7 @@ function Images({
             index / itemsPerRow
           );
           const col = index % itemsPerRow;
-
           const modulo6 = index % 6;
-
           let zIndex = 0;
           switch (modulo6) {
             case 0:
@@ -268,18 +292,25 @@ function Images({
               break;
           }
 
-          const position = [
-            col * spacingX -
-              ((itemsPerRow - 1) * spacingX) / 2,
-            -topY - row * spacingY,
-            zIndex,
-          ];
+          const position = isSingleColumn
+            ? [0, -topY - row * spacingY, 0]
+            : [
+                col * spacingX -
+                  ((itemsPerRow - 1) * spacingX) /
+                    2,
+                -topY - row * spacingY,
+                zIndex,
+              ];
 
           return (
             <Image
               key={index}
               position={position}
-              scale={[1.2, 2.4, 1.2]}
+              scale={[
+                isSingleColumn ? 2 : 1.2,
+                2.4,
+                1.2,
+              ]}
               fontSize={0.15}
               fullName={imageData.fullname}
               url={
@@ -295,6 +326,8 @@ function Images({
               }}
               pages={pages}
               isClicked={isActive}
+              height={height}
+              isSingleColumn={isSingleColumn}
             />
           );
         })}

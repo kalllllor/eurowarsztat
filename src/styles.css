@@ -129,7 +129,7 @@ a {
   top: 200vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .credits__wrapper .container {
@@ -156,17 +156,16 @@ a {
   text-align: justify;
 }
 
-.desc__container p,
-.asterisk {
+.desc__container p {
   text-align: left;
   color: #d4d8d8;
   width: 65%;
   opacity: 1;
-  font-size: 2vh;
+  font-size: 1rem;
 }
 
 .desc__container .asterisk {
-  font-size: 1.3vh;
+  font-size: 0.5rem;
 }
 
 .bold {
@@ -219,7 +218,7 @@ a {
 
   .desc__container p {
     width: 75%;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.4;
   }
 }
@@ -769,7 +768,8 @@ a {
   font-size: 1vh;
 }
 
-.event__wrapper a {
+.event__wrapper a,
+.event__wrapper p {
   color: #d4d8d8;
   font-size: 3vh;
   display: inline-block;
@@ -820,4 +820,22 @@ a {
 .previous {
   left: 16px;
   transform: translateY(-50%);
+}
+
+.pagination {
+  margin-top: 32px;
+}
+
+.pagination button {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  color: white;
+  font-weight: bold;
+}
+
+.pagination__content {
+  display: flex;
 }

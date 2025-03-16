@@ -2,16 +2,6 @@ import { useState } from "react";
 
 const Event = ({ data = [], ...props }) => {
   const today = new Date();
-  const [isPastSelected, setIsPastSelected] =
-    useState(false);
-  const [isTransitioning, setIsTransitioning] =
-    useState(false);
-  const [currentData, setCurrentData] = useState(
-    data.filter(
-      (event) => new Date(event.startDate) > today
-    )
-  );
-
   const filteredData = data.reduce(
     (acc, current) => {
       if (new Date(current.startDate) > today) {
@@ -29,21 +19,67 @@ const Event = ({ data = [], ...props }) => {
     { now: [], previous: [], after: [] }
   );
 
-  const handleToggle = (showPast) => {
+  filteredData.previous = [
+    ...filteredData.previous,
+    ...filteredData.previous,
+    ...filteredData.previous,
+  ];
+
+  const [isPastSelected, setIsPastSelected] =
+    useState(
+      filteredData.now.length > 0
+        ? "now"
+        : filteredData.after.length > 0
+        ? "after"
+        : "previous"
+    );
+  const [isTransitioning, setIsTransitioning] =
+    useState(false);
+  const [currentData, setCurrentData] = useState(
+    filteredData.now.length > 0
+      ? filteredData.now
+      : filteredData.after.length > 0
+      ? filteredData.after
+      : filteredData.previous
+  );
+
+  const [currentPage, setCurrentPage] =
+    useState(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(
+    currentData.length / itemsPerPage
+  );
+
+  const handleToggle = (timeslot) => {
     if (
       isTransitioning ||
-      showPast === isPastSelected
+      timeslot === isPastSelected
     )
       return;
 
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentData(filteredData[showPast]);
-
-      setIsPastSelected(showPast);
+      setCurrentData(filteredData[timeslot]);
+      setIsPastSelected(timeslot);
+      setCurrentPage(1);
       setIsTransitioning(false);
     }, 300);
   };
+
+  const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
+
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentPage(page);
+      setIsTransitioning(false);
+    }, 300);
+  };
+
+  const paginatedData = currentData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="wrapper" {...props}>
@@ -96,31 +132,74 @@ const Event = ({ data = [], ...props }) => {
           }`}
         >
           <div className="event__wrapper-content">
-            {currentData.map(
-              (
-                {
-                  eventTitle,
-                  link,
-                  startDate,
-                  finishDate,
-                  place,
-                },
-                index
-              ) => (
-                <div
-                  className="event__wrapper-item"
-                  key={index}
-                >
-                  <a href={link}>{eventTitle}</a>
-                  <div className="event_place">
-                    <div>
-                      <span>{startDate}</span>
-                      <span>{" - "}</span>
-                      <span>{finishDate}</span>
+            {paginatedData.length ? (
+              paginatedData.map(
+                (
+                  {
+                    eventTitle,
+                    link,
+                    startDate,
+                    finishDate,
+                    place,
+                  },
+                  index
+                ) => (
+                  <div
+                    className="event__wrapper-item"
+                    key={index}
+                  >
+                    <a href={link}>
+                      {eventTitle}
+                    </a>
+                    <div className="event_place">
+                      <div>
+                        <span>{startDate}</span>
+                        <span>{" - "}</span>
+                        <span>{finishDate}</span>
+                      </div>
+                      <span>{place}</span>
                     </div>
-                    <span>{place}</span>
                   </div>
+                )
+              )
+            ) : (
+              <div className="event__wrapper-item">
+                <div className="event_place">
+                  <p>
+                    <div>
+                      {isPastSelected === "now" &&
+                        "Nie ma obecnie żadnych trwających eventów"}
+                      {isPastSelected ===
+                        "after" &&
+                        "Nie ma obecnie żadnych zaplanowanych eventów"}
+                      {isPastSelected ===
+                        "previous" &&
+                        "Nie ma obecnie żadnych minionych eventów"}
+                    </div>
+                  </p>
                 </div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="pagination event__wrapper">
+          <div className="pagination__content">
+            {Array.from(
+              { length: totalPages },
+              (_, i) => (
+                <button
+                  key={i}
+                  className={
+                    currentPage === i + 1
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() =>
+                    handlePageChange(i + 1)
+                  }
+                >
+                  {i + 1}
+                </button>
               )
             )}
           </div>
