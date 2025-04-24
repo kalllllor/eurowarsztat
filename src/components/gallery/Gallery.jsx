@@ -3,6 +3,7 @@ import {
   useRef,
   useState,
   useEffect,
+  Suspense,
 } from "react";
 import {
   useFrame,
@@ -80,13 +81,26 @@ function Image({
 
   return (
     <group {...props} ref={groupRef}>
-      <ImageImpl
-        ref={imageRef}
-        url={url}
-        scale={scale}
-        onPointerOver={() => hover(true)}
-        onPointerOut={() => hover(false)}
-      />
+      <Suspense
+        fallback={
+          <ImageImpl
+            ref={imageRef}
+            scale={scale}
+            onPointerOver={() => hover(true)}
+            onPointerOut={() => hover(false)}
+            url="/assets/blank.jpg"
+          ></ImageImpl>
+        }
+      >
+        <ImageImpl
+          ref={imageRef}
+          url={url}
+          scale={scale}
+          onPointerOver={() => hover(true)}
+          onPointerOut={() => hover(false)}
+        />
+      </Suspense>
+
       {(hovered || isSingleColumn) &&
         fullName.split(" ").map((item, i) => (
           <Text

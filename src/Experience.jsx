@@ -360,10 +360,13 @@ function ProjectedImage({
   ...props
 }) {
   const spotLightRef = useRef();
-  const data = useScroll();
+  const relativePath = imageUrl?.split(
+    "/wp-content/uploads/"
+  )[1];
+  const proxyUrl = `https://lightgray-lapwing-857049.hostingersite.com/proxy-image.php?img=${relativePath}`;
 
   const texture = useTexture(
-    imageUrl || "/assets/blank.jpg",
+    imageUrl ? proxyUrl : "/assets/blank.jpg",
     (item) => {
       spotLightRef.current.shadow.mapSize.width = 1440;
       spotLightRef.current.shadow.mapSize.height = 1800;
@@ -405,16 +408,3 @@ function ProjectedImage({
     />
   );
 }
-
-const overlayStyles = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100vw",
-  height: "100vh",
-  backgroundColor: "rgba(0, 0, 0, 0.9)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-};
