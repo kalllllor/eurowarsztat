@@ -4,10 +4,8 @@ import {
   useFrame,
 } from "@react-three/fiber";
 import { RepeatWrapping } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { useGLTF } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-
 const applyTextureSettings = (texture) => {
   texture.wrapS = texture.wrapT = RepeatWrapping;
   texture.flipY = false;
@@ -18,15 +16,7 @@ const Crown = (props) => {
   const matRef = useRef();
   const crownRef = useRef();
 
-  const { nodes } = useLoader(
-    GLTFLoader,
-    "crown-draco.glb",
-    (loader) => {
-      const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath("./draco/");
-      loader.setDRACOLoader(dracoLoader);
-    }
-  );
+  const { nodes } = useGLTF("crown.glb");
 
   const colorMap = useLoader(
     TextureLoader,

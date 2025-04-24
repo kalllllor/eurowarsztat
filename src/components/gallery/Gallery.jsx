@@ -301,7 +301,11 @@ function Images({
                 -topY - row * spacingY,
                 zIndex,
               ];
-
+          const originalUrl = imageData.image.url;
+          const relativePath = originalUrl.split(
+            "/wp-content/uploads/"
+          )[1];
+          const proxyUrl = `https://lightgray-lapwing-857049.hostingersite.com/proxy-image.php?img=${relativePath}`;
           return (
             <Image
               key={index}
@@ -314,8 +318,7 @@ function Images({
               fontSize={0.15}
               fullName={imageData.fullname}
               url={
-                imageData.image.url ??
-                "/assets/blank.jpg"
+                proxyUrl ?? "/assets/blank.jpg"
               }
               onClick={() => {
                 handleClick(true, imageData);

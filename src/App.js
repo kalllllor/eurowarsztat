@@ -17,7 +17,7 @@ const App = () => {
     error,
     loading,
   } = useFetchGalleryData(
-    "https://serwer2458198.home.pl/autoinstalator/wordpress/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard&per_page=100"
+    "https://lightgray-lapwing-857049.hostingersite.com/index.php/wp-json/wp/v2/posts?_fields=acf&acf_format=standard&per_page=100"
   );
 
   const camX = 0;
@@ -46,9 +46,9 @@ const App = () => {
     );
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
 
   return (
     <div className="app">

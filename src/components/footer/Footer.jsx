@@ -5,6 +5,9 @@ const Footer = (props) => {
     <div className="footer__container" {...props}>
       <div className="footer__content">
         <span>Marta Romankiv</span>
+        <span>
+          Akademia Sztuk Pięknych w Gdańsku
+        </span>
         <a href="mailto:Marta.romankiv@gmail.com">
           marta.romankiv@gmail.com
         </a>
