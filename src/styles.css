@@ -351,6 +351,13 @@ a {
   width: auto;
 }
 
+@media (max-width: 1280px) {
+  .carousel__item {
+    height: 80%;
+    width: 50vw;
+  }
+}
+
 .video__container {
   z-index: 10000;
   transform: none !important;
@@ -409,6 +416,11 @@ a {
   display: flex;
   align-items: center;
   z-index: 9999;
+}
+
+.exit-mobile {
+  top: 16px;
+  right: 8px;
 }
 
 .exit span {
@@ -675,7 +687,7 @@ a {
   font-size: 16px !important;
 }
 
-.icons__container img {
+.icons__container {
   width: 88px;
   height: auto;
 }

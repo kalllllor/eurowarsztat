@@ -7,7 +7,7 @@ import { Scroll, Text } from "@react-three/drei";
 
 const Share = ({
   galleryHeight,
-  singlePageCameraHeight,
+  isSingleColumn,
 }) => {
   const scrollRef = useRef(null);
   const { height } = useThree(
@@ -52,7 +52,7 @@ const Share = ({
           anchorX="center"
           anchorY="center"
           position={[0, 0, 0]}
-          fontSize={0.3}
+          fontSize={isSingleColumn ? 0.15 : 0.3}
           font="/BodoniModa_9pt-SemiBoldItalic.woff"
           receiveShadow
           castShadow
@@ -64,7 +64,7 @@ const Share = ({
           anchorX="center"
           anchorY="center"
           position={[0, -0.35, 0]}
-          fontSize={0.3}
+          fontSize={isSingleColumn ? 0.15 : 0.3}
           font="/BodoniModa_9pt-SemiBoldItalic.woff"
           receiveShadow
           castShadow
@@ -76,7 +76,7 @@ const Share = ({
           anchorX="center"
           anchorY="center"
           position={[0, -height, 0]}
-          fontSize={0.1}
+          fontSize={isSingleColumn ? 0.05 : 0.1}
           font="/d.woff"
           receiveShadow
           castShadow

@@ -269,9 +269,7 @@ export default function Experience({
         </Scroll>
         <Share
           galleryHeight={galleryHeight}
-          singlePageCameraHeight={
-            singlePageCameraHeight
-          }
+          isSingleColumn={isSingleColumn}
         />
         {!isActive && <Title />}
         <Scroll html>
@@ -297,7 +295,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 410
+                      ? galleryHeight * 100 + 430
                       : 100
                   }vh`,
                 }}
@@ -309,7 +307,7 @@ export default function Experience({
                 style={{
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 500
+                      ? galleryHeight * 100 + 480
                       : 100
                   }vh`,
                 }}

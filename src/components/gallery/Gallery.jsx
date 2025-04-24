@@ -187,7 +187,11 @@ function Images({
         <div className="info__wrapper">
           <div className="info__content">
             <button
-              className="exit"
+              className={
+                isSingleColumn
+                  ? "exit exit-mobile"
+                  : "exit"
+              }
               onClick={() => {
                 handleClick(false, null);
                 currentPerson.current = null;
@@ -213,9 +217,10 @@ function Images({
                   currentPerson.current
                     .description}
               </p>
-              {isActive &&
-                currentPerson.current.video && (
-                  <div className="icons__container">
+
+              <div className="icons__container">
+                {isActive &&
+                  currentPerson.current.video && (
                     <div
                       className="film"
                       onClick={() =>
@@ -232,8 +237,8 @@ function Images({
                         Click to open the video
                       </span>
                     </div>
-                  </div>
-                )}
+                  )}
+              </div>
             </div>
             {isActive &&
               currentPerson.current.quote
