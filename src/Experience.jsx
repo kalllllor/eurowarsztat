@@ -307,14 +307,14 @@ export default function Experience({
                 style={{
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 480
+                      ? galleryHeight * 100 + 490
                       : 100
                   }vh`,
                 }}
               />
               <Footer
                 style={{
-                  top: `${pages * 100 - 25}vh`,
+                  top: `${pages * 100 - 20}vh`,
                 }}
               />
             </>
