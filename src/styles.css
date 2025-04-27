@@ -350,6 +350,11 @@ a {
   height: 50%;
   width: auto;
 }
+@media (min-width: 1281px) {
+  .carousel__item {
+    min-width: 256px;
+  }
+}
 
 @media (max-width: 1280px) {
   .carousel__item {
@@ -730,7 +735,7 @@ a {
 .event__title h3 {
   color: #d4d8d8;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1rem;
   margin: 0px;
 }
 
@@ -783,7 +788,7 @@ a {
 .event__wrapper a,
 .event__wrapper p {
   color: #d4d8d8;
-  font-size: 3vh;
+  font-size: 1rem;
   display: inline-block;
   margin: 0px;
   margin-top: 24px;
@@ -839,7 +844,7 @@ a {
 }
 
 .pagination button {
-  font-size: 24px;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 

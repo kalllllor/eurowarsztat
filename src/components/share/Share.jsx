@@ -21,13 +21,14 @@ const Share = ({
       scrollRef.current.position.y <
         height * (galleryHeight + 2)
     ) {
+      const sub = isSingleColumn ? 0.2 : 0.3;
       scrollRef.current.children[0].children[0].position.y =
         -scrollRef.current.position.y +
         height * galleryHeight;
       scrollRef.current.children[0].children[1].position.y =
         -scrollRef.current.position.y +
         height * galleryHeight -
-        0.35;
+        sub;
     }
     if (
       scrollRef.current.position.y >
@@ -63,7 +64,11 @@ const Share = ({
           color="#D4D8D8"
           anchorX="center"
           anchorY="center"
-          position={[0, -0.35, 0]}
+          position={[
+            0,
+            isSingleColumn ? -0.2 : -0.35,
+            0,
+          ]}
           fontSize={isSingleColumn ? 0.15 : 0.3}
           font="/BodoniModa_9pt-SemiBoldItalic.woff"
           receiveShadow
@@ -71,20 +76,51 @@ const Share = ({
         >
           Europy! Zabierz swój głos!
         </Text>
-        <Text
-          color="#D4D8D8"
-          anchorX="center"
-          anchorY="center"
-          position={[0, -height, 0]}
-          fontSize={isSingleColumn ? 0.05 : 0.1}
-          font="/d.woff"
-          receiveShadow
-          castShadow
-        >
-          Dołącz do projektu zgłaszając chęć
-          udziału na adres mailowy:
-          euroworkshop.contact@gmail.com
-        </Text>
+        {isSingleColumn ? (
+          <group position={[0, -height, 0]}>
+            <Text
+              color="#D4D8D8"
+              anchorX="center"
+              anchorY="center"
+              position={[0, 0, 0]}
+              fontSize={0.1}
+              font="/d.woff"
+              receiveShadow
+              castShadow
+            >
+              Dołącz do projektu zgłaszając chęć
+              udziału na
+            </Text>
+            <Text
+              color="#D4D8D8"
+              anchorX="center"
+              anchorY="center"
+              position={[0, -0.15, 0]}
+              fontSize={0.1}
+              font="/d.woff"
+              receiveShadow
+              castShadow
+            >
+              adres mailowy:
+              euroworkshop.contact@gmail.com
+            </Text>
+          </group>
+        ) : (
+          <Text
+            color="#D4D8D8"
+            anchorX="center"
+            anchorY="center"
+            position={[0, -height, 0]}
+            fontSize={isSingleColumn ? 0.05 : 0.1}
+            font="/d.woff"
+            receiveShadow
+            castShadow
+          >
+            Dołącz do projektu zgłaszając chęć
+            udziału na adres mailowy:
+            euroworkshop.contact@gmail.com
+          </Text>
+        )}
       </group>
     </Scroll>
   );
