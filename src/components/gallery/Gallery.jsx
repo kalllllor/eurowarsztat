@@ -153,7 +153,7 @@ function Images({
   const itemsPerRow = isSingleColumn ? 1 : 3;
   const spacingX = isSingleColumn ? 0 : 1.5;
   const spacingY = isSingleColumn ? 1 : 1;
-  const topY = 3;
+  const topY = isSingleColumn ? 3.2 : 3;
 
   const handleClick = (active, imageData) => {
     isSelected(imageData);
