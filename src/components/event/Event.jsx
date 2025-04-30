@@ -85,7 +85,7 @@ const Event = ({ data = [], ...props }) => {
     <div className="wrapper" {...props}>
       <div className="container">
         <div className="event__title">
-          <h3>Działania prowadzone w</h3>
+          <h3>Działania prowadzone w &nbsp;</h3>
           <h3>ramach projektu</h3>
         </div>
 

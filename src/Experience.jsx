@@ -80,7 +80,6 @@ export default function Experience({
       ? galleryData.length
       : Math.ceil(galleryData.length / 3)) + 3;
   const pages = galleryHeight + 6;
-  const singlePageCameraHeight = 4.6;
 
   const [isLoading, setIsLoading] =
     useState(false);
@@ -295,7 +294,7 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 430
+                      ? galleryHeight * 100 + 420
                       : 100
                   }vh`,
                 }}
