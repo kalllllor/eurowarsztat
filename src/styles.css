@@ -350,6 +350,7 @@ a {
   height: 50%;
   width: auto;
 }
+
 @media (min-width: 1281px) {
   .carousel__item {
     min-width: 256px;
@@ -359,9 +360,16 @@ a {
 @media (max-width: 1280px) {
   .carousel__item {
     height: 80%;
-    width: 50vw;
+    min-width: 128px;
   }
 }
+
+@media (max-width: 738px) {
+  .carousel__item {
+    min-width: 50vw;
+  }
+}
+
 
 .video__container {
   z-index: 10000;
@@ -524,6 +532,18 @@ a {
 
 .quote {
   width: 70%;
+}
+
+.person-link {
+  margin-top: 24px;
+  width: 70%;
+  color: #d4d8d8;
+  text-decoration: underline;
+}
+
+.person-link a {
+    color: #d4d8d8;
+    text-transform: capitalize;
 }
 
 .info__content .time {

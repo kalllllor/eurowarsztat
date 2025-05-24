@@ -279,6 +279,20 @@ function Images({
                 )}
               </div>
             )}
+            {isActive &&
+              currentPerson.current.personLink &&
+              currentPerson.current.personLinkText && (
+                <div className="person-link">
+                  <a
+                    href={currentPerson.current.personLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {currentPerson.current.personLinkText}
+                  </a>
+                </div>
+              )}
+
           </div>
         </div>
       </Html>
