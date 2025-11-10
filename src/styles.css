@@ -124,9 +124,11 @@ a {
 
 .wrapper {
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100svh;
   position: absolute;
-  top: 200vh;
+  top: 200vh; /* Fallback for older browsers */
+  top: 200svh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -165,7 +167,7 @@ a {
 }
 
 .desc__container .asterisk {
-  font-size: 0.5rem;
+  font-size: 0.75rem;
 }
 
 .bold {
@@ -234,6 +236,10 @@ a {
     font-size: 0.9rem;
     line-height: 1.4;
   }
+
+  .desc__container .asterisk {
+    font-size: 0.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -261,13 +267,14 @@ a {
 .credits__bold {
   font-weight: 700;
   margin-bottom: 0px;
-  margin-top: 3vh;
+  margin-top: 3svh;
 }
 
 .info__container {
   position: fixed !important;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100svh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
   z-index: 2 !important;
   display: none;
@@ -278,17 +285,95 @@ a {
 .carousel__container {
   position: absolute !important;
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100svh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
   margin: 0 auto;
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.partners__container {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.partners__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.partners__logo {
+  height: 48px;
+  width: 100%;
+  max-width: 150px;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.partners__logo:hover {
+  opacity: 1;
+}
+
+/* Desktop and tablet - normal display above 768px */
+@media (min-width: 769px) {
+  .partners__container {
+    overflow: visible;
+  }
+
+  .partners__content {
+    flex-wrap: wrap;
+    width: 100%;
+    animation: none;
+    gap: 16px;
+  }
+
+  .partners__logo {
+    flex-shrink: 1;
+    min-width: auto;
+  }
+}
+
+/* Mobile - carousel below 768px */
+@media (max-width: 768px) {
+  .partners__container {
+    overflow: hidden;
+  }
+
+  .partners__content {
+    flex-wrap: nowrap;
+    width: 200%;
+    animation: carousel 15s linear infinite;
+    gap: 32px;
+  }
+
+  .partners__logo {
+    flex-shrink: 0;
+    min-width: 120px;
+  }
 }
 
 .footer__container {
   position: absolute !important;
   width: 100vw;
-  height: 25vh;
+  height: 20vh; /* Fallback for older browsers */
+  height: 20svh;
   transform: translate3d(0px, 0px, 0px) scale(1) !important;
-  top: 1075vh;
+
   margin: 0 auto;
 }
 
@@ -299,6 +384,7 @@ a {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-bottom: 24px;
 }
 
 .footer__content span,
@@ -306,8 +392,7 @@ a {
   font-size: 16px;
   color: #d4d8d8;
   margin: 0px;
-  padding: 0px;
-  padding-bottom: 8px;
+  padding: 8px;
 }
 
 .footer__content svg {
@@ -317,6 +402,8 @@ a {
 .footer__socials {
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin: 8px 0px;
 }
 
 .footer__socials a {
@@ -334,6 +421,10 @@ a {
   user-select: none;
   cursor: pointer;
   padding: 0;
+  /* Fallback for browsers without CSS Grid */
+  display: flex;
+  flex-direction: row;
+  /* CSS Grid for modern browsers */
   display: grid;
   grid-auto-flow: column;
 }
@@ -368,8 +459,16 @@ a {
   .carousel__item {
     min-width: 50vw;
   }
-}
 
+  .footer__container {
+    height: 50vh; /* Fallback for older browsers */
+    height: 50svh;
+  }
+
+  .footer__content {
+    justify-content: flex-end;
+  }
+}
 
 .video__container {
   z-index: 10000;
@@ -542,8 +641,7 @@ a {
 }
 
 .person-link a {
-    color: #d4d8d8;
-    text-transform: capitalize;
+  color: #d4d8d8;
 }
 
 .info__content .time {
@@ -806,7 +904,7 @@ a {
 }
 
 .event__header span {
-  font-size: 1vh;
+  font-size: 1svh;
 }
 
 .event__wrapper a,
@@ -824,6 +922,7 @@ a {
 }
 
 .event__wrapper span {
+  text-align: center;
   margin-right: 8px;
 }
 .event_place {

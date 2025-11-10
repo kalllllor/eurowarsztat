@@ -79,7 +79,8 @@ export default function Experience({
     (isSingleColumn
       ? galleryData.length
       : Math.ceil(galleryData.length / 3)) + 3;
-  const pages = galleryHeight + 6;
+  const pages =
+    galleryHeight + (isSingleColumn ? 7 : 6);
 
   const [isLoading, setIsLoading] =
     useState(false);
@@ -284,9 +285,13 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 300
+                      ? isSingleColumn
+                        ? galleryHeight * 100 +
+                          280
+                        : galleryHeight * 100 +
+                          300
                       : 100
-                  }vh`,
+                  }svh`,
                 }}
               />
               <Event
@@ -294,9 +299,13 @@ export default function Experience({
                   color: textColor,
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 420
+                      ? isSingleColumn
+                        ? galleryHeight * 100 +
+                          440
+                        : galleryHeight * 100 +
+                          440
                       : 100
-                  }vh`,
+                  }svh`,
                 }}
                 data={eventsData}
               />
@@ -306,14 +315,22 @@ export default function Experience({
                 style={{
                   top: `${
                     galleryHeight
-                      ? galleryHeight * 100 + 490
+                      ? isSingleColumn
+                        ? galleryHeight * 100 +
+                          530
+                        : galleryHeight * 100 +
+                          490
                       : 100
-                  }vh`,
+                  }svh`,
                 }}
               />
               <Footer
                 style={{
-                  top: `${pages * 100 - 20}vh`,
+                  top: `${
+                    isSingleColumn
+                      ? pages * 100 - 50
+                      : pages * 100 - 20
+                  }svh`,
                 }}
               />
             </>

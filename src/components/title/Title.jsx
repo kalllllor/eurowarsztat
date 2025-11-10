@@ -11,28 +11,23 @@ const Title = () => {
     (state) => state.viewport
   );
 
-  const bottomVal = viewport.height * 1.4;
-  const addedTopVal = 0.5;
+  const bottomVal = viewport.height * 1.3;
+  const addedTopVal = 0.6;
   const topSecondBreakpoint = viewport.height;
   const mobileBreakpoint = 769;
 
   useFrame(() => {
-    const totalWidth =
-      viewport.width * viewport.factor;
     if (
-      scrollRef.current.position.y <
-      bottomVal - 10 / totalWidth
+      scrollRef.current.position.y < bottomVal
     ) {
       scrollRef.current.children[0].position.y =
         -scrollRef.current.position.y +
-        addedTopVal +
-        100 / totalWidth;
+        addedTopVal;
     }
     if (
       scrollRef.current.position.y >
         topSecondBreakpoint &&
-      scrollRef.current.position.y <
-        bottomVal - 100 / totalWidth
+      scrollRef.current.position.y < bottomVal
     ) {
       scrollRef.current.children[1].position.y =
         -scrollRef.current.position.y;

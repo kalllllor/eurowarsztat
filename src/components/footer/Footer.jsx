@@ -1,10 +1,13 @@
 import { Instagram } from "../icons/Instagram";
 import { Facebook } from "../icons/Facebook";
+import Partners from "../partners/Partners";
+
 const Footer = (props) => {
   return (
     <div className="footer__container" {...props}>
       <div className="footer__content">
         <span>Marta Romankiv</span>
+
         <span>
           Akademia Sztuk Pięknych w Gdańsku
         </span>
@@ -19,6 +22,7 @@ const Footer = (props) => {
             <Facebook />
           </a>
         </div>
+        <Partners />
       </div>
     </div>
   );

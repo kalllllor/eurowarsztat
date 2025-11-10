@@ -281,18 +281,24 @@ function Images({
             )}
             {isActive &&
               currentPerson.current.personLink &&
-              currentPerson.current.personLinkText && (
+              currentPerson.current
+                .personLinkText && (
                 <div className="person-link">
                   <a
-                    href={currentPerson.current.personLink}
+                    href={
+                      currentPerson.current
+                        .personLink
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {currentPerson.current.personLinkText}
+                    {
+                      currentPerson.current
+                        .personLinkText
+                    }
                   </a>
                 </div>
               )}
-
           </div>
         </div>
       </Html>

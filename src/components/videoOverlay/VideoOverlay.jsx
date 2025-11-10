@@ -91,7 +91,7 @@ const overlayStyles = {
   top: 0,
   left: 0,
   width: "100vw",
-  height: "100vh",
+  height: "100svh",
   backgroundColor: "rgba(0, 0, 0, 0.9)",
   display: "flex",
   justifyContent: "center",

@@ -101,6 +101,12 @@ const Credits = (props) => {
               ASP, dry hab. Moniki Zawadzkiej oraz
               dry Honoraty Martin.
             </p>
+            <p>
+              Projekt realizowany we współpracy z
+              Muzeum Warszawy (9 marca - 30 lipca
+              2023 roku) i Pawilonem w Poznaniu
+              (wrzesień - październik 2022 roku).
+            </p>
           </div>
         </div>
       </div>

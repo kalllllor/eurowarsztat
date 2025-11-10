@@ -40,5 +40,15 @@ export default {
     outDir: "../dist", // Output in the dist/ folder
     emptyOutDir: true, // Empty the folder first
     sourcemap: false, // Add sourcemap
+    target: ["es2015", "safari11"], // Support older browsers
+    rollupOptions: {
+      output: {
+        format: "es",
+        // Ensure compatibility with older browsers
+        generatedCode: {
+          constBindings: true,
+        },
+      },
+    },
   },
 };

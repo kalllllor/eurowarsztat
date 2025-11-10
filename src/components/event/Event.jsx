@@ -183,28 +183,30 @@ const Event = ({ data = [], ...props }) => {
             )}
           </div>
         </div>
-        <div className="pagination event__wrapper">
-          <div className="pagination__content">
-            {Array.from(
-              { length: totalPages },
-              (_, i) => (
-                <button
-                  key={i}
-                  className={
-                    currentPage === i + 1
-                      ? "active"
-                      : ""
-                  }
-                  onClick={() =>
-                    handlePageChange(i + 1)
-                  }
-                >
-                  {i + 1}
-                </button>
-              )
-            )}
+        {totalPages > 1 && (
+          <div className="pagination event__wrapper">
+            <div className="pagination__content">
+              {Array.from(
+                { length: totalPages },
+                (_, i) => (
+                  <button
+                    key={i}
+                    className={
+                      currentPage === i + 1
+                        ? "active"
+                        : ""
+                    }
+                    onClick={() =>
+                      handlePageChange(i + 1)
+                    }
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
