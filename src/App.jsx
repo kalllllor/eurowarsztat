@@ -30,16 +30,29 @@ const App = () => {
   const camX = 0;
   const camY = 0;
   const camZ = 3;
-
-  // --- Detect Instagram/Facebook/Messenger in-app browsers (IAB) ---
   useEffect(() => {
     const ua = navigator.userAgent || "";
     const ref = document.referrer || "";
 
-    // Heurystyki dodatkowe dla Instagrama:
-    // 1) UA zawiera "Instagram" (typowe)
-    // 2) referrer z l.instagram.com / instagram.com (link shim)
-    // 3) znane parametry query dodawane przez IG (np. igshid, ig_rid) lub utm_source=ig*
+    // Check if this is Safari or Chrome (exclude from in-app detection)
+    const isSafari =
+      /Safari/i.test(ua) &&
+      !/Chrome/i.test(ua) &&
+      !/Chromium/i.test(ua);
+
+    const isChrome =
+      /Chrome/i.test(ua) &&
+      !/Instagram/i.test(ua) &&
+      !/Facebook/i.test(ua) &&
+      !/FBAN/i.test(ua) &&
+      !/FBAV/i.test(ua) &&
+      !/FB_IAB/i.test(ua);
+
+    // If it's Safari or regular Chrome, don't show in-app browser message
+    if (isSafari || isChrome) {
+      return;
+    }
+
     const hostnameFrom = (url) => {
       try {
         return new URL(url).hostname;
@@ -55,7 +68,7 @@ const App = () => {
       if (qs.has("igshid") || qs.has("ig_rid"))
         return true;
       const utm = qs.get("utm_source") || "";
-      return /^ig/i.test(utm); // ig, instagram, ig_story, ig_profile etc.
+      return /^ig/i.test(utm);
     })();
 
     const isInstagramUA = /Instagram/i.test(ua);
@@ -64,7 +77,6 @@ const App = () => {
       /(^|\.)instagram\.com$/i.test(refHost) ||
       /(^|\.)l\.instagram\.com$/i.test(refHost);
 
-    // FB/Messenger IAB
     const isFacebookIAB =
       /(FBAN|FBAV|FB_IAB)/i.test(ua);
 
@@ -73,10 +85,50 @@ const App = () => {
       isInstagramRef ||
       hasIGParams ||
       isFacebookIAB;
-    if (isInApp) setIsInAppBrowser(true);
+
+    if (isInApp) {
+      setIsInAppBrowser(true);
+
+      // Zapobieganie pętli - sprawdź czy już próbowaliśmy przekierować
+      const REDIRECT_FLAG =
+        "euroworkshop_redirect_attempted";
+      const alreadyTried = sessionStorage.getItem(
+        REDIRECT_FLAG
+      );
+
+      if (!alreadyTried) {
+        // Oznacz że próbujemy przekierować
+        try {
+          sessionStorage.setItem(
+            REDIRECT_FLAG,
+            "1"
+          );
+        } catch (_) {}
+
+        try {
+          if (/Android/i.test(ua)) {
+            // Android - Intent URL dla Chrome
+            const intentUrl = `intent://euroworkshop.net/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=https%3A//euroworkshop.net/;end`;
+            window.location.href = intentUrl;
+          } else if (
+            /iPhone|iPad|iPod/i.test(ua)
+          ) {
+            // iOS - spróbuj różne metody
+            try {
+              // Metoda 1: Spróbuj Safari
+              window.location.href =
+                "googlechrome://euroworkshop.net/";
+            } catch (error) {
+              // Jeśli nic nie zadziała, zostaw komunikat z przyciskiem
+            }
+          }
+        } catch (error) {
+          // Jeśli przekierowanie nie zadziała, zostaw komunikat z przyciskiem
+        }
+      }
+    }
   }, []);
 
-  // --- WebGL support check ---
   const webglSupported = useMemo(() => {
     try {
       const canvas =
@@ -84,6 +136,7 @@ const App = () => {
       const gl =
         canvas.getContext("webgl") ||
         canvas.getContext("experimental-webgl");
+
       return !!(
         gl &&
         gl.getParameter &&
@@ -94,7 +147,6 @@ const App = () => {
     }
   }, []);
 
-  // --- Camera controller for react-three-fiber ---
   const CameraController = ({
     camX,
     camY,
@@ -133,8 +185,6 @@ const App = () => {
       return;
     }
 
-    // iOS: cannot force Safari. Open new tab (usually still inside IAB),
-    // but the visible instructions + copy link are the reliable escape hatch.
     if (/iPhone|iPad|iPod/i.test(ua)) {
       window.open(
         TARGET_URL,
