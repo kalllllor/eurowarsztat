@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -11,7 +11,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no"
     />
 
-    <!-- SEO Meta Tags -->
+  <!-- SEO Meta Tags -->
     <title>Eurowarsztat</title>
     <meta
       name="description"
@@ -21,7 +21,8 @@
       name="keywords"
       content="migracja, sztuka, archiwum, wypowiedzi, Europa"
     />
-    <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
     <meta
       name="author"
       content="Marta Romankiv"
@@ -36,10 +37,8 @@
       content="Eurowarsztat – projekt, w którym migrantki i migranci wspólnie identyfikują problemy społeczne w Europie i proponują własne rozwiązania"
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://euroworkshop.net"
-    />
+    <meta property="og:url" content="https://euroworkshop.net" />
+    <meta property="og:locale" content="pl_PL" />
     <meta
       property="og:image"
       content="https://euroworkshop.net/share.png"
@@ -63,10 +62,8 @@
     />
 
     <!-- Additional Meta Tags -->
-    <link
-      rel="canonical"
-      href="https://euroworkshop.net"
-    />
+    <link rel="canonical" href="https://euroworkshop.net" />
+    <link rel="alternate" href="https://euroworkshop.net" hreflang="pl" />
     <meta name="theme-color" content="#000000" />
 
     <!-- Preload critical fonts -->
@@ -91,7 +88,32 @@
         rel="stylesheet"
       />
     </noscript>
-    <script type="module" crossorigin src="/assets/index-CRUVNPS0.js"></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Eurowarsztat",
+        "url": "https://euroworkshop.net/",
+        "inLanguage": "pl-PL",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.google.com/search?q=site:euroworkshop.net+{search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Eurowarsztat",
+        "url": "https://euroworkshop.net/",
+        "logo": "https://euroworkshop.net/share.png"
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-BCAhmWxP.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-90nao7lw.css">
   </head>
   <body>

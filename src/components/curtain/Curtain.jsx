@@ -1,14 +1,7 @@
 // src/components/Curtain/index.js
 
-import {
-  useFrame,
-  extend,
-} from "@react-three/fiber";
-import {
-  MeshPhysicalMaterial,
-  DoubleSide,
-  RepeatWrapping,
-} from "three";
+import { useFrame, extend } from "@react-three/fiber";
+import { MeshPhysicalMaterial, DoubleSide, RepeatWrapping } from "three";
 import fragmentShader from "./fragmentShader.glsl";
 import vertexShader from "./vertexShader.glsl";
 import { useRef } from "react";
@@ -26,10 +19,7 @@ const applyTextureSettings = (texture) => {
   texture.repeat.set(2, 2);
 };
 
-const Curtain = ({
-  scale = [1, 1, 1],
-  ...props
-}) => {
+const Curtain = ({ scale = [1, 1, 1], ...props }) => {
   const matRef = useRef();
 
   const uniforms = useCurtainUniforms(props);
@@ -37,41 +27,36 @@ const Curtain = ({
   useFrame((state) => {
     const { clock, pointer } = state;
     if (matRef.current) {
-      matRef.current.uniforms.uTime.value =
-        clock.getElapsedTime();
+      matRef.current.uniforms.uTime.value = clock.getElapsedTime();
     }
   });
 
-  const [
-    colorMap,
-    norMap,
-    roughMap,
-    aoMap,
-    alphaMap,
-    dispMap,
-  ] = useLoader(TextureLoader, [
-    "assets/fabric/colorMap.jpg",
-    "assets/fabric/norMap.jpg",
-    "assets/fabric/roughMap.jpg",
-    "assets/fabric/aoMap.jpg",
-    "assets/fabric/alphaMap.jpg",
-    "assets/fabric/dispMap.jpg",
-  ]);
+  const [colorMap, norMap, roughMap, aoMap, alphaMap, dispMap] = useLoader(
+    TextureLoader,
+    [
+      "assets/fabric/colorMap.jpg",
+      "assets/fabric/norMap.jpg",
+      "assets/fabric/roughMap.jpg",
+      "assets/fabric/aoMap.jpg",
+      "assets/fabric/alphaMap.jpg",
+      "assets/fabric/dispMap.jpg",
+    ]
+  );
 
-  [
-    colorMap,
-    norMap,
-    roughMap,
-    aoMap,
-    alphaMap,
-    dispMap,
-  ].forEach((item) => applyTextureSettings(item));
+  [colorMap, norMap, roughMap, aoMap, alphaMap, dispMap].forEach((item) =>
+    applyTextureSettings(item)
+  );
+
+  const isMobile =
+    typeof navigator !== "undefined" &&
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent || ""
+    );
+  const segments = isMobile ? 256 : 512; // Avoid 1024x1024 on mobile to prevent GPU crashes
 
   return (
     <mesh {...props} receiveShadow>
-      <planeGeometry
-        args={[scale[0], scale[1], 1024, 1024]}
-      />
+      <planeGeometry args={[scale[0], scale[1], segments, segments]} />
       <CustomShaderMaterial
         ref={matRef}
         baseMaterial={MeshPhysicalMaterial}

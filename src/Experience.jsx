@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState, useMemo } from "react";
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
 
@@ -27,6 +27,14 @@ import VideoOverlay from "./components/videoOverlay/VideoOverlay";
 
 export default function Experience({ galleryData, carouselData, eventsData }) {
   const [isSingleColumn, setSingleColumn] = useState(false);
+  const isMobile = useMemo(
+    () =>
+      typeof navigator !== "undefined" &&
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent || ""
+      ),
+    []
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,7 +44,7 @@ export default function Experience({ galleryData, carouselData, eventsData }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const enabledPostProcess = true;
+  const enabledPostProcess = !isMobile; // Disable heavy postprocess on mobile to improve stability
   const vignette = false;
   const posX = 0;
   const posY = 0;
@@ -77,13 +85,23 @@ export default function Experience({ galleryData, carouselData, eventsData }) {
       easeFactor
     );
 
-    scene.environmentRotation.y += rotationSpeed;
-    scene.environmentRotation.y +=
-      (targetRotation.current.y - scene.environmentRotation.y) * easeFactor;
+    // Some browsers/devices may not expose these scene properties immediately
+    const hasEnvRot =
+      scene.environmentRotation &&
+      typeof scene.environmentRotation.y === "number";
+    const hasEnvInt = typeof scene.environmentIntensity === "number";
 
-    const targetIntensity = isScroll ? 0.5 : 0;
-    scene.environmentIntensity +=
-      (targetIntensity - scene.environmentIntensity) * easeFactor;
+    if (hasEnvRot) {
+      scene.environmentRotation.y += rotationSpeed;
+      scene.environmentRotation.y +=
+        (targetRotation.current.y - scene.environmentRotation.y) * easeFactor;
+    }
+
+    if (hasEnvInt) {
+      const targetIntensity = isScroll ? 0.5 : 0;
+      scene.environmentIntensity +=
+        (targetIntensity - scene.environmentIntensity) * easeFactor;
+    }
   });
 
   const handleIsSelected = (person) => {
@@ -269,19 +287,32 @@ export default function Experience({ galleryData, carouselData, eventsData }) {
 
 function ProjectedImage({ imageUrl = "", intensity = 0, isActive, ...props }) {
   const spotLightRef = useRef();
-  const relativePath = imageUrl?.split("/wp-content/uploads/")[1];
-  const proxyUrl = `https://lightgray-lapwing-857049.hostingersite.com/proxy-image.php?img=${relativePath}`;
+  const isMobile = useMemo(
+    () =>
+      typeof navigator !== "undefined" &&
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent || ""
+      ),
+    []
+  );
+  const relativePath =
+    imageUrl && imageUrl.includes("/wp-content/uploads/")
+      ? imageUrl.split("/wp-content/uploads/")[1]
+      : null;
+  const proxyUrl = relativePath
+    ? `https://lightgray-lapwing-857049.hostingersite.com/proxy-image.php?img=${relativePath}`
+    : null;
 
-  const texture = useTexture(
-    imageUrl ? proxyUrl : "/assets/blank.jpg",
-    (item) => {
-      spotLightRef.current.shadow.mapSize.width = 1440;
-      spotLightRef.current.shadow.mapSize.height = 1800;
+  const texture = useTexture(proxyUrl || "/assets/blank.jpg", () => {
+    if (spotLightRef.current && spotLightRef.current.shadow) {
+      // Use smaller shadow maps on mobile to avoid GPU memory spikes/crashes
+      const size = isMobile ? 512 : 1024;
+      spotLightRef.current.shadow.mapSize.width = size;
+      spotLightRef.current.shadow.mapSize.height = size;
       spotLightRef.current.shadow.focus = 1.2;
-
       spotLightRef.current.lookAt(new THREE.Vector3(3, 0, 0));
     }
-  );
+  });
 
   useFrame(() => {
     if (spotLightRef.current) {

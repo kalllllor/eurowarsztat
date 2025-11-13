@@ -6,6 +6,7 @@ import * as THREE from "three";
 function MovingSpot({ intensity, ...props }) {
   const light = useRef();
   useFrame(() => {
+    if (!light.current) return;
     light.current.intensity = THREE.MathUtils.lerp(
       light.current.intensity,
       intensity,
