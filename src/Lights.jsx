@@ -6,12 +6,11 @@ import * as THREE from "three";
 function MovingSpot({ intensity, ...props }) {
   const light = useRef();
   useFrame(() => {
-    light.current.intensity =
-      THREE.MathUtils.lerp(
-        light.current.intensity,
-        intensity,
-        0.1
-      );
+    light.current.intensity = THREE.MathUtils.lerp(
+      light.current.intensity,
+      intensity,
+      0.1
+    );
   });
   return (
     <SpotLight
@@ -32,16 +31,8 @@ function MovingSpot({ intensity, ...props }) {
 export default function Lights({ intensity }) {
   return (
     <group position={[0, 0, 10]}>
-      <MovingSpot
-        color="#fff"
-        intensity={intensity}
-        position={[-2, 2, 1]}
-      />
-      <MovingSpot
-        color="#fff"
-        intensity={intensity}
-        position={[2, 2, 1]}
-      />
+      <MovingSpot color="#fff" intensity={intensity} position={[-2, 2, 1]} />
+      <MovingSpot color="#fff" intensity={intensity} position={[2, 2, 1]} />
     </group>
   );
 }

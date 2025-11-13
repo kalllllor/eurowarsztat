@@ -1,9 +1,4 @@
-import {
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Curtain from "./components/curtain/Curtain";
 import Crown from "./components/crown/Crown";
 
@@ -13,19 +8,12 @@ import {
   useTexture,
   SpotLight,
 } from "@react-three/drei";
-import {
-  Bloom,
-  EffectComposer,
-  Vignette,
-} from "@react-three/postprocessing";
+import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import { useFrame } from "@react-three/fiber";
 
 import Gallery from "./components/gallery/Gallery";
 import * as THREE from "three";
-import {
-  ScrollControls,
-  Scroll,
-} from "@react-three/drei";
+import { ScrollControls, Scroll } from "@react-three/drei";
 import "./styles.css";
 import Description from "./components/description/Description";
 import Lights from "./Lights";
@@ -37,28 +25,16 @@ import Footer from "./components/footer/Footer";
 import Event from "./components/event/Event";
 import VideoOverlay from "./components/videoOverlay/VideoOverlay";
 
-export default function Experience({
-  galleryData,
-  carouselData,
-  eventsData,
-}) {
-  const [isSingleColumn, setSingleColumn] =
-    useState(false);
+export default function Experience({ galleryData, carouselData, eventsData }) {
+  const [isSingleColumn, setSingleColumn] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setSingleColumn(window.innerWidth < 768);
     };
     handleResize();
-    window.addEventListener(
-      "resize",
-      handleResize
-    );
-    return () =>
-      window.removeEventListener(
-        "resize",
-        handleResize
-      );
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const enabledPostProcess = true;
   const vignette = false;
@@ -76,18 +52,14 @@ export default function Experience({
   const z = 6;
 
   const galleryHeight =
-    (isSingleColumn
-      ? galleryData.length
-      : Math.ceil(galleryData.length / 3)) + 3;
-  const pages =
-    galleryHeight + (isSingleColumn ? 7 : 6);
+    (isSingleColumn ? galleryData.length : Math.ceil(galleryData.length / 3)) +
+    3;
+  const pages = galleryHeight + (isSingleColumn ? 7 : 6);
 
-  const [isLoading, setIsLoading] =
-    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isActive, setActive] = useState(null);
   const [isScroll, setScroll] = useState(true);
-  const [currentIndex, setCurrentIndex] =
-    useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const rotationSpeed = 0.01;
   const easeFactor = 0.1;
@@ -95,52 +67,35 @@ export default function Experience({
   const videoRef = useRef(null);
   const singleVideoRef = useRef(null);
   const photoRef = useRef(null);
-  const targetRotation = useRef(
-    new THREE.Vector3()
-  );
+  const targetRotation = useRef(new THREE.Vector3());
 
   useFrame(({ pointer, scene }) => {
-    if (scene) {
-      targetRotation.current.y =
-        THREE.MathUtils.lerp(
-          targetRotation.current.y,
-          pointer.x * Math.PI * 2,
-          easeFactor
-        );
+    if (!scene) return;
+    targetRotation.current.y = THREE.MathUtils.lerp(
+      targetRotation.current.y,
+      pointer.x * Math.PI * 2,
+      easeFactor
+    );
 
-      scene.environmentRotation.y +=
-        rotationSpeed;
+    scene.environmentRotation.y += rotationSpeed;
+    scene.environmentRotation.y +=
+      (targetRotation.current.y - scene.environmentRotation.y) * easeFactor;
 
-      scene.environmentRotation.y +=
-        (targetRotation.current.y -
-          scene.environmentRotation.y) *
-        easeFactor;
-
-      const targetIntensity = isScroll ? 0.5 : 0;
-      scene.environmentIntensity +=
-        (targetIntensity -
-          scene.environmentIntensity) *
-        easeFactor;
-    }
+    const targetIntensity = isScroll ? 0.5 : 0;
+    scene.environmentIntensity +=
+      (targetIntensity - scene.environmentIntensity) * easeFactor;
   });
 
   const handleIsSelected = (person) => {
     setActive(person);
   };
 
-  const handleEnableScroll = (
-    enable,
-    index,
-    single = false
-  ) => {
+  const handleEnableScroll = (enable, index, single = false) => {
     if (!single) {
       const item = carouselData[index];
 
-      videoRef.current =
-        item.videoToDisplay ?? null;
-      photoRef.current = item.videoToDisplay
-        ? null
-        : item.mainImage;
+      videoRef.current = item.videoToDisplay ?? null;
+      photoRef.current = item.videoToDisplay ? null : item.mainImage;
       setScroll(enable);
       setIsLoading(!enable);
       setCurrentIndex(index);
@@ -163,18 +118,14 @@ export default function Experience({
   const handleNextVideo = () => {
     if (carouselData && carouselData.length > 0) {
       const nextIndex =
-        currentIndex !== null &&
-        currentIndex < carouselData.length - 1
+        currentIndex !== null && currentIndex < carouselData.length - 1
           ? currentIndex + 1
           : 0;
       setCurrentIndex(nextIndex);
 
       const nextItem = carouselData[nextIndex];
-      videoRef.current =
-        nextItem.videoToDisplay ?? null;
-      photoRef.current = nextItem.videoToDisplay
-        ? null
-        : nextItem.mainImage;
+      videoRef.current = nextItem.videoToDisplay ?? null;
+      photoRef.current = nextItem.videoToDisplay ? null : nextItem.mainImage;
 
       setIsLoading(true);
     }
@@ -189,11 +140,8 @@ export default function Experience({
       setCurrentIndex(prevIndex);
 
       const prevItem = carouselData[prevIndex];
-      videoRef.current =
-        prevItem.videoToDisplay ?? null;
-      photoRef.current = prevItem.videoToDisplay
-        ? null
-        : prevItem.mainImage;
+      videoRef.current = prevItem.videoToDisplay ?? null;
+      photoRef.current = prevItem.videoToDisplay ? null : prevItem.mainImage;
 
       setIsLoading(true);
     }
@@ -201,15 +149,8 @@ export default function Experience({
 
   return (
     <>
-      <color
-        attach="background"
-        args={["#000"]}
-      />
-      <Lights
-        intensity={
-          isActive || !isScroll ? 0 : 1000
-        }
-      />
+      <color attach="background" args={["#000"]} />
+      <Lights intensity={isActive || !isScroll ? 0 : 1000} />
       <Environment
         files="/studio.jpg"
         environmentIntensity={vignette ? 2 : 0.5}
@@ -221,31 +162,20 @@ export default function Experience({
         imageUrl={isActive && isActive.image.url}
         isActive={isActive}
       />
-      {(photoRef.current ||
-        videoRef.current ||
-        singleVideoRef.current) && (
+      {(photoRef.current || videoRef.current || singleVideoRef.current) && (
         <VideoOverlay
-          videoSrc={
-            videoRef.current ||
-            singleVideoRef.current
-          }
+          videoSrc={videoRef.current || singleVideoRef.current}
           photoSrc={photoRef.current}
           isLoading={isLoading}
           onClose={handleCloseVideo}
           onNext={handleNextVideo}
           onPrevious={handlePreviousVideo}
-          onLoadComplete={() =>
-            setIsLoading(false)
-          }
+          onLoadComplete={() => setIsLoading(false)}
           isSingle={!!singleVideoRef.current}
         />
       )}
 
-      <ScrollControls
-        damping={0.5}
-        pages={pages}
-        enabled={isScroll}
-      >
+      <ScrollControls damping={0.5} pages={pages} enabled={isScroll}>
         <Scroll>
           <Gallery
             images={galleryData}
@@ -253,24 +183,14 @@ export default function Experience({
             pages={pages}
             enableScroll={handleEnableScroll}
           />
-          <group
-            position={[0, 0, 3]}
-            rotation-x={-Math.PI * 0.05}
-          >
+          <group position={[0, 0, 3]} rotation-x={-Math.PI * 0.05}>
             <Crown
               position={[crownX, crownY, crownZ]}
-              scale={[
-                crownScale,
-                crownScale,
-                crownScale,
-              ]}
+              scale={[crownScale, crownScale, crownScale]}
             />
           </group>
         </Scroll>
-        <Share
-          galleryHeight={galleryHeight}
-          isSingleColumn={isSingleColumn}
-        />
+        <Share galleryHeight={galleryHeight} isSingleColumn={isSingleColumn} />
         {!isActive && <Title />}
         <Scroll html>
           {!isActive && (
@@ -286,10 +206,8 @@ export default function Experience({
                   top: `${
                     galleryHeight
                       ? isSingleColumn
-                        ? galleryHeight * 100 +
-                          280
-                        : galleryHeight * 100 +
-                          300
+                        ? galleryHeight * 100 + 280
+                        : galleryHeight * 100 + 300
                       : 100
                   }svh`,
                 }}
@@ -300,10 +218,8 @@ export default function Experience({
                   top: `${
                     galleryHeight
                       ? isSingleColumn
-                        ? galleryHeight * 100 +
-                          440
-                        : galleryHeight * 100 +
-                          440
+                        ? galleryHeight * 100 + 440
+                        : galleryHeight * 100 + 440
                       : 100
                   }svh`,
                 }}
@@ -316,10 +232,8 @@ export default function Experience({
                   top: `${
                     galleryHeight
                       ? isSingleColumn
-                        ? galleryHeight * 100 +
-                          530
-                        : galleryHeight * 100 +
-                          490
+                        ? galleryHeight * 100 + 530
+                        : galleryHeight * 100 + 490
                       : 100
                   }svh`,
                 }}
@@ -327,9 +241,7 @@ export default function Experience({
               <Footer
                 style={{
                   top: `${
-                    isSingleColumn
-                      ? pages * 100 - 50
-                      : pages * 100 - 20
+                    isSingleColumn ? pages * 100 - 50 : pages * 100 - 20
                   }svh`,
                 }}
               />
@@ -343,40 +255,21 @@ export default function Experience({
         scale={[scaleX, scaleY, 1]}
         rotation={[0, 0, 0]}
       />
-      <fog
-        attach="fog"
-        args={["#202025", 0, 80]}
-      />
+      <fog attach="fog" args={["#202025", 0, 80]} />
 
       {enabledPostProcess && (
         <EffectComposer>
-          <Bloom
-            luminanceThreshold={1}
-            luminanceSmoothing={10}
-          />
-          {vignette && (
-            <Vignette
-              eskil={false}
-              offset={0.5}
-              darkness={1.1}
-            />
-          )}
+          <Bloom luminanceThreshold={1} luminanceSmoothing={10} />
+          {vignette && <Vignette eskil={false} offset={0.5} darkness={1.1} />}
         </EffectComposer>
       )}
     </>
   );
 }
 
-function ProjectedImage({
-  imageUrl = "",
-  intensity = 0,
-  isActive,
-  ...props
-}) {
+function ProjectedImage({ imageUrl = "", intensity = 0, isActive, ...props }) {
   const spotLightRef = useRef();
-  const relativePath = imageUrl?.split(
-    "/wp-content/uploads/"
-  )[1];
+  const relativePath = imageUrl?.split("/wp-content/uploads/")[1];
   const proxyUrl = `https://lightgray-lapwing-857049.hostingersite.com/proxy-image.php?img=${relativePath}`;
 
   const texture = useTexture(
@@ -386,23 +279,17 @@ function ProjectedImage({
       spotLightRef.current.shadow.mapSize.height = 1800;
       spotLightRef.current.shadow.focus = 1.2;
 
-      spotLightRef.current.lookAt(
-        new THREE.Vector3(3, 0, 0)
-      );
+      spotLightRef.current.lookAt(new THREE.Vector3(3, 0, 0));
     }
   );
 
   useFrame(() => {
     if (spotLightRef.current) {
-      const currentIntensity =
-        spotLightRef.current.intensity;
+      const currentIntensity = spotLightRef.current.intensity;
       const targetIntensity = intensity;
       const lerpedIntensity =
-        currentIntensity +
-        (targetIntensity - currentIntensity) *
-          0.1;
-      spotLightRef.current.intensity =
-        lerpedIntensity;
+        currentIntensity + (targetIntensity - currentIntensity) * 0.1;
+      spotLightRef.current.intensity = lerpedIntensity;
       if (lerpedIntensity < 1) {
         spotLightRef.current.intensity = 0;
       }
